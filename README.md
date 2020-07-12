@@ -59,33 +59,25 @@
 
 > Use the Wireframes section to display desktop, tablet and mobile views. No hand-drawn wireframes. Use a tool like wireframe.cc, Whimsical or AdobeXD
 
-![Dummy Link](url)
+![Feed](proposal/feed.png)
 
-- Desktop Landing
+- Feed
 
-![Dummy Link](url)
+![Message](proposal/message.png)
 
-- Desktop Hero
+- Message
 
-![Dummy Link](url)
+![Profile](proposal/profile.png)
 
-- Resource Index
+- Profile
 
-![Dummy Link](url)
+![Post](proposal/post.png)
 
-- Resource Show
-
-![Dummy Link](url)
-
-- Tablet Resource Index
-
-![Dummy Link](url)
-
-- Mobile Resource Index
+- Create Post
 
 #### Component Tree
 
-(proposal/component-tree.png)
+![Component Tree](proposal/component-tree.png)
 
 #### Component Hierarchy
 
@@ -132,7 +124,7 @@ src
 
 #### ERD Model
 
-(proposal/erd.jpg)
+![ERD](proposal/erd.jpg)
 
 <br>
 
