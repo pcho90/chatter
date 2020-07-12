@@ -1,4 +1,4 @@
-# PROJECT 4 README <!-- omit in toc -->
+# Chatter App
 
 - [Overview](#overview)
 - [MVP](#mvp)
@@ -20,13 +20,13 @@
 
 ## Overview
 
-\_**Chatter** is a Twitter clone built on a Ruby on Rails backend and React front end.
+**Chatter** is a Twitter clone built on a Ruby on Rails backend and React front end.
 
 <br>
 
 ## MVP
 
-\_The MVP for **Chatter** will feature user creation, authentication, the ability to create, favorite, comment on, and repost posts, and follow users.
+The MVP for **Chatter** will feature user creation, authentication, the ability to create, favorite, comment on, and repost posts, and follow users.
 
 <br>
 
@@ -57,8 +57,6 @@
 
 #### Wireframes
 
-> Use the Wireframes section to display desktop, tablet and mobile views. No hand-drawn wireframes. Use a tool like wireframe.cc, Whimsical or AdobeXD
-
 ![Feed](proposal/feed.png)
 
 - Feed
@@ -85,6 +83,9 @@
 
 src
 |__ proposal/
+|__ services/
+      |__ apiConfig.js
+      |__ auth.js
 |__ components/
       |__ nav.component.jsx
       |__ post.component.jsx
