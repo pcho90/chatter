@@ -33,9 +33,9 @@ The MVP for **Chatter** will feature user creation, authentication, the ability 
 ### Goals
 
 - _User CRUD_
-- _Followers and following_
-- _Following feed_
-- _Post, repost, favorite, comments_
+- _Create tweets_
+- _Comment on tweets_
+- _Retweets_
 
 <br>
 
@@ -57,21 +57,25 @@ The MVP for **Chatter** will feature user creation, authentication, the ability 
 
 #### Wireframes
 
-![Feed](proposal/feed.png)
+![Feed](proposal/homepage.png)
 
-- Feed
+- Homepage
 
-![Message](proposal/message.png)
+![Feed](proposal/signin.png)
 
-- Message
+- Signin
 
-![Profile](proposal/profile.png)
+![Feed](proposal/signup.png)
 
-- Profile
+- Signup
 
-![Post](proposal/post.png)
+![Feed](proposal/create.png)
 
-- Create Post
+- Create
+
+![Feed](proposal/edit.png)
+
+- Edit
 
 #### Component Tree
 
@@ -86,15 +90,28 @@ src
 |__ services/
       |__ apiConfig.js
       |__ auth.js
+      |__ users.js
+      |__ posts.js
 |__ components/
-      |__ nav.component.jsx
-      |__ post.component.jsx
-      |__ create.component.jsx
-      |__ buttons.component.jsx
+      |__ nav/
+            |__ nav.component.jsx
+            |__ nav.styles.scss
+      |__ post/
+            |__ post.component.jsx
+            |__ post.styles.scss
 |__ screens/
-      |__ profile.component.jsx
-      |__ feed.component.jsx
-      |__ messages.component.jsx
+      |__ homepage/
+            |__ homepage.component.jsx
+            |__ homepage.styles.scss
+      |__ signin/
+            |__ signin.component.jsx
+            |__ signin.styles.scss
+      |__ signup/
+            |__ signup.component.jsx
+            |__ signup.styles.scss
+      |__ posts/
+            |__ posts.component.jsx
+            |__ posts.styles.scss
 
 ```
 
@@ -114,10 +131,10 @@ src
 | Task      | Priority | Estimated Time | Time Invested | Actual Time |
 | --------- | :------: | :------------: | :-----------: | :---------: |
 | HTML      |    L     |      1 hr      |     0 hrs     |    0 hrs    |
-| Styling   |    L     |     10 hrs     |     0 hrs     |    0 hrs    |
-| Front End |    L     |     20 hrs     |     0 hrs     |    0 hrs    |
-| Back End  |    L     |     10 hrs     |     0 hrs     |    0 hrs    |
-| TOTAL     |          |     41 hrs     |     0 hrs     |     TBD     |
+| Styling   |    L     |     16 hrs     |     0 hrs     |    0 hrs    |
+| Front End |    L     |     32 hrs     |     0 hrs     |    0 hrs    |
+| Back End  |    L     |     16 hrs     |     0 hrs     |    0 hrs    |
+| TOTAL     |          |     65 hrs     |     0 hrs     |     TBD     |
 
 <br>
 
@@ -133,7 +150,8 @@ src
 
 ## Post-MVP
 
-- View posts by hashtags
+- Ability to follow other users
+- Follower feed
 - View trending posts
 
 ---
