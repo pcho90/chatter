@@ -33,9 +33,7 @@ The MVP for **Chatter** will feature user creation, authentication, the ability 
 ### Goals
 
 - _User CRUD_
-- _Create tweets_
-- _Comment on tweets_
-- _Retweets_
+- _Posts CRUD_
 
 <br>
 
