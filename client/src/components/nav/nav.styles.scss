@@ -1,0 +1,52 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  margin-right: 100px;
+
+  .active {
+    color: dodgerblue;
+
+    .icon {
+      fill: dodgerblue;
+    }
+  }
+
+  a {
+    display: flex;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-radius: 20px;
+    padding-left: 20px;
+    color: #000;
+    text-decoration: none;
+
+    span {
+      margin-left: 20px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    &:hover {
+      background-color: rgba(29, 161, 242, 0.1);
+      color: dodgerblue;
+
+      .icon {
+        fill: dodgerblue;
+      }
+    }
+  }
+
+  .icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .logo {
+    padding: 10px 0;
+    width: 30px;
+    height: 30px;
+    fill: dodgerblue;
+    padding-left: 20px;
+  }
+}

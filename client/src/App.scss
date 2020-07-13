@@ -1,0 +1,19 @@
+.App {
+  margin: 0 auto;
+  width: 850px;
+  height: 100vh;
+  display: flex;
+
+  .body {
+    flex: auto;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+  }
+
+  header {
+    border-bottom: 1px solid #e6ecf0;
+    padding: 15px 20px;
+    font-size: 24px;
+    font-weight: 800;
+  }
+}

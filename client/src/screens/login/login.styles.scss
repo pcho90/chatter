@@ -1,0 +1,32 @@
+.login {
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+
+    input {
+      width: 50%;
+      font-size: 18px;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 20px;
+      border: 1px solid #eee;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    button {
+      font-size: 18px;
+      background: dodgerblue;
+      color: #fff;
+      border-radius: 20px;
+      padding: 10px;
+      border: none;
+      width: 200px;
+      margin-top: 20px;
+    }
+  }
+}
