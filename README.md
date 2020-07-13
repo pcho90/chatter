@@ -118,11 +118,10 @@ src
 | Component |    Type    | state | props | Description                      |
 | :-------: | :--------: | :---: | :---: | :------------------------------- |
 |    Nav    | functional |   y   |   n   | _Nav will link to other screens_ |
-|   Post    | functional |   n   |   y   | _Create posts_                   |
-| Comments  | functional |   n   |   y   | _Comment on posts_               |
-| Messages  | functional |   n   |   y   | _Send messages_                  |
-|  Profile  | functional |   n   |   y   | _See your profile_               |
-|   Feed    | functional |   n   |   y   | _See posts from following_       |
+| Homepage  | functional |   y   |   n   | _Shows posts_                    |
+|   Post    | functional |   y   |   y   | _Create posts_                   |
+|  Sign In  | functional |   y   |   y   | _Sign In_                        |
+|  Sign Up  | functional |   y   |   y   | _Sign Up_                        |
 
 #### Time Estimates
 
