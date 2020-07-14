@@ -2,46 +2,69 @@
   display: flex;
   justify-content: space-around;
 
-  .icon-bar {
-    width: 18px;
-    height: 18px;
-    margin-right: 0;
-    fill: #657786;
-  }
-
-  .button-icon {
+  .button-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  }
+    color: #657786;
+    font-size: 13px;
 
-  .comment-button {
-    &:hover {
-      background: #e5eff9;
-      .icon-bar {
-        fill: dodgerblue;
+    .button-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    .icon-bar {
+      width: 18px;
+      height: 18px;
+      fill: #657786;
+    }
+
+    .comment-button {
+      &:hover {
+        background: #e5eff9;
+        .icon-bar {
+          fill: dodgerblue;
+        }
+      }
+    }
+
+    .share-button {
+      &:hover {
+        background: #e6f2ec;
+        .icon-bar {
+          fill: #5bbc6f;
+        }
+      }
+    }
+
+    .heart-button {
+      &:hover {
+        background: #f2e5eb;
+        .icon-bar {
+          fill: #d45778;
+        }
       }
     }
   }
 
-  .share-button {
+  .comment-container {
     &:hover {
-      background: #e6f2ec;
-      .icon-bar {
-        fill: #5bbc6f;
-      }
+      color: dodgerblue;
     }
   }
-
-  .heart-button {
+  .share-container {
     &:hover {
-      background: #f2e5eb;
-      .icon-bar {
-        fill: #d45778;
-      }
+      color: #5bbc6f;
+    }
+  }
+  .heart-container {
+    &:hover {
+      color: #d45778;
     }
   }
 }

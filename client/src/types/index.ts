@@ -7,6 +7,15 @@ export interface Post {
   comments: object[];
 }
 
+export interface Comment {
+  created_at: string;
+  username: string;
+  name: string;
+  content: string;
+  id: number;
+  comments: object[];
+}
+
 export interface PostData {
   user_id: number;
   username: string;
@@ -20,6 +29,7 @@ export interface CommentData {
   username: string;
   name: string;
   content: string;
+  parent_id: number;
 }
 
 export interface User {
@@ -32,4 +42,9 @@ export interface User {
 export interface Context {
   user: User | any;
   setUser: React.Dispatch<any>;
+}
+
+export interface ButtonBarProps {
+  toggleCommenting: React.Dispatch<any>;
+  comments?: number;
 }

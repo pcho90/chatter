@@ -7,11 +7,19 @@ import { UserContext } from '../../contexts/user.context';
 import convertDate from '../../services/convertDate';
 import { createComment } from '../../services/comments';
 import ButtonBar from '../button-bar/button-bar.component';
-import { Post } from '../../types';
+import { Post, Comment } from '../../types';
 
-const PostContainer: React.FC<Post> = props => {
+const PostContainer: React.FC<Post | any> = props => {
   const { user } = useContext(UserContext);
-  const { name, username, created_at, content, id, comments } = props;
+  const {
+    name,
+    username,
+    created_at,
+    content,
+    id,
+    comments,
+    subcomments
+  } = props;
   const [commenting, setCommenting] = useState(false);
   const [input, setInput] = useState('');
   const { push } = useHistory();
@@ -27,7 +35,12 @@ const PostContainer: React.FC<Post> = props => {
 
   const viewPost = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLDivElement) {
-      push(`/posts/${id}`);
+      if (subcomments) {
+        push(`/posts/${props.post_id}/comments/${id}`);
+        console.log('ya');
+      } else {
+        push(`/posts/${id}`);
+      }
     }
   };
 
@@ -35,12 +48,24 @@ const PostContainer: React.FC<Post> = props => {
     e.preventDefault();
     const { id: user_id, username, name } = user;
 
+    let parent_id = 0;
+    let post_id = props.id;
+
+    if (props.post_id) {
+      post_id = props.post_id;
+    }
+
+    if (subcomments) {
+      parent_id = id;
+    }
+
     const response = await createComment(id, {
-      post_id: id,
+      post_id,
       user_id,
       username,
       name,
-      content: input
+      content: input,
+      parent_id
     });
 
     console.log(response);
@@ -57,7 +82,9 @@ const PostContainer: React.FC<Post> = props => {
         <div className='content'>{content}</div>
         <ButtonBar
           toggleCommenting={toggleCommenting}
-          comments={comments.length}
+          comments={
+            (comments && comments.length) || (subcomments && subcomments.length)
+          }
         />
       </div>
       {commenting && (

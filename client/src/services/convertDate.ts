@@ -13,39 +13,29 @@ const convertDate = (date: string) => {
 
   let timePassed: string;
 
-  if (daysPassed <= 0) {
-    if (hoursPassed <= 0) {
+  if (hoursPassed < 0) {
+    hoursPassed += 24;
+  }
+
+  if (minutesPassed < 0) {
+    minutesPassed += 60;
+  }
+
+  if (daysPassed <= 1) {
+    if (hoursPassed === 0) {
       timePassed = `${minutesPassed}m`;
     } else {
-      if (minutesPassed < 0) {
-        if (hoursPassed === 1) {
-          timePassed = `${60 + minutesPassed}m`;
-        } else {
-          timePassed = `${hoursPassed - 1}h ${60 + minutesPassed}m`;
-        }
-      } else if (minutesPassed === 0) {
+      if (minutesPassed === 0) {
         timePassed = `${hoursPassed}h`;
       } else {
         timePassed = `${hoursPassed}h ${minutesPassed}m`;
       }
     }
   } else {
-    if (hoursPassed <= 0) {
-      timePassed = `${daysPassed}d ${60 + minutesPassed}m`;
+    if (minutesPassed === 0) {
+      timePassed = `${daysPassed - 1}d ${hoursPassed}h`;
     } else {
-      if (minutesPassed < 0) {
-        if (hoursPassed === 1) {
-          timePassed = `${daysPassed}d ${60 + minutesPassed}m`;
-        } else {
-          timePassed = `${daysPassed}d ${hoursPassed - 1}h ${
-            60 + minutesPassed
-          }m`;
-        }
-      } else if (minutesPassed === 0) {
-        timePassed = `${daysPassed}d ${hoursPassed}h`;
-      } else {
-        timePassed = `${daysPassed}d ${hoursPassed}h ${minutesPassed}m`;
-      }
+      timePassed = `${daysPassed - 1}d ${hoursPassed}h ${minutesPassed}m`;
     }
   }
 
@@ -55,6 +45,8 @@ const convertDate = (date: string) => {
   if (+hours > 12) {
     hour = +hours % 12;
     amPm = 'PM';
+  } else if (hour === 0) {
+    hour = 12;
   }
 
   const months = [
