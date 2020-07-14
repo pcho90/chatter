@@ -1,17 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import TextareaAutosize from 'react-textarea-autosize';
 
 import './home.styles.scss';
 
 import { Post } from '../../types';
 import { UserContext } from '../../contexts/user.context';
 import { createPost, getPosts } from '../../services/posts';
-import ButtonBar from '../../components/button-bar/button-bar.component';
+import PostContainer from '../../components/post-container/post-container.component';
 
 const Home = () => {
   const { user } = useContext(UserContext);
   const [input, setInput] = useState('');
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   const fetchPosts = async () => {
     const response = await getPosts();
@@ -20,7 +20,7 @@ const Home = () => {
   };
 
   const handleChange = (e: React.ChangeEvent) => {
-    const { value } = e.target as HTMLInputElement;
+    const { value } = e.target as HTMLTextAreaElement;
 
     setInput(value);
   };
@@ -36,6 +36,9 @@ const Home = () => {
       content: input
     });
 
+    setPosts([...posts, post]);
+    setInput('');
+
     console.log(post);
   };
 
@@ -48,29 +51,20 @@ const Home = () => {
       <header>Home</header>
       {user && (
         <form onSubmit={handleSubmit}>
-          <input
-            type='text'
+          <TextareaAutosize
+            className='textarea'
             value={input}
             onChange={handleChange}
             placeholder="What's happening?"
           />
           <div>
-            <button>Post</button>
+            <button>Chirp</button>
           </div>
         </form>
       )}
-      {posts &&
-        posts.map((post: Post, idx) => (
-          <Link to={`/posts/${post.id}`} className='post' key={idx}>
-            <div className='details'>
-              <span className='name'>{post.name}</span>
-              <span className='username'>@{post.username}</span>
-              <span className='time'>{post.created_at.slice(11, 19)}</span>
-            </div>
-            <div className='content'>{post.content}</div>
-            <ButtonBar />
-          </Link>
-        ))}
+      {[...posts].reverse().map((post: Post, idx) => (
+        <PostContainer key={idx} {...post} />
+      ))}
     </div>
   );
 };

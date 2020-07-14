@@ -1,11 +1,6 @@
 import api from './apiConfig';
 
-interface PostData {
-  user_id: number;
-  username: string;
-  name: string;
-  content: string;
-}
+import { PostData } from '../types';
 
 export const getPosts = async () => {
   const response = await api.get('/posts');

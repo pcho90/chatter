@@ -1,0 +1,70 @@
+.post {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .details {
+    .name {
+      font-weight: 600;
+    }
+
+    .username,
+    .time {
+      color: #657786;
+    }
+
+    span {
+      margin-right: 5px;
+    }
+  }
+
+  .content {
+    margin: 10px 0;
+  }
+
+  .main {
+    padding: 10px 15px 5px 15px;
+    border-bottom: 1px solid #e6ecf0;
+
+    &:hover {
+      background: #f6f8fa;
+      cursor: pointer;
+    }
+  }
+
+  .commenting {
+    display: flex;
+    padding: 10px 0;
+    flex-direction: column;
+    align-items: center;
+
+    .comment-text {
+      margin: 0 auto;
+      width: 90%;
+      font-family: system-ui;
+      resize: none;
+      padding: 10px;
+      font-size: 14px;
+      border: none;
+
+      &::placeholder {
+        color: #ddd;
+        font-weight: 500;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    button {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+}

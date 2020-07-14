@@ -14,14 +14,20 @@ const Post = () => {
     username: '',
     name: '',
     content: '',
-    id: 0
+    id: 0,
+    comments: []
   });
   const { id } = useParams();
   const { formattedTime, formattedDate } = convertDate(post.created_at);
+  const [commenting, setCommenting] = useState(false);
 
   const fetchPost = async () => {
     const response = await getPost(id);
     setPost(response);
+  };
+
+  const toggleCommenting = () => {
+    setCommenting(!commenting);
   };
 
   useEffect(() => {
@@ -41,7 +47,10 @@ const Post = () => {
         <span className='time'>
           {formattedTime} · {formattedDate}
         </span>
-        <ButtonBar />
+        <ButtonBar
+          toggleCommenting={toggleCommenting}
+          comments={post.comments.length}
+        />
       </div>
     </div>
   );

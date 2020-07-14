@@ -4,6 +4,22 @@ export interface Post {
   name: string;
   content: string;
   id: number;
+  comments: object[];
+}
+
+export interface PostData {
+  user_id: number;
+  username: string;
+  name: string;
+  content: string;
+}
+
+export interface CommentData {
+  user_id: number;
+  post_id: number;
+  username: string;
+  name: string;
+  content: string;
 }
 
 export interface User {

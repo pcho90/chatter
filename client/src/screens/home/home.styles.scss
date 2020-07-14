@@ -8,19 +8,11 @@
     div {
       display: flex;
       justify-content: flex-end;
-
-      button {
-        padding: 12px 16px;
-        border-radius: 30px;
-        background: dodgerblue;
-        border: none;
-        color: #fff;
-        font-size: 16px;
-        font-weight: 700;
-      }
     }
 
-    input {
+    .textarea {
+      font-family: system-ui;
+      resize: none;
       padding: 10px;
       font-size: 18px;
       border: none;
@@ -34,36 +26,5 @@
         outline: none;
       }
     }
-  }
-}
-
-.post {
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  border-bottom: 1px solid #e6ecf0;
-
-  .details {
-    .name {
-      font-weight: 600;
-    }
-
-    .username,
-    .time {
-      color: #657786;
-    }
-
-    span {
-      margin-right: 5px;
-    }
-  }
-
-  .content {
-    margin: 10px 0;
-  }
-
-  &:hover {
-    background: #f6f8fa;
-    cursor: pointer;
   }
 }
