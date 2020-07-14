@@ -4,6 +4,11 @@
   height: 100vh;
   display: flex;
 
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
   .body {
     flex: auto;
     border-left: 1px solid #eee;

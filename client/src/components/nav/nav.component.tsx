@@ -59,7 +59,7 @@ const Nav = () => {
         <UserIcon className='icon' />
         <span>Logout</span>
       </Link>
-      {user && user.username}
+      {user && <div className='user'>{user.username}</div>}
     </div>
   );
 };

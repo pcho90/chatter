@@ -5,6 +5,7 @@ import { registerUser } from '../../services/auth';
 
 const Register = () => {
   const [input, setInput] = useState({
+    name: '',
     username: '',
     email: '',
     password: ''
@@ -29,6 +30,14 @@ const Register = () => {
       <header>Register</header>
 
       <form onSubmit={handleSubmit}>
+        <input
+          type='text'
+          name='name'
+          onChange={handleChange}
+          value={input.name}
+          placeholder='name'
+          autoComplete='off'
+        />
         <input
           type='text'
           name='username'

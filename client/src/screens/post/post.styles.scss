@@ -1,0 +1,39 @@
+.comments {
+  display: flex;
+  flex-direction: column;
+
+  header {
+    display: flex;
+    align-items: center;
+  }
+
+  .icon {
+    height: 18px;
+    width: 18px;
+    fill: dodgerblue;
+    margin-right: 20px;
+  }
+
+  .post-head {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 30px;
+
+    .name {
+      font-weight: 700;
+    }
+
+    .username {
+      color: #657786;
+    }
+
+    .comments {
+      padding: 10px 0;
+      font-size: 24px;
+    }
+
+    .time {
+      color: #657786;
+    }
+  }
+}

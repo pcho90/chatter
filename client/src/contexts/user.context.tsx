@@ -1,16 +1,6 @@
 import React, { useState, createContext } from 'react';
 
-interface User {
-  id: number;
-  username: string;
-  posts: object[];
-  comments: object[];
-}
-
-interface Context {
-  user: User | any;
-  setUser: React.Dispatch<any>;
-}
+import { User, Context } from '../types';
 
 export const UserContext = createContext<Context>({
   user: null,

@@ -1,0 +1,47 @@
+.buttons {
+  display: flex;
+  justify-content: space-around;
+
+  .icon-bar {
+    width: 18px;
+    height: 18px;
+    margin-right: 0;
+    fill: #657786;
+  }
+
+  .button-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  .comment-button {
+    &:hover {
+      background: #e5eff9;
+      .icon-bar {
+        fill: dodgerblue;
+      }
+    }
+  }
+
+  .share-button {
+    &:hover {
+      background: #e6f2ec;
+      .icon-bar {
+        fill: #5bbc6f;
+      }
+    }
+  }
+
+  .heart-button {
+    &:hover {
+      background: #f2e5eb;
+      .icon-bar {
+        fill: #d45778;
+      }
+    }
+  }
+}

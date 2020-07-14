@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 150px;
-  margin-right: 100px;
+  padding-right: 100px;
 
   .active {
     color: dodgerblue;
@@ -43,10 +43,20 @@
   }
 
   .logo {
+    margin-top: 5px;
     padding: 10px 0;
     width: 30px;
     height: 30px;
     fill: dodgerblue;
     padding-left: 20px;
+  }
+
+  div {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    padding-left: 20px;
+    font-size: 18px;
+    font-weight: 500;
   }
 }
