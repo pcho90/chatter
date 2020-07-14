@@ -46,4 +46,34 @@
       border-bottom: 1px solid #e6ecf0;
     }
   }
+  .commenting {
+    display: flex;
+    padding: 10px 0;
+    flex-direction: column;
+    align-items: center;
+
+    .comment-text {
+      margin: 0 auto;
+      width: 90%;
+      font-family: system-ui;
+      resize: none;
+      padding: 10px;
+      font-size: 14px;
+      border: none;
+
+      &::placeholder {
+        color: #ddd;
+        font-weight: 500;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    button {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
 }

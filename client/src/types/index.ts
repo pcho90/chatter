@@ -5,6 +5,9 @@ export interface Post {
   content: string;
   id: number;
   comments: object[];
+  user_id?: any;
+  parent_id?: any;
+  subcomments?: any;
 }
 
 export interface Comment {

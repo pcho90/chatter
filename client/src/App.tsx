@@ -16,7 +16,8 @@ const App = () => {
         <Route exact path='/' component={Home} />
         <Route path='/register' component={Register} />
         <Route path='/login' component={Login} />
-        <Route path='/posts/:id' component={Post} />
+        <Route exact path='/posts/:id' component={Post} />
+        <Route path='/posts/:id/comments/:subcomment_id' component={Post} />
       </div>
     </div>
   );

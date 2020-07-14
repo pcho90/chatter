@@ -7,7 +7,7 @@ import { UserContext } from '../../contexts/user.context';
 import convertDate from '../../services/convertDate';
 import { createComment } from '../../services/comments';
 import ButtonBar from '../button-bar/button-bar.component';
-import { Post, Comment } from '../../types';
+import { Post } from '../../types';
 
 const PostContainer: React.FC<Post | any> = props => {
   const { user } = useContext(UserContext);
@@ -35,9 +35,8 @@ const PostContainer: React.FC<Post | any> = props => {
 
   const viewPost = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLDivElement) {
-      if (subcomments) {
+      if (props.parent_id || subcomments) {
         push(`/posts/${props.post_id}/comments/${id}`);
-        console.log('ya');
       } else {
         push(`/posts/${id}`);
       }
@@ -55,7 +54,7 @@ const PostContainer: React.FC<Post | any> = props => {
       post_id = props.post_id;
     }
 
-    if (subcomments) {
+    if (!comments) {
       parent_id = id;
     }
 
