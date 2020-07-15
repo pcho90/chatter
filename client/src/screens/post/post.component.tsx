@@ -47,7 +47,7 @@ const Post = () => {
     } else {
       response = await getPost(id);
     }
-    console.log(response);
+
     setPost(response);
   };
 
@@ -58,17 +58,11 @@ const Post = () => {
   const handleDelete = async (id: number, isComment: boolean) => {
     if (isComment) {
       await deleteComment(id);
-      setPost({
-        ...post,
-        comments: post.comments.filter((item: any) => item.id !== id)
-      });
     } else {
       await deletePost(id);
-      setPost({
-        ...post,
-        comments: post.comments.filter((item: any) => item.id !== id)
-      });
     }
+
+    fetchPost();
   };
 
   const handleLike = async () => {
@@ -99,7 +93,6 @@ const Post = () => {
   };
 
   const handleSubmit = async (e: React.MouseEvent) => {
-    e.preventDefault();
     let parent_id, post_id;
 
     if (post.comments) {
@@ -116,19 +109,14 @@ const Post = () => {
       username: user.username,
       name: user.name,
       content: input,
-      parent_id
+      parent_id,
+      reply_to: post.username
     });
 
-    if (post.subcomments) {
-      setPost({
-        ...post,
-        subcomments: [...post.subcomments, response]
-      });
+    if (post.comments) {
+      setPost({ ...post, comments: [...post.comments, response] });
     } else {
-      setPost({
-        ...post,
-        comments: [...post.comments, response]
-      });
+      setPost({ ...post, subcomments: [...post.subcomments, response] });
     }
 
     setInput('');
@@ -139,6 +127,14 @@ const Post = () => {
     fetchPost();
   }, [pathname]);
 
+  const initialSplit = post.name.split(' ');
+  let initials;
+  if (initialSplit[1] && initialSplit[1][0]) {
+    initials = initialSplit[0][0] + initialSplit[1][0];
+  } else {
+    initials = initialSplit[0][0];
+  }
+
   return (
     <div className='comments'>
       <header>
@@ -146,8 +142,16 @@ const Post = () => {
         Post
       </header>
       <div className='post-head'>
-        <span className='name'>{post.name}</span>
-        <span className='username'>@{post.username}</span>
+        <div className='post-head-header'>
+          <div className='avatar'>{initials}</div>
+          <div className='titles'>
+            <span className='name'>{post.name}</span>
+            <span className='username'>@{post.username}</span>
+          </div>
+        </div>
+        <div className='reply-to'>
+          {post.subcomments && `Replying to @` + post.reply_to}
+        </div>
         <div className='comments'>{post.content}</div>
         <span className='time'>
           {formattedTime} · {formattedDate}
@@ -172,12 +176,12 @@ const Post = () => {
         {post.comments &&
           post.comments.length > 0 &&
           [...post.comments]
-            .reverse()
+            .sort((a: any, b: any) => +b.id - +a.id)
             .map(
-              (comment: any, idx) =>
+              (comment: any) =>
                 !comment.parent_id && (
                   <PostContainer
-                    key={idx}
+                    key={comment.id}
                     handleDelete={handleDelete}
                     {...comment}
                   />
@@ -185,10 +189,10 @@ const Post = () => {
             )}
         {post.subcomments &&
           [...post.subcomments]
-            .reverse()
-            .map((comment: any, idx) => (
+            .sort((a: any, b: any) => +b.id - +a.id)
+            .map((comment: any) => (
               <PostContainer
-                key={idx}
+                key={comment.id}
                 handleDelete={handleDelete}
                 {...comment}
               />

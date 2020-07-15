@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_15_003552) do
+ActiveRecord::Schema.define(version: 2020_07_15_193141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2020_07_15_003552) do
     t.string "name"
     t.integer "parent_id"
     t.integer "post_id"
+    t.string "reply_to"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 

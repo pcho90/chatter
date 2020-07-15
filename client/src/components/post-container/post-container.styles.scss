@@ -1,4 +1,5 @@
 .post {
+  font-size: 15px;
   display: flex;
   flex-direction: column;
 
@@ -56,6 +57,11 @@
       .edit-button {
         fill: #657786;
       }
+    }
+
+    .reply-to {
+      margin-top: 5px;
+      color: #657786;
     }
   }
 

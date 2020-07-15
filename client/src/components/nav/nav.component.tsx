@@ -5,6 +5,7 @@ import './nav.styles.scss';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as HomeIcon } from '../../assets/home.svg';
 import { ReactComponent as UserIcon } from '../../assets/user.svg';
+import { ReactComponent as UsersIcon } from '../../assets/users.svg';
 import { ReactComponent as MessageIcon } from '../../assets/message.svg';
 import { ReactComponent as SearchIcon } from '../../assets/search.svg';
 import { ReactComponent as ProfileIcon } from '../../assets/profile.svg';
@@ -40,13 +41,13 @@ const Nav = () => {
         <HomeIcon className='icon' />
         <span>Home</span>
       </Link>
-      <Link to='/search' className={pathname === '/search' ? 'active' : ''}>
-        <SearchIcon className='icon' />
-        <span>Search</span>
+      <Link to='/users' className={pathname === '/users' ? 'active' : ''}>
+        <UsersIcon className='icon' />
+        <span>Users</span>
       </Link>
       <Link
-        to='/message'
-        className={pathname === '/message' ? 'active message' : 'message'}
+        to='/messages'
+        className={pathname === '/messages' ? 'active message' : 'message'}
       >
         <MessageIcon className='icon' />
         <span>Messages</span>

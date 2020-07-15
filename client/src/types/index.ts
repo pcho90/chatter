@@ -1,7 +1,7 @@
 export interface Likes {
   user_id: number;
-  post_id?: number;
-  comment_id?: number;
+  post_id?: number | null;
+  comment_id?: number | null;
 }
 
 export interface Post {
@@ -11,9 +11,12 @@ export interface Post {
   content: string;
   id: number;
   comments: object[];
-  user_id?: any;
-  parent_id?: any;
+  user_id?: number | null;
+  parent_id?: number | null;
   subcomments?: any;
+  post_id?: number | null;
+  handleDelete?: any;
+  reply_to?: string;
 }
 
 export interface Comment {
@@ -39,6 +42,7 @@ export interface CommentData {
   name: string;
   content: string;
   parent_id: number;
+  reply_to: string;
 }
 
 export interface User {
@@ -57,6 +61,6 @@ export interface Context {
 export interface ButtonBarProps {
   toggleCommenting: React.Dispatch<any>;
   handleLike: any;
-  comments?: number;
+  comments?: number | null | undefined;
   heartFilled?: boolean;
 }

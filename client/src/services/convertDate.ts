@@ -25,18 +25,10 @@ const convertDate = (date: string) => {
     if (hoursPassed === 0) {
       timePassed = `${minutesPassed}m`;
     } else {
-      if (minutesPassed === 0) {
-        timePassed = `${hoursPassed}h`;
-      } else {
-        timePassed = `${hoursPassed}h ${minutesPassed}m`;
-      }
+      timePassed = `${hoursPassed}h`;
     }
   } else {
-    if (minutesPassed === 0) {
-      timePassed = `${daysPassed - 1}d ${hoursPassed}h`;
-    } else {
-      timePassed = `${daysPassed - 1}d ${hoursPassed}h ${minutesPassed}m`;
-    }
+    timePassed = `${daysPassed - 1}d`;
   }
 
   let hour = +hours;

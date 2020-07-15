@@ -18,7 +18,6 @@ const Home = () => {
   const fetchPosts = async () => {
     const response = await getPosts();
     setPosts(response);
-    console.log(response);
   };
 
   const handleChange = (e: React.ChangeEvent) => {
@@ -38,20 +37,20 @@ const Home = () => {
       content: input
     });
 
+    console.log(posts);
+
     setPosts([...posts, { ...post, comments: [] }]);
     setInput('');
-
-    console.log(post);
   };
 
   const handleDelete = async (id: number, isComment: boolean) => {
     if (isComment) {
       await deleteComment(id);
-      setPosts(posts.filter(item => item.id !== id));
     } else {
       await deletePost(id);
-      setPosts(posts.filter(item => item.id !== id));
     }
+    console.log(posts);
+    fetchPosts();
   };
 
   useEffect(() => {
@@ -74,9 +73,11 @@ const Home = () => {
           </div>
         </form>
       )}
-      {[...posts].reverse().map((post: Post, idx) => (
-        <PostContainer key={idx} handleDelete={handleDelete} {...post} />
-      ))}
+      {[...posts]
+        .sort((a, b) => +b.id - +a.id)
+        .map((post: Post) => (
+          <PostContainer key={post.id} handleDelete={handleDelete} {...post} />
+        ))}
     </div>
   );
 };

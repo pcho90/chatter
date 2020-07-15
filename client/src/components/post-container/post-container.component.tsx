@@ -11,10 +11,10 @@ import { createComment, editComment } from '../../services/comments';
 import { editPost } from '../../services/posts';
 import { createLike, deleteLike } from '../../services/likes';
 import { isLiked } from '../../services/isLiked';
-import { Post } from '../../types';
+import { Post, Likes } from '../../types';
 import ButtonBar from '../button-bar/button-bar.component';
 
-const PostContainer: React.FC<Post | any> = props => {
+const PostContainer: React.FC<Post> = props => {
   const { user, setUser } = useContext(UserContext);
   const [commenting, setCommenting] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -32,7 +32,8 @@ const PostContainer: React.FC<Post | any> = props => {
     comments,
     subcomments,
     user_id,
-    handleDelete
+    handleDelete,
+    reply_to
   } = post;
 
   const { liked, like } = isLiked(user, id);
@@ -59,7 +60,7 @@ const PostContainer: React.FC<Post | any> = props => {
         likes: user.likes.filter((item: any) => item.id !== like.id)
       });
     } else {
-      const likeData = {
+      const likeData: Likes = {
         user_id: user.id,
         post_id: postId,
         comment_id: commentId
@@ -92,8 +93,6 @@ const PostContainer: React.FC<Post | any> = props => {
   };
 
   const handleSubmit = async (e: React.MouseEvent) => {
-    const { id: user_id, username, name } = user;
-
     let parent_id = 0;
     let post_id = props.id;
 
@@ -107,11 +106,12 @@ const PostContainer: React.FC<Post | any> = props => {
 
     await createComment({
       post_id,
-      user_id,
-      username,
-      name,
+      user_id: user.id,
+      username: user.username,
+      name: user.name,
       content: input,
-      parent_id
+      parent_id,
+      reply_to: post.username
     });
 
     setInput('');
@@ -131,12 +131,10 @@ const PostContainer: React.FC<Post | any> = props => {
       const response = await editPost(id, edit);
       setEditing(false);
       setPost(response);
-      console.log(response);
     } else {
       const response = await editComment(id, edit);
       setEditing(false);
       setPost(response);
-      console.log(response);
     }
   };
 
@@ -157,6 +155,9 @@ const PostContainer: React.FC<Post | any> = props => {
               <DeleteIcon className='edit-button' onClick={handleClick} />
             </span>
           )}
+        </div>
+        <div className='reply-to'>
+          {subcomments && `Replying to @` + reply_to}
         </div>
         <div className='content'>{content}</div>
         <ButtonBar
