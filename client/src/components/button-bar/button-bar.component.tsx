@@ -5,10 +5,13 @@ import { ButtonBarProps } from '../../types';
 import { ReactComponent as CommentIcon } from '../../assets/comment.svg';
 import { ReactComponent as ShareIcon } from '../../assets/share.svg';
 import { ReactComponent as HeartIcon } from '../../assets/heart.svg';
+import { ReactComponent as FilledHeartIcon } from '../../assets/heart-filled.svg';
 
 const ButtonBar: React.FC<ButtonBarProps> = ({
   toggleCommenting,
-  comments
+  handleLike,
+  comments,
+  heartFilled
 }) => (
   <div className='buttons'>
     <div className='button-container comment-container'>
@@ -23,8 +26,12 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
       </span>
     </div>
     <div className='button-container heart-container'>
-      <span className='button-icon heart-button'>
-        <HeartIcon className='icon-bar' />
+      <span className='button-icon heart-button' onClick={handleLike}>
+        {heartFilled ? (
+          <FilledHeartIcon className='icon-bar heart-filled' />
+        ) : (
+          <HeartIcon className='icon-bar' />
+        )}
       </span>
     </div>
   </div>

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import './post.styles.scss';
+import { UserContext } from '../../contexts/user.context';
 import { Post as PostType } from '../../types';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
+import { createLike } from '../../services/likes';
 import { getPost } from '../../services/posts';
 import { createComment, getComment } from '../../services/comments';
 import convertDate from '../../services/convertDate';
@@ -28,12 +30,13 @@ const Post = () => {
   const { pathname } = useLocation();
   const { goBack } = useHistory();
   const [input, setInput] = useState('');
+  const { user } = useContext(UserContext);
 
   const fetchPost = async () => {
     let response;
 
     if (subcomment_id) {
-      response = await getComment(id, subcomment_id);
+      response = await getComment(subcomment_id);
     } else {
       response = await getPost(id);
     }
@@ -43,6 +46,24 @@ const Post = () => {
 
   const toggleCommenting = () => {
     setCommenting(!commenting);
+  };
+
+  const handleLike = async () => {
+    let postId, commentId;
+
+    if (post.comments) {
+      postId = id;
+    } else {
+      commentId = id;
+    }
+
+    const response = await createLike({
+      user_id: user.id,
+      post_id: postId,
+      comment_id: commentId
+    });
+
+    console.log(response);
   };
 
   const handleBack = () => {
@@ -58,16 +79,29 @@ const Post = () => {
     e.preventDefault();
     const { user_id, username, name } = post;
 
-    let parent_id;
+    let parent_id, post_id;
 
     if (post.comments) {
       parent_id = 0;
+      post_id = id;
     } else {
       parent_id = post.id;
+      post_id = 0;
     }
 
-    const response = await createComment(id, {
-      post_id: id,
+    const obj = {
+      post_id,
+      user_id,
+      username,
+      name,
+      content: input,
+      parent_id
+    };
+
+    console.log(obj);
+
+    const response = await createComment({
+      post_id,
       user_id,
       username,
       name,
@@ -108,7 +142,10 @@ const Post = () => {
         <span className='time'>
           {formattedTime} · {formattedDate}
         </span>
-        <ButtonBar toggleCommenting={toggleCommenting} />
+        <ButtonBar
+          toggleCommenting={toggleCommenting}
+          handleLike={handleLike}
+        />
       </div>
       {commenting && (
         <div className='commenting'>

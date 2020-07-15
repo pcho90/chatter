@@ -17,7 +17,7 @@ const App = () => {
         <Route path='/register' component={Register} />
         <Route path='/login' component={Login} />
         <Route exact path='/posts/:id' component={Post} />
-        <Route path='/posts/:id/comments/:subcomment_id' component={Post} />
+        <Route path='/comments/:subcomment_id' component={Post} />
       </div>
     </div>
   );

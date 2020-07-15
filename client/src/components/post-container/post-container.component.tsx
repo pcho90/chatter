@@ -6,11 +6,12 @@ import './post-container.styles.scss';
 import { UserContext } from '../../contexts/user.context';
 import convertDate from '../../services/convertDate';
 import { createComment } from '../../services/comments';
+import { createLike, deleteLike } from '../../services/likes';
 import ButtonBar from '../button-bar/button-bar.component';
 import { Post } from '../../types';
 
 const PostContainer: React.FC<Post | any> = props => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const {
     name,
     username,
@@ -24,6 +25,50 @@ const PostContainer: React.FC<Post | any> = props => {
   const [input, setInput] = useState('');
   const { push } = useHistory();
 
+  let liked = false;
+  let like: any;
+
+  if (user) {
+    like = user.likes.find(
+      (one: any) => one.post_id === id || one.comment_id === id
+    );
+    if (like) {
+      liked = true;
+    } else {
+      liked = false;
+    }
+  }
+
+  const handleLike = async () => {
+    let postId = null;
+    let commentId = null;
+
+    if (comments) {
+      postId = id;
+    } else {
+      commentId = id;
+    }
+
+    if (liked) {
+      await deleteLike(like.id);
+      setUser({
+        ...user,
+        likes: user.likes.filter((item: any) => item.id !== like.id)
+      });
+    } else {
+      const likeData = {
+        user_id: user.id,
+        post_id: postId,
+        comment_id: commentId
+      };
+      await createLike(likeData);
+      setUser({
+        ...user,
+        likes: [...user.likes, likeData]
+      });
+    }
+  };
+
   const toggleCommenting = () => {
     setCommenting(!commenting);
   };
@@ -35,8 +80,8 @@ const PostContainer: React.FC<Post | any> = props => {
 
   const viewPost = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLDivElement) {
-      if (props.parent_id || subcomments) {
-        push(`/posts/${props.post_id}/comments/${id}`);
+      if (!comments) {
+        push(`/comments/${id}`);
       } else {
         push(`/posts/${id}`);
       }
@@ -58,7 +103,7 @@ const PostContainer: React.FC<Post | any> = props => {
       parent_id = id;
     }
 
-    const response = await createComment(id, {
+    await createComment({
       post_id,
       user_id,
       username,
@@ -67,7 +112,8 @@ const PostContainer: React.FC<Post | any> = props => {
       parent_id
     });
 
-    console.log(response);
+    setInput('');
+    setCommenting(false);
   };
 
   return (
@@ -84,6 +130,8 @@ const PostContainer: React.FC<Post | any> = props => {
           comments={
             (comments && comments.length) || (subcomments && subcomments.length)
           }
+          handleLike={handleLike}
+          heartFilled={liked}
         />
       </div>
       {commenting && (

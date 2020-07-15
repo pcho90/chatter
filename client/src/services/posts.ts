@@ -16,3 +16,8 @@ export const createPost = async (postData: PostData) => {
   const response = await api.post('/posts', { post: postData });
   return response.data;
 };
+
+export const deletePost = async (id: number) => {
+  const response = await api.delete(`/posts/${id}`);
+  return response.data;
+};

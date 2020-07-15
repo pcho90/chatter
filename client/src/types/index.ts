@@ -1,3 +1,9 @@
+export interface Likes {
+  user_id: number;
+  post_id?: number;
+  comment_id?: number;
+}
+
 export interface Post {
   created_at: string;
   username: string;
@@ -40,6 +46,7 @@ export interface User {
   username: string;
   posts: object[];
   comments: object[];
+  likes: object[];
 }
 
 export interface Context {
@@ -49,5 +56,7 @@ export interface Context {
 
 export interface ButtonBarProps {
   toggleCommenting: React.Dispatch<any>;
+  handleLike: any;
   comments?: number;
+  heartFilled?: boolean;
 }
