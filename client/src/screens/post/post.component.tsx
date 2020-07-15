@@ -8,7 +8,12 @@ import { Post as PostType } from '../../types';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
 import { createLike } from '../../services/likes';
 import { getPost } from '../../services/posts';
-import { createComment, getComment } from '../../services/comments';
+import {
+  createComment,
+  getComment,
+  deleteComment
+} from '../../services/comments';
+import { deletePost } from '../../services/posts';
 import convertDate from '../../services/convertDate';
 import ButtonBar from '../../components/button-bar/button-bar.component';
 import PostContainer from '../../components/post-container/post-container.component';
@@ -48,6 +53,22 @@ const Post = () => {
     setCommenting(!commenting);
   };
 
+  const handleDelete = async (id: number, isComment: boolean) => {
+    if (isComment) {
+      await deleteComment(id);
+      setPost({
+        ...post,
+        comments: post.comments.filter((item: any) => item.id !== id)
+      });
+    } else {
+      await deletePost(id);
+      setPost({
+        ...post,
+        comments: post.comments.filter((item: any) => item.id !== id)
+      });
+    }
+  };
+
   const handleLike = async () => {
     let postId, commentId;
 
@@ -77,8 +98,6 @@ const Post = () => {
 
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
-    const { user_id, username, name } = post;
-
     let parent_id, post_id;
 
     if (post.comments) {
@@ -89,22 +108,11 @@ const Post = () => {
       post_id = 0;
     }
 
-    const obj = {
-      post_id,
-      user_id,
-      username,
-      name,
-      content: input,
-      parent_id
-    };
-
-    console.log(obj);
-
     const response = await createComment({
       post_id,
-      user_id,
-      username,
-      name,
+      user_id: user.id,
+      username: user.username,
+      name: user.name,
       content: input,
       parent_id
     });
@@ -157,7 +165,6 @@ const Post = () => {
           <button onClick={handleSubmit}>Reply</button>
         </div>
       )}
-
       <div className='comments-body'>
         {post.comments &&
           post.comments.length > 0 &&
@@ -165,13 +172,23 @@ const Post = () => {
             .reverse()
             .map(
               (comment: any, idx) =>
-                !comment.parent_id && <PostContainer key={idx} {...comment} />
+                !comment.parent_id && (
+                  <PostContainer
+                    key={idx}
+                    handleDelete={handleDelete}
+                    {...comment}
+                  />
+                )
             )}
         {post.subcomments &&
           [...post.subcomments]
             .reverse()
             .map((comment: any, idx) => (
-              <PostContainer key={idx} {...comment} />
+              <PostContainer
+                key={idx}
+                handleDelete={handleDelete}
+                {...comment}
+              />
             ))}
       </div>
     </div>

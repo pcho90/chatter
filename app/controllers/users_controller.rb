@@ -6,12 +6,12 @@ class UsersController < ApplicationController
   def index
     @users = User.all
 
-    render json: @users, include: [:posts, :comments]
+    render json: @users, include: [:posts, :comments, :likes]
   end
 
   # GET /users/1
   def show
-    render json: @user.attributes.except(:password_digest)
+    render json: @user.attributes.except(:password_digest), include: [:posts, :comments, :likes]
   end
 
   # POST /users

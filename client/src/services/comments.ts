@@ -7,14 +7,20 @@ export const getComments = async () => {
   return response.data;
 };
 
-export const getComment = async (subcomment_id: number) => {
-  const response = await api.get(`/comments/${subcomment_id}`);
+export const getComment = async (id: number) => {
+  const response = await api.get(`/comments/${id}`);
   return response.data;
 };
 
-export const createComment = async (commentData: CommentData) => {
+export const createComment = async (data: CommentData) => {
   const response = await api.post(`/comments`, {
-    comment: commentData
+    comment: data
   });
+  return response.data;
+};
+
+export const deleteComment = async (id: number) => {
+  const response = await api.delete(`/comments/${id}`);
+
   return response.data;
 };

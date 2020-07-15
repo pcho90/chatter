@@ -7,6 +7,8 @@ import { UserContext } from '../../contexts/user.context';
 import convertDate from '../../services/convertDate';
 import { createComment } from '../../services/comments';
 import { createLike, deleteLike } from '../../services/likes';
+import { ReactComponent as EditIcon } from '../../assets/edit.svg';
+import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
 import ButtonBar from '../button-bar/button-bar.component';
 import { Post } from '../../types';
 
@@ -19,7 +21,9 @@ const PostContainer: React.FC<Post | any> = props => {
     content,
     id,
     comments,
-    subcomments
+    subcomments,
+    user_id,
+    handleDelete
   } = props;
   const [commenting, setCommenting] = useState(false);
   const [input, setInput] = useState('');
@@ -28,7 +32,7 @@ const PostContainer: React.FC<Post | any> = props => {
   let liked = false;
   let like: any;
 
-  if (user) {
+  if (user && user.likes) {
     like = user.likes.find(
       (one: any) => one.post_id === id || one.comment_id === id
     );
@@ -80,10 +84,10 @@ const PostContainer: React.FC<Post | any> = props => {
 
   const viewPost = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLDivElement) {
-      if (!comments) {
-        push(`/comments/${id}`);
-      } else {
+      if (comments) {
         push(`/posts/${id}`);
+      } else {
+        push(`/comments/${id}`);
       }
     }
   };
@@ -116,6 +120,14 @@ const PostContainer: React.FC<Post | any> = props => {
     setCommenting(false);
   };
 
+  const handleClick = () => {
+    if (comments) {
+      handleDelete(id, false);
+    } else {
+      handleDelete(id, true);
+    }
+  };
+
   return (
     <div className='post'>
       <div className='main' onClick={e => viewPost(e)}>
@@ -123,6 +135,12 @@ const PostContainer: React.FC<Post | any> = props => {
           <span className='name'>{name}</span>
           <span className='username'>@{username}</span>
           <span className='time'>{convertDate(created_at).timePassed}</span>
+          {user && user.id === user_id && (
+            <span className='edit-buttons'>
+              <EditIcon className='edit-button' />
+              <DeleteIcon className='edit-button' onClick={handleClick} />
+            </span>
+          )}
         </div>
         <div className='content'>{content}</div>
         <ButtonBar
@@ -140,6 +158,7 @@ const PostContainer: React.FC<Post | any> = props => {
             className='comment-text'
             value={input}
             onChange={handleChange}
+            placeholder='Your turn'
           />
           <button onClick={handleSubmit}>Reply</button>
         </div>

@@ -64,14 +64,14 @@ const convertDate = (date: string) => {
     'Dec'
   ];
 
-  const formattedDate = `${months[+mo]} ${day}, ${year}`;
+  const formattedDate = `${months[+mo - 1]} ${day}, ${year}`;
   const formattedTime = `${hour}:${minutes} ${amPm}`;
 
   return {
     hour,
     minutes,
     day,
-    month: months[+mo],
+    month: months[+mo - 1],
     year,
     formattedDate,
     formattedTime,

@@ -12,8 +12,8 @@ export const getPost = async (id: number) => {
   return response.data;
 };
 
-export const createPost = async (postData: PostData) => {
-  const response = await api.post('/posts', { post: postData });
+export const createPost = async (data: PostData) => {
+  const response = await api.post('/posts', { post: data });
   return response.data;
 };
 
