@@ -3,17 +3,26 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { useHistory } from 'react-router-dom';
 
 import './post-container.styles.scss';
-import { UserContext } from '../../contexts/user.context';
-import convertDate from '../../services/convertDate';
-import { createComment } from '../../services/comments';
-import { createLike, deleteLike } from '../../services/likes';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
-import ButtonBar from '../button-bar/button-bar.component';
+import { UserContext } from '../../contexts/user.context';
+import convertDate from '../../services/convertDate';
+import { createComment, editComment } from '../../services/comments';
+import { editPost } from '../../services/posts';
+import { createLike, deleteLike } from '../../services/likes';
+import { isLiked } from '../../services/isLiked';
 import { Post } from '../../types';
+import ButtonBar from '../button-bar/button-bar.component';
 
 const PostContainer: React.FC<Post | any> = props => {
   const { user, setUser } = useContext(UserContext);
+  const [commenting, setCommenting] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [edit, setEdit] = useState(props.content);
+  const [input, setInput] = useState('');
+  const [post, setPost] = useState(props);
+  const { push } = useHistory();
+
   const {
     name,
     username,
@@ -24,24 +33,14 @@ const PostContainer: React.FC<Post | any> = props => {
     subcomments,
     user_id,
     handleDelete
-  } = props;
-  const [commenting, setCommenting] = useState(false);
-  const [input, setInput] = useState('');
-  const { push } = useHistory();
+  } = post;
 
-  let liked = false;
-  let like: any;
+  const { liked, like } = isLiked(user, id);
 
-  if (user && user.likes) {
-    like = user.likes.find(
-      (one: any) => one.post_id === id || one.comment_id === id
-    );
-    if (like) {
-      liked = true;
-    } else {
-      liked = false;
-    }
-  }
+  const handleEditChange = (e: React.ChangeEvent) => {
+    const { value } = e.target as HTMLTextAreaElement;
+    setEdit(value);
+  };
 
   const handleLike = async () => {
     let postId = null;
@@ -93,7 +92,6 @@ const PostContainer: React.FC<Post | any> = props => {
   };
 
   const handleSubmit = async (e: React.MouseEvent) => {
-    e.preventDefault();
     const { id: user_id, username, name } = user;
 
     let parent_id = 0;
@@ -128,16 +126,34 @@ const PostContainer: React.FC<Post | any> = props => {
     }
   };
 
+  const handleEditSubmit = async (e: React.MouseEvent) => {
+    if (comments) {
+      const response = await editPost(id, edit);
+      setEditing(false);
+      setPost(response);
+      console.log(response);
+    } else {
+      const response = await editComment(id, edit);
+      setEditing(false);
+      setPost(response);
+      console.log(response);
+    }
+  };
+
+  const toggleEdit = () => {
+    setEditing(!editing);
+  };
+
   return (
     <div className='post'>
       <div className='main' onClick={e => viewPost(e)}>
         <div className='details'>
           <span className='name'>{name}</span>
           <span className='username'>@{username}</span>
-          <span className='time'>{convertDate(created_at).timePassed}</span>
+          <span className='time'>· {convertDate(created_at).timePassed}</span>
           {user && user.id === user_id && (
             <span className='edit-buttons'>
-              <EditIcon className='edit-button' />
+              <EditIcon className='edit-button' onClick={toggleEdit} />
               <DeleteIcon className='edit-button' onClick={handleClick} />
             </span>
           )}
@@ -152,6 +168,16 @@ const PostContainer: React.FC<Post | any> = props => {
           heartFilled={liked}
         />
       </div>
+      {editing && (
+        <div className='commenting'>
+          <TextareaAutosize
+            className='comment-text'
+            value={edit}
+            onChange={handleEditChange}
+          />
+          <button onClick={handleEditSubmit}>Edit</button>
+        </div>
+      )}
       {commenting && (
         <div className='commenting'>
           <TextareaAutosize

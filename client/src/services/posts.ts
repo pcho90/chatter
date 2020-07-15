@@ -12,6 +12,11 @@ export const getPost = async (id: number) => {
   return response.data;
 };
 
+export const editPost = async (id: number, data: string) => {
+  const response = await api.put(`/posts/${id}`, { post: { content: data } });
+  return response.data;
+};
+
 export const createPost = async (data: PostData) => {
   const response = await api.post('/posts', { post: data });
   return response.data;

@@ -7,16 +7,16 @@ import { UserContext } from '../../contexts/user.context';
 import { Post as PostType } from '../../types';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
 import { createLike } from '../../services/likes';
-import { getPost } from '../../services/posts';
+import { getPost, deletePost } from '../../services/posts';
 import {
   createComment,
   getComment,
   deleteComment
 } from '../../services/comments';
-import { deletePost } from '../../services/posts';
 import convertDate from '../../services/convertDate';
 import ButtonBar from '../../components/button-bar/button-bar.component';
 import PostContainer from '../../components/post-container/post-container.component';
+import { isLiked } from '../../services/isLiked';
 
 const Post = () => {
   const [post, setPost] = useState<PostType>({
@@ -31,11 +31,13 @@ const Post = () => {
   });
   const { id, subcomment_id } = useParams();
   const { formattedTime, formattedDate } = convertDate(post.created_at);
-  const [commenting, setCommenting] = useState(false);
   const { pathname } = useLocation();
   const { goBack } = useHistory();
-  const [input, setInput] = useState('');
   const { user } = useContext(UserContext);
+  const [commenting, setCommenting] = useState(false);
+  const [input, setInput] = useState('');
+
+  const { liked, like } = isLiked(user, post.id);
 
   const fetchPost = async () => {
     let response;
@@ -153,6 +155,7 @@ const Post = () => {
         <ButtonBar
           toggleCommenting={toggleCommenting}
           handleLike={handleLike}
+          heartFilled={liked}
         />
       </div>
       {commenting && (

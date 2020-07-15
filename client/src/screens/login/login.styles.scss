@@ -1,4 +1,10 @@
 .login {
+  text-align: center;
+
+  a {
+    color: #657786;
+  }
+
   form {
     display: flex;
     flex-direction: column;
@@ -7,9 +13,9 @@
 
     input {
       width: 50%;
-      font-size: 18px;
-      padding: 10px;
-      margin: 5px;
+      font-size: 16px;
+      padding: 12px 0 12px 24px;
+      margin: 7px;
       border-radius: 20px;
       border: 1px solid #eee;
 
@@ -25,8 +31,9 @@
       border-radius: 20px;
       padding: 10px;
       border: none;
-      width: 200px;
-      margin-top: 20px;
+      width: 150px;
+      margin-top: 15px;
+      margin-bottom: 50px;
     }
   }
 }

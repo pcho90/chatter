@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import './login.styles.scss';
 import { loginUser } from '../../services/auth';
@@ -28,7 +28,7 @@ const Login = () => {
   };
 
   return (
-    <div className='register'>
+    <div className='login'>
       <header>Login</header>
 
       <form onSubmit={handleSubmit}>
@@ -50,6 +50,8 @@ const Login = () => {
         />
         <button>Login</button>
       </form>
+
+      <Link to='/register'>Don't have an account?</Link>
     </div>
   );
 };

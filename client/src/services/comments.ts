@@ -19,6 +19,13 @@ export const createComment = async (data: CommentData) => {
   return response.data;
 };
 
+export const editComment = async (id: number, data: string) => {
+  const response = await api.put(`/comments/${id}`, {
+    comment: { content: data }
+  });
+  return response.data;
+};
+
 export const deleteComment = async (id: number) => {
   const response = await api.delete(`/comments/${id}`);
 
