@@ -1,0 +1,11 @@
+@import '../../variables';
+
+.custom-button {
+  background: $primary !important;
+  color: #fff !important;
+  border: none !important;
+
+  &:hover {
+    background: $unfollow !important;
+  }
+}

@@ -72,7 +72,7 @@ const Nav = () => {
           <span>Login</span>
         </Link>
       )}
-      {user && <div className='user'>{user.username}</div>}
+      {user && <div className='user'>Logged in as @{user.username}</div>}
     </div>
   );
 };

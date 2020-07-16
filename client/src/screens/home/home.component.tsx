@@ -69,7 +69,7 @@ const Home = () => {
             placeholder="What's happening?"
           />
           <div>
-            <button>Chirp</button>
+            <button disabled={input.length == 0}>Chirp</button>
           </div>
         </form>
       )}

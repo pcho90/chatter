@@ -2,8 +2,7 @@
 
 .post {
   font-size: 15px;
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
 
   button {
     &:focus {
@@ -16,6 +15,10 @@
 
     .name {
       font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     .username,
@@ -44,35 +47,56 @@
     }
   }
 
-  .content {
-    margin: 10px 0;
-  }
-
   .main {
-    padding: 10px 15px 5px 15px;
+    @include flex-column;
     @include border-bottom;
+    padding: 10px 15px 5px 15px;
 
     &:hover {
       background: #f6f8fa;
       cursor: pointer;
 
       .edit-button {
-        fill: #657786;
+        fill: $dark-gray;
       }
     }
 
-    .reply-to {
-      margin-top: 5px;
-      color: #657786;
+    .main-body {
+      display: flex;
+
+      .avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background: $primary;
+        color: #fff;
+        border-radius: 50%;
+        font-size: 22px;
+      }
+
+      .container-body {
+        flex: auto;
+        margin-left: 10px;
+
+        .content {
+          margin: 10px 0;
+        }
+      }
+
+      .reply-to {
+        margin-top: 5px;
+        color: #657786;
+      }
     }
   }
 
   .commenting {
-    display: flex;
-    padding: 10px 0 15px 0;
-    flex-direction: column;
-    align-items: center;
+    @include flex-column;
     @include border-bottom;
+    padding: 10px 0 15px 0;
+    align-items: center;
 
     .comment-text {
       margin: 0 auto;

@@ -1,12 +1,12 @@
-export interface PostListProps {
-  posts: any[];
-  handleDelete: Function;
-}
-
-export interface Likes {
-  user_id: number;
-  post_id?: number | null;
-  comment_id?: number | null;
+export interface User {
+  id: number;
+  username: string;
+  name: string;
+  posts: object[];
+  comments: object[];
+  likes: object[];
+  followers: object[];
+  following: object[];
 }
 
 export interface Post {
@@ -33,6 +33,23 @@ export interface Comment {
   comments: object[];
 }
 
+export interface FollowsType {
+  follower_id: number;
+  following_id: number;
+  id?: number;
+}
+
+export interface PostListProps {
+  posts: any[];
+  handleDelete: Function;
+}
+
+export interface Likes {
+  user_id: number;
+  post_id?: number | null;
+  comment_id?: number | null;
+}
+
 export interface PostData {
   user_id: number;
   username: string;
@@ -48,15 +65,6 @@ export interface CommentData {
   content: string;
   parent_id: number;
   reply_to: string;
-}
-
-export interface User {
-  id: number;
-  username: string;
-  name: string;
-  posts: object[];
-  comments: object[];
-  likes: object[];
 }
 
 export interface Context {

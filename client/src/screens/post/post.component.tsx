@@ -17,6 +17,7 @@ import convertDate from '../../services/convertDate';
 import ButtonBar from '../../components/button-bar/button-bar.component';
 import PostContainer from '../../components/post-container/post-container.component';
 import { isLiked } from '../../services/isLiked';
+import { getInitials } from '../../services/getInitials';
 
 const Post = () => {
   const [post, setPost] = useState<PostType>({
@@ -34,10 +35,10 @@ const Post = () => {
   const { pathname } = useLocation();
   const { goBack } = useHistory();
   const { user } = useContext(UserContext);
+  const { liked } = isLiked(user, post.id);
+  const initials = getInitials(post.name);
   const [commenting, setCommenting] = useState(false);
   const [input, setInput] = useState('');
-
-  const { liked, like } = isLiked(user, post.id);
 
   const fetchPost = async () => {
     let response;
@@ -126,14 +127,6 @@ const Post = () => {
   useEffect(() => {
     fetchPost();
   }, [pathname]);
-
-  const initialSplit = post.name.split(' ');
-  let initials;
-  if (initialSplit[1] && initialSplit[1][0]) {
-    initials = initialSplit[0][0] + initialSplit[1][0];
-  } else {
-    initials = initialSplit[0][0];
-  }
 
   return (
     <div className='comments'>

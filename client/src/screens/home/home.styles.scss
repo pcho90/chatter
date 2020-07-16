@@ -1,9 +1,10 @@
+@import '../../variables';
+
 .home {
   form {
+    @include flex-column;
     border-bottom: 10px solid #e6ecf0;
     padding: 15px 20px;
-    display: flex;
-    flex-direction: column;
 
     div {
       display: flex;

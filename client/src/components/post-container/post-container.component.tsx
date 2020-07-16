@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import './post-container.styles.scss';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
@@ -11,16 +11,18 @@ import { createComment, editComment } from '../../services/comments';
 import { editPost } from '../../services/posts';
 import { createLike, deleteLike } from '../../services/likes';
 import { isLiked } from '../../services/isLiked';
+import { getInitials } from '../../services/getInitials';
 import { Post, Likes } from '../../types';
 import ButtonBar from '../button-bar/button-bar.component';
 
 const PostContainer: React.FC<Post> = props => {
+  const [post, setPost] = useState(props);
   const { user, setUser } = useContext(UserContext);
   const [commenting, setCommenting] = useState(false);
   const [editing, setEditing] = useState(false);
   const [edit, setEdit] = useState(props.content);
   const [input, setInput] = useState('');
-  const [post, setPost] = useState(props);
+  const initials = getInitials(post.name);
   const { push } = useHistory();
 
   const {
@@ -145,21 +147,30 @@ const PostContainer: React.FC<Post> = props => {
   return (
     <div className='post'>
       <div className='main' onClick={e => viewPost(e)}>
-        <div className='details'>
-          <span className='name'>{name}</span>
-          <span className='username'>@{username}</span>
-          <span className='time'>· {convertDate(created_at).timePassed}</span>
-          {user && user.id === user_id && (
-            <span className='edit-buttons'>
-              <EditIcon className='edit-button' onClick={toggleEdit} />
-              <DeleteIcon className='edit-button' onClick={handleClick} />
-            </span>
-          )}
+        <div className='main-body'>
+          <div className='avatar'>{initials}</div>
+          <div className='container-body'>
+            <div className='details'>
+              <Link to={`/users/${username}`}>
+                <span className='name'>{name}</span>
+              </Link>
+              <span className='username'>@{username}</span>
+              <span className='time'>
+                · {convertDate(created_at).timePassed}
+              </span>
+              {user && user.id === user_id && (
+                <span className='edit-buttons'>
+                  <EditIcon className='edit-button' onClick={toggleEdit} />
+                  <DeleteIcon className='edit-button' onClick={handleClick} />
+                </span>
+              )}
+            </div>
+            <div className='reply-to'>
+              {subcomments && `Replying to @` + reply_to}
+            </div>
+            <div className='content'>{content}</div>
+          </div>
         </div>
-        <div className='reply-to'>
-          {subcomments && `Replying to @` + reply_to}
-        </div>
-        <div className='content'>{content}</div>
         <ButtonBar
           toggleCommenting={toggleCommenting}
           comments={

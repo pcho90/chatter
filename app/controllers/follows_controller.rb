@@ -1,5 +1,5 @@
 class FollowsController < ApplicationController
-  before_action :set_follow, only: [:show, :update, :destroy]
+  before_action :set_follow, only: [:show, :update ]
 
   # GET /follows
   def index
@@ -18,7 +18,7 @@ class FollowsController < ApplicationController
     @follow = Follow.new(follow_params)
 
     if @follow.save
-      render json: @follow, status: :created, location: @follow
+      render json: @follow, include: [:follower, :following], status: :created, location: @follow
     else
       render json: @follow.errors, status: :unprocessable_entity
     end
@@ -35,6 +35,7 @@ class FollowsController < ApplicationController
 
   # DELETE /follows/1
   def destroy
+    # @follow = Follow.where(["follower_id = ?", params[:follower_id]]).where(["following_id = ?", params[:following_id]])
     @follow.destroy
   end
 

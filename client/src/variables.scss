@@ -1,6 +1,9 @@
-$primary: dodgerblue;
+$primary: #1da1f2;
+$light-blue: #edf5fd;
+$disabled: #a5d0f5;
 $border-color: #e6ecf0;
 $dark-gray: #657786;
+$unfollow: #ba3356;
 
 @mixin border-bottom {
   border-bottom: 1px solid $border-color;
@@ -16,4 +19,9 @@ $dark-gray: #657786;
 
 @mixin border-right {
   border-right: 1px solid $border-color;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
 }

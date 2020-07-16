@@ -1,8 +1,7 @@
 @import '../../variables';
 
 .comments {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   font-size: 15px;
 
   .back-button {
@@ -24,10 +23,9 @@
   }
 
   .post-head {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 15px 5px 15px;
+    @include flex-column;
     @include border-bottom;
+    padding: 10px 15px 5px 15px;
 
     .post-head-header {
       display: flex;
@@ -46,8 +44,7 @@
       }
 
       .titles {
-        display: flex;
-        flex-direction: column;
+        @include flex-column;
         padding-left: 10px;
         justify-content: center;
 
@@ -80,11 +77,10 @@
     }
   }
   .commenting {
-    display: flex;
-    padding: 10px 0;
-    flex-direction: column;
-    align-items: center;
+    @include flex-column;
     @include border-bottom;
+    padding: 10px 0;
+    align-items: center;
 
     .comment-text {
       margin: 0 auto;

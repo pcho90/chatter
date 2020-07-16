@@ -25,12 +25,24 @@
   }
 
   button {
-    padding: 12px 16px;
+    padding: 10px 14px;
     border-radius: 30px;
     background: $primary;
     border: none;
     color: #fff;
     font-size: 16px;
     font-weight: 700;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:disabled {
+      background: $disabled;
+    }
+
+    &:focus {
+      outline: none;
+    }
   }
 }

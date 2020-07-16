@@ -8,8 +8,7 @@
   }
 
   form {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     align-items: center;
     padding-top: 30px;
 

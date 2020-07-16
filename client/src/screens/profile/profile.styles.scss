@@ -1,47 +1,95 @@
 @import '../../variables';
 
-.icon {
-  height: 18px;
-  width: 18px;
-  fill: $primary;
-  margin-right: 20px;
-}
-
-.back-button {
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.profile-body {
-  .profile-header {
+.profile {
+  .profile-nav {
     display: flex;
-    flex-direction: column;
-    padding: 10px 15px 20px;
-    @include border-bottom;
+    align-items: center;
+    padding: 10px 20px;
 
-    .name {
-      font-size: 19px;
-      font-weight: 800;
-    }
-
-    .username {
-      font-size: 15px;
-      font-weight: 500;
-      color: $dark-gray;
-    }
-
-    .subtitle {
-      margin: 10px 0;
-    }
-
-    .followers {
-      font-weight: 700;
+    .header-title {
+      @include flex-column;
+      flex: auto;
 
       span {
-        font-weight: 400;
+        font-size: 20px;
+      }
+
+      label {
+        font-size: 15px;
+        font-weight: 500;
         color: $dark-gray;
-        margin-right: 20px;
+      }
+    }
+
+    .icon {
+      height: 18px;
+      width: 18px;
+      fill: $primary;
+      margin-right: 30px;
+    }
+
+    .back-button {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .profile-body {
+    .profile-header {
+      @include flex-column;
+      @include border-bottom;
+      padding: 10px 15px 20px;
+
+      .name {
+        font-size: 19px;
+        font-weight: 800;
+      }
+
+      .username {
+        font-size: 15px;
+        font-weight: 500;
+        color: $dark-gray;
+      }
+
+      .subtitle {
+        margin: 10px 0;
+      }
+
+      .followers {
+        font-weight: 700;
+
+        span {
+          font-weight: 400;
+          color: $dark-gray;
+          margin-right: 20px;
+        }
+      }
+
+      .profile-header-top {
+        display: flex;
+        justify-content: space-between;
+
+        .profile-names {
+          @include flex-column;
+        }
+
+        .header-buttons {
+          button {
+            background: #fff;
+            border: 1px solid $primary;
+            color: $primary;
+
+            &:hover {
+              background: $light-blue;
+            }
+          }
+
+          .following {
+            background: $primary;
+            color: #fff;
+          }
+        }
       }
     }
   }
