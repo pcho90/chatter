@@ -78,7 +78,8 @@ export interface ButtonBarProps {
   handleLike: any;
   comments?: number | null | undefined;
   heartFilled?: boolean;
-  handleRepost: any;
+  user: any;
+  post: any;
 }
 
 export interface RepostTypes {
