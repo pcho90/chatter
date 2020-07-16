@@ -6,13 +6,34 @@
   height: 100vh;
   display: flex;
 
+  @media (max-width: 850px) {
+    .nav {
+      margin-left: 50px;
+      width: 50px;
+
+      span {
+        display: none;
+      }
+
+      .user {
+        display: none;
+      }
+    }
+
+    .body {
+      margin-left: 50px;
+      margin-right: auto;
+    }
+  }
+
   a {
     color: #000;
     text-decoration: none;
   }
 
   .body {
-    flex: auto;
+    width: 600px;
+    margin-left: auto;
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
   }

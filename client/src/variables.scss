@@ -4,6 +4,7 @@ $disabled: #a5d0f5;
 $border-color: #e6ecf0;
 $dark-gray: #657786;
 $unfollow: #ba3356;
+$light-gray: #f6f8fa;
 
 @mixin border-bottom {
   border-bottom: 1px solid $border-color;
@@ -24,4 +25,31 @@ $unfollow: #ba3356;
 @mixin flex-column {
   display: flex;
   flex-direction: column;
+}
+
+@mixin avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background: $primary;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 22px;
+}
+
+@mixin inverted-button {
+  background: #fff;
+  border: 1px solid $primary;
+  color: $primary;
+
+  &:hover {
+    background: $light-blue;
+  }
+}
+
+@mixin post-hover {
+  background: $light-gray;
+  cursor: pointer;
 }

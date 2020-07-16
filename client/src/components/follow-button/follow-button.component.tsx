@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import './follow-button.styles.scss';
-import { createFollow, deleteFollow } from '../../services/follows';
+import { getFollows, createFollow, deleteFollow } from '../../services/follows';
 
 interface FollowButtonType {
-  // handleUnfollow?: any;
   user: any;
   currentUser: any;
 }
@@ -23,10 +22,17 @@ const FollowButton: React.FC<FollowButtonType> = ({ user, currentUser }) => {
       following_id: user!.id
     });
     console.log(response);
+    setFollowing(true);
   };
 
-  const handleUnfollow = () => {
-    console.log('yes');
+  const handleUnfollow = async () => {
+    const follows = await getFollows();
+    const follow = follows.find(
+      (item: any) =>
+        item.follower_id === currentUser.id && item.following_id === user.id
+    );
+    await deleteFollow(follow.id);
+    setFollowing(false);
   };
 
   useEffect(() => {

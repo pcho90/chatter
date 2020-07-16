@@ -76,13 +76,9 @@
 
         .header-buttons {
           button {
-            background: #fff;
-            border: 1px solid $primary;
-            color: $primary;
-
-            &:hover {
-              background: $light-blue;
-            }
+            @include inverted-button;
+            padding: 8px 12px;
+            font-size: 15px;
           }
 
           .following {
@@ -90,6 +86,15 @@
             color: #fff;
           }
         }
+      }
+    }
+
+    .editing {
+      @include border-bottom;
+      padding: 15px;
+
+      form {
+        @include flex-column;
       }
     }
   }

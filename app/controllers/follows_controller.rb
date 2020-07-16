@@ -1,5 +1,5 @@
 class FollowsController < ApplicationController
-  before_action :set_follow, only: [:show, :update ]
+  before_action :set_follow, only: [:show, :update, :destroy]
 
   # GET /follows
   def index
@@ -35,7 +35,6 @@ class FollowsController < ApplicationController
 
   # DELETE /follows/1
   def destroy
-    # @follow = Follow.where(["follower_id = ?", params[:follower_id]]).where(["following_id = ?", params[:following_id]])
     @follow.destroy
   end
 

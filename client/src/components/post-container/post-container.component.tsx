@@ -198,7 +198,9 @@ const PostContainer: React.FC<Post> = props => {
             onChange={handleChange}
             placeholder='Your turn'
           />
-          <button onClick={handleSubmit}>Reply</button>
+          <button onClick={handleSubmit} disabled={input.length === 0}>
+            Reply
+          </button>
         </div>
       )}
     </div>

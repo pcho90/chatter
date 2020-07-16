@@ -4,6 +4,7 @@
   @include flex-column;
   width: 150px;
   padding-right: 100px;
+  position: fixed;
 
   .active {
     color: $primary;

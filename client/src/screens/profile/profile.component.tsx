@@ -13,6 +13,7 @@ import FollowButton from '../../components/follow-button/follow-button.component
 
 const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [editing, setEditing] = useState(false);
   const { user: currentUser } = useContext(UserContext);
   const { goBack } = useHistory();
   const { username } = useParams();
@@ -58,7 +59,11 @@ const Profile = () => {
                   <span className='username'>@{user.username}</span>
                 </div>
                 <div className='header-buttons'>
-                  <FollowButton {...{ user, currentUser }} />
+                  {user.id !== currentUser.id ? (
+                    <FollowButton {...{ user, currentUser }} />
+                  ) : (
+                    <button>Edit Profile</button>
+                  )}
                 </div>
               </div>
               <span className='subtitle'>Subtitle</span>
@@ -67,6 +72,16 @@ const Profile = () => {
                 {user.followers.length} <span>Followers</span>
               </div>
             </div>
+            {!editing && (
+              <div className='editing'>
+                <form>
+                  <input />
+                  <input />
+                  <input />
+                  <button>Edit</button>
+                </form>
+              </div>
+            )}
             <PostList {...{ posts: user.posts, handleDelete }} />
           </div>
         </div>
