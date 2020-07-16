@@ -1,20 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, ChangeEvent } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import './profile.styles.scss';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
 import { User } from '../../types';
 import { UserContext } from '../../contexts/user.context';
-import { getUser } from '../../services/users';
+import { getUser, editUser } from '../../services/users';
 import { deleteComment } from '../../services/comments';
 import { deletePost } from '../../services/posts';
 import PostList from '../../components/post-list/post-list.component';
 import FollowButton from '../../components/follow-button/follow-button.component';
+import { isLiked } from '../../services/isLiked';
 
 const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
   const [editing, setEditing] = useState(false);
   const { user: currentUser } = useContext(UserContext);
+  const [subtitle, setSubtitle] = useState('');
   const { goBack } = useHistory();
   const { username } = useParams();
 
@@ -32,12 +34,34 @@ const Profile = () => {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      setSubtitle(user!.subtitle);
+    }
+  }, [user]);
+
   const handleDelete = async (id: number, isComment: boolean) => {
     if (isComment) {
       await deleteComment(id);
     } else {
       await deletePost(id);
     }
+  };
+
+  const handleEdit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await editUser(user!.username, subtitle);
+    setEditing(false);
+    setUser({ ...user!, subtitle });
+  };
+
+  const handleSubtitleChange = (e: ChangeEvent) => {
+    const { value } = e.target as HTMLInputElement;
+    setSubtitle(value);
+  };
+
+  const toggleEdit = () => {
+    setEditing(!editing);
   };
 
   return (
@@ -59,25 +83,23 @@ const Profile = () => {
                   <span className='username'>@{user.username}</span>
                 </div>
                 <div className='header-buttons'>
-                  {user.id !== currentUser.id ? (
+                  {user && currentUser && user.id !== currentUser.id ? (
                     <FollowButton {...{ user, currentUser }} />
                   ) : (
-                    <button>Edit Profile</button>
+                    <button onClick={toggleEdit}>Edit Profile</button>
                   )}
                 </div>
               </div>
-              <span className='subtitle'>Subtitle</span>
+              <span className='subtitle'>{user.subtitle}</span>
               <div className='followers'>
                 {user.following.length} <span>Following</span>
                 {user.followers.length} <span>Followers</span>
               </div>
             </div>
-            {!editing && (
+            {editing && (
               <div className='editing'>
-                <form>
-                  <input />
-                  <input />
-                  <input />
+                <form onSubmit={handleEdit}>
+                  <input onChange={handleSubtitleChange} value={subtitle} />
                   <button>Edit</button>
                 </form>
               </div>

@@ -6,12 +6,13 @@ import './post-container.styles.scss';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
 import { UserContext } from '../../contexts/user.context';
-import convertDate from '../../services/convertDate';
 import { createComment, editComment } from '../../services/comments';
 import { editPost } from '../../services/posts';
 import { createLike, deleteLike } from '../../services/likes';
+import { createRepost } from '../../services/reposts';
 import { isLiked } from '../../services/isLiked';
 import { getInitials } from '../../services/getInitials';
+import convertDate from '../../services/convertDate';
 import { Post, Likes } from '../../types';
 import ButtonBar from '../button-bar/button-bar.component';
 
@@ -144,6 +145,18 @@ const PostContainer: React.FC<Post> = props => {
     setEditing(!editing);
   };
 
+  const handleRepost = async () => {
+    let data;
+    if (comments) {
+      data = { user_id: user.id, post_id: id };
+    } else {
+      data = { user_id: user.id, comment_id: id };
+    }
+
+    const response = await createRepost(data);
+    console.log(response);
+  };
+
   return (
     <div className='post'>
       <div className='main' onClick={e => viewPost(e)}>
@@ -178,6 +191,7 @@ const PostContainer: React.FC<Post> = props => {
           }
           handleLike={handleLike}
           heartFilled={liked}
+          handleRepost={handleRepost}
         />
       </div>
       {editing && (

@@ -10,8 +10,10 @@ export const getUser = async (username: string) => {
   return response.data;
 };
 
-export const editUser = async (id: number, data: string) => {
-  const response = await api.put(`/users/${id}`, { post: { content: data } });
+export const editUser = async (username: string, data: string) => {
+  const response = await api.put(`/users/${username}`, {
+    user: { subtitle: data, password: '123456' }
+  });
   return response.data;
 };
 

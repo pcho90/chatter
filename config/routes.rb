@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reposts
   resources :follows
   resources :posts 
   resources :comments

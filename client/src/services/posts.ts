@@ -18,7 +18,9 @@ export const editPost = async (id: number, data: string) => {
 };
 
 export const createPost = async (data: PostData) => {
-  const response = await api.post('/posts', { post: data });
+  const response = await api.post('/posts', {
+    post: { ...data, repost: false }
+  });
   return response.data;
 };
 

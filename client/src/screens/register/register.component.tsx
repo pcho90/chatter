@@ -8,7 +8,8 @@ const Register = () => {
     name: '',
     username: '',
     email: '',
-    password: ''
+    password: '',
+    subtitle: ''
   });
 
   const handleChange = (e: ChangeEvent) => {

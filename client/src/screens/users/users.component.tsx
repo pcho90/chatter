@@ -35,10 +35,11 @@ const Users = () => {
                   <Link to={`/users/${user.username}`}>
                     <span className='title-name'>{user.name}</span>
                   </Link>
-                  <span className='title-username'>{user.username}</span>
+                  <span className='title-username'>@{user.username}</span>
                 </div>
                 <FollowButton {...{ user, currentUser }} />
               </div>
+              <span className='title-subtitle'>{user.subtitle}</span>
             </div>
           </div>
         ))}

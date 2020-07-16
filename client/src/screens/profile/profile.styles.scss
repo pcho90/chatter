@@ -95,6 +95,20 @@
 
       form {
         @include flex-column;
+
+        input {
+          border: none;
+          padding: 5px;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        button {
+          width: 70px;
+          margin: 0 auto;
+        }
       }
     }
   }

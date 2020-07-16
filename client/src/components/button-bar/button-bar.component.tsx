@@ -11,7 +11,8 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
   toggleCommenting,
   handleLike,
   comments,
-  heartFilled
+  heartFilled,
+  handleRepost
 }) => (
   <div className='buttons'>
     <div className='button-container comment-container'>
@@ -21,7 +22,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
       {comments && comments > 0 && comments}
     </div>
     <div className='button-container share-container'>
-      <span className='button-icon share-button'>
+      <span className='button-icon share-button' onClick={handleRepost}>
         <ShareIcon className='icon-bar' />
       </span>
     </div>

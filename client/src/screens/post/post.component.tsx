@@ -13,6 +13,7 @@ import {
   getComment,
   deleteComment
 } from '../../services/comments';
+import { createRepost } from '../../services/reposts';
 import convertDate from '../../services/convertDate';
 import ButtonBar from '../../components/button-bar/button-bar.component';
 import PostContainer from '../../components/post-container/post-container.component';
@@ -124,6 +125,18 @@ const Post = () => {
     setCommenting(false);
   };
 
+  const handleRepost = async () => {
+    let data;
+    if (post.comments) {
+      data = { user_id: user.id, post_id: id };
+    } else {
+      data = { user_id: user.id, comment_id: id };
+    }
+
+    const response = await createRepost(data);
+    console.log(response);
+  };
+
   useEffect(() => {
     fetchPost();
   }, [pathname]);
@@ -153,6 +166,7 @@ const Post = () => {
           toggleCommenting={toggleCommenting}
           handleLike={handleLike}
           heartFilled={liked}
+          handleRepost={handleRepost}
         />
       </div>
       {commenting && (

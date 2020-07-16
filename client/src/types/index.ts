@@ -7,6 +7,7 @@ export interface User {
   likes: object[];
   followers: object[];
   following: object[];
+  subtitle: string;
 }
 
 export interface Post {
@@ -77,4 +78,11 @@ export interface ButtonBarProps {
   handleLike: any;
   comments?: number | null | undefined;
   heartFilled?: boolean;
+  handleRepost: any;
+}
+
+export interface RepostTypes {
+  user_id: number;
+  post_id?: number;
+  comment_id?: number;
 }
