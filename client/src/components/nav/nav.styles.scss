@@ -1,3 +1,5 @@
+@import '../../variables';
+
 .nav {
   display: flex;
   flex-direction: column;
@@ -5,10 +7,10 @@
   padding-right: 100px;
 
   .active {
-    color: dodgerblue;
+    color: $primary;
 
     .icon {
-      fill: dodgerblue;
+      fill: $primary;
     }
   }
 
@@ -26,17 +28,16 @@
     text-decoration: none;
 
     span {
-      margin-left: 20px;
       font-size: 18px;
       font-weight: 800;
     }
 
     &:hover {
       background-color: rgba(29, 161, 242, 0.1);
-      color: dodgerblue;
+      color: $primary;
 
       .icon {
-        fill: dodgerblue;
+        fill: $primary;
       }
     }
   }
@@ -51,7 +52,7 @@
     padding: 10px 0;
     width: 30px;
     height: 30px;
-    fill: dodgerblue;
+    fill: $primary;
     padding-left: 20px;
   }
 

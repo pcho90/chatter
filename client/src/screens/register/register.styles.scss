@@ -1,3 +1,5 @@
+@import '../../variables';
+
 .register {
   form {
     display: flex;
@@ -20,7 +22,7 @@
 
     button {
       font-size: 18px;
-      background: dodgerblue;
+      background: $primary;
       color: #fff;
       border-radius: 20px;
       padding: 10px;

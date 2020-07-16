@@ -1,0 +1,48 @@
+@import '../../variables';
+
+.icon {
+  height: 18px;
+  width: 18px;
+  fill: $primary;
+  margin-right: 20px;
+}
+
+.back-button {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.profile-body {
+  .profile-header {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px 20px;
+    @include border-bottom;
+
+    .name {
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .username {
+      font-size: 15px;
+      font-weight: 500;
+      color: $dark-gray;
+    }
+
+    .subtitle {
+      margin: 10px 0;
+    }
+
+    .followers {
+      font-weight: 700;
+
+      span {
+        font-weight: 400;
+        color: $dark-gray;
+        margin-right: 20px;
+      }
+    }
+  }
+}

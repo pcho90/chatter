@@ -1,3 +1,5 @@
+@import '../../variables';
+
 .buttons {
   display: flex;
   justify-content: space-around;
@@ -5,7 +7,7 @@
   .button-container {
     display: flex;
     align-items: center;
-    color: #657786;
+    color: $dark-gray;
     font-size: 13px;
 
     .button-icon {
@@ -28,7 +30,7 @@
       &:hover {
         background: #e5eff9;
         .icon-bar {
-          fill: dodgerblue;
+          fill: $primary;
         }
       }
     }
@@ -54,7 +56,7 @@
 
   .comment-container {
     &:hover {
-      color: dodgerblue;
+      color: $primary;
     }
   }
   .share-container {

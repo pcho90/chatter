@@ -1,3 +1,5 @@
+@import '../../variables';
+
 .comments {
   display: flex;
   flex-direction: column;
@@ -17,7 +19,7 @@
   .icon {
     height: 18px;
     width: 18px;
-    fill: dodgerblue;
+    fill: $primary;
     margin-right: 20px;
   }
 
@@ -25,7 +27,7 @@
     display: flex;
     flex-direction: column;
     padding: 10px 15px 5px 15px;
-    border-bottom: 1px solid #e6ecf0;
+    @include border-bottom;
 
     .post-head-header {
       display: flex;
@@ -37,8 +39,8 @@
         align-items: center;
         width: 50px;
         height: 50px;
-        background: dodgerblue;
-        color: white;
+        background: $primary;
+        color: #fff;
         border-radius: 50%;
         font-size: 22px;
       }
@@ -46,7 +48,7 @@
       .titles {
         display: flex;
         flex-direction: column;
-        padding-left: 15px;
+        padding-left: 10px;
         justify-content: center;
 
         .name {
@@ -55,14 +57,14 @@
 
         .username {
           font-weight: 500;
-          color: #657786;
+          color: $dark-gray;
         }
       }
     }
 
     .reply-to {
       font-weight: 500;
-      color: #657786;
+      color: $dark-gray;
     }
 
     .comments {
@@ -71,10 +73,10 @@
     }
 
     .time {
-      color: #657786;
+      color: $dark-gray;
       padding-bottom: 15px;
       margin-bottom: 5px;
-      border-bottom: 1px solid #e6ecf0;
+      @include border-bottom;
     }
   }
   .commenting {
@@ -82,7 +84,7 @@
     padding: 10px 0;
     flex-direction: column;
     align-items: center;
-    border-bottom: 1px solid #e6ecf0;
+    @include border-bottom;
 
     .comment-text {
       margin: 0 auto;

@@ -1,3 +1,8 @@
+export interface PostListProps {
+  posts: any[];
+  handleDelete: Function;
+}
+
 export interface Likes {
   user_id: number;
   post_id?: number | null;
@@ -48,6 +53,7 @@ export interface CommentData {
 export interface User {
   id: number;
   username: string;
+  name: string;
   posts: object[];
   comments: object[];
   likes: object[];

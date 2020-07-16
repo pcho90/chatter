@@ -55,8 +55,8 @@ const Nav = () => {
       {user ? (
         <>
           <Link
-            to='/profile'
-            className={pathname === '/profile' ? 'active' : ''}
+            to={`/users/${user.username}`}
+            className={pathname === `/users/${user.username}` ? 'active' : ''}
           >
             <ProfileIcon className='icon' />
             <span>Profile</span>

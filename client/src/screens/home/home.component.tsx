@@ -8,7 +8,7 @@ import { deleteComment } from '../../services/comments';
 import { deletePost } from '../../services/posts';
 import { UserContext } from '../../contexts/user.context';
 import { createPost, getPosts } from '../../services/posts';
-import PostContainer from '../../components/post-container/post-container.component';
+import PostList from '../../components/post-list/post-list.component';
 
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -73,11 +73,7 @@ const Home = () => {
           </div>
         </form>
       )}
-      {[...posts]
-        .sort((a, b) => +b.id - +a.id)
-        .map((post: Post) => (
-          <PostContainer key={post.id} handleDelete={handleDelete} {...post} />
-        ))}
+      <PostList {...{ posts, handleDelete }} />
     </div>
   );
 };

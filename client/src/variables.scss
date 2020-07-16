@@ -1,0 +1,19 @@
+$primary: dodgerblue;
+$border-color: #e6ecf0;
+$dark-gray: #657786;
+
+@mixin border-bottom {
+  border-bottom: 1px solid $border-color;
+}
+
+@mixin border-top {
+  border-top: 1px solid $border-color;
+}
+
+@mixin border-left {
+  border-left: 1px solid $border-color;
+}
+
+@mixin border-right {
+  border-right: 1px solid $border-color;
+}
