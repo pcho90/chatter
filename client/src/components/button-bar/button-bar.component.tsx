@@ -27,17 +27,20 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
   liked = obj.liked;
   like = obj.like;
 
-  const { reposted, repost } = isReposted(user, post.id);
+  const { reposted } = isReposted(user, post.id);
 
   const handleLike = async () => {
     let postId = null;
     let commentId = null;
+    console.log(post);
 
-    if (comments) {
+    if (post.comments) {
       postId = post.id;
     } else {
       commentId = post.id;
     }
+    console.log(postId);
+    console.log(commentId);
 
     if (post.repost) {
       postId = post.post_id;

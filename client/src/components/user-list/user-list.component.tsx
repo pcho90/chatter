@@ -11,15 +11,17 @@ const UserList = ({ users }: any) => {
   const { user: currentUser } = useContext(UserContext);
   const { push } = useHistory();
 
+  const viewPost = (e: React.MouseEvent, user: any) => {
+    if (e.target instanceof HTMLDivElement) {
+      push(`/users/${user.username}`);
+    }
+  };
+
   return (
     <div className='users-body'>
       {users &&
         users.map((user: User) => (
-          <div
-            key={user.id}
-            className='user'
-            onClick={() => push(`/users/${user.username}`)}
-          >
+          <div key={user.id} className='user' onClick={e => viewPost(e, user)}>
             <div className='avatar'>{getInitials(null, user.name)}</div>
             <div className='user-info'>
               <div className='user-info-title'>
@@ -29,7 +31,7 @@ const UserList = ({ users }: any) => {
                   </Link>
                   <span className='title-username'>@{user.username}</span>
                 </div>
-                {user.username !== currentUser.username && (
+                {currentUser && user.username !== currentUser.username && (
                   <FollowButton {...{ user, currentUser }} />
                 )}
               </div>

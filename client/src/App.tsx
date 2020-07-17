@@ -8,7 +8,6 @@ import Register from './screens/register/register.component';
 import Login from './screens/login/login.component';
 import Post from './screens/post/post.component';
 import Users from './screens/users/users.component';
-import Messages from './screens/messages/messages.component';
 import Profile from './screens/profile/profile.component';
 import Follows from './screens/follows/follows.component';
 
@@ -20,7 +19,6 @@ const App = () => {
         <Route exact path='/' component={Home} />
         <Route exact path='/posts' component={Home} />
         <Route exact path='/users' component={Users} />
-        <Route path='/messages' component={Messages} />
         <Route path='/register' component={Register} />
         <Route path='/login' component={Login} />
         <Route exact path='/users/:username' component={Profile} />

@@ -49,13 +49,6 @@ const Nav = () => {
         <ExploreIcon className='icon' />
         <span>Explore</span>
       </Link>
-      <Link
-        to='/messages'
-        className={pathname === '/messages' ? 'active message' : 'message'}
-      >
-        <MessageIcon className='icon' />
-        <span>Messages</span>
-      </Link>
       {user ? (
         <>
           <Link
