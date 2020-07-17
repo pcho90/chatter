@@ -31,16 +31,19 @@ export const isReposted = (user: any, id: number) => {
 };
 
 export const getInitials = (post: any, name: string) => {
-  let initialSplit, initials;
+  let initialSplit,
+    initials = '?';
   if (name) {
     initialSplit = name.split(' ');
-  } else {
+  } else if (post.name) {
     initialSplit = post.name.split(' ');
   }
-  if (initialSplit[1] && initialSplit[1][0]) {
-    initials = initialSplit[0][0] + initialSplit[1][0];
-  } else {
-    initials = initialSplit[0][0];
+  if (initialSplit) {
+    if (initialSplit[1] && initialSplit[1][0]) {
+      initials = initialSplit[0][0] + initialSplit[1][0];
+    } else {
+      initials = initialSplit[0][0];
+    }
   }
 
   return initials;

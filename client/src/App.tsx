@@ -10,6 +10,7 @@ import Post from './screens/post/post.component';
 import Users from './screens/users/users.component';
 import Profile from './screens/profile/profile.component';
 import Follows from './screens/follows/follows.component';
+import Notifications from './screens/notifications/notifications.component';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route exact path='/users' component={Users} />
         <Route path='/register' component={Register} />
         <Route path='/login' component={Login} />
+        <Route path='/notifications' component={Notifications} />
         <Route exact path='/users/:username' component={Profile} />
         <Route path='/users/:username/followers' component={Follows} />
         <Route path='/users/:username/following' component={Follows} />

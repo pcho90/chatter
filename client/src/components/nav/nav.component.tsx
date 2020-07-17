@@ -6,7 +6,7 @@ import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as HomeIcon } from '../../assets/home.svg';
 import { ReactComponent as UserIcon } from '../../assets/user.svg';
 import { ReactComponent as UsersIcon } from '../../assets/users.svg';
-import { ReactComponent as MessageIcon } from '../../assets/message.svg';
+import { ReactComponent as BellIcon } from '../../assets/bell.svg';
 import { ReactComponent as ExploreIcon } from '../../assets/explore.svg';
 import { ReactComponent as ProfileIcon } from '../../assets/profile.svg';
 
@@ -51,6 +51,15 @@ const Nav = () => {
       </Link>
       {user ? (
         <>
+          <Link
+            to='/notifications'
+            className={
+              pathname === `/notifications` ? 'active notify' : 'notify'
+            }
+          >
+            <BellIcon className='icon' />
+            <span>Notifications</span>
+          </Link>
           <Link
             to={`/users/${user.username}`}
             className={pathname === `/users/${user.username}` ? 'active' : ''}

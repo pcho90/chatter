@@ -69,12 +69,15 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
 
   const handleRepost = async () => {
     let data;
-    if (post.comments || post.repost) {
-      data = { user_id: user.id, post_id: post.post_id };
+    if (!post.repost) {
+      if (post.comments) {
+        data = { user_id: user.id, post_id: post.id };
+      } else {
+        data = { user_id: user.id, comment_id: post.id };
+      }
     } else {
-      data = { user_id: user.id, comment_id: post.post_id };
+      data = { user_id: user.id, post_id: post.post_id };
     }
-
     const response = await createRepost(data);
     console.log(response);
   };
