@@ -31,6 +31,9 @@ const convertDate = (date: string) => {
     timePassed = `${daysPassed - 1}d`;
   }
 
+  let secondsPassed =
+    daysPassed * 86400 + hoursPassed * 3600 + minutesPassed * 60;
+
   let hour = +hours;
   let amPm = 'AM';
 
@@ -67,7 +70,8 @@ const convertDate = (date: string) => {
     year,
     formattedDate,
     formattedTime,
-    timePassed
+    timePassed,
+    secondsPassed
   };
 };
 

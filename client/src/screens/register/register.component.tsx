@@ -1,9 +1,12 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import './register.styles.scss';
+import { UserContext } from '../../contexts/user.context';
 import { registerUser } from '../../services/auth';
 
 const Register = () => {
+  const { setUser } = useContext(UserContext);
   const [input, setInput] = useState({
     name: '',
     username: '',
@@ -11,8 +14,9 @@ const Register = () => {
     password: '',
     subtitle: ''
   });
+  const { push } = useHistory();
 
-  const handleChange = (e: ChangeEvent) => {
+  const handleChange = (e: React.ChangeEvent) => {
     const { name, value } = e.target as HTMLInputElement;
 
     setInput({ ...input, [name]: value });
@@ -22,6 +26,9 @@ const Register = () => {
     e.preventDefault();
 
     const user = await registerUser(input);
+    setUser(user);
+
+    push('/');
 
     console.log(user);
   };

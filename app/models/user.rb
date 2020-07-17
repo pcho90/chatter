@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :followers, through: :follower_ref, source: :follower, dependent: :destroy
   has_many :following_ref, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
   has_many :following, through: :following_ref, source: :following, dependent: :destroy
-  has_many :reposts
+  has_many :reposts, dependent: :destroy
 
   has_secure_password
 

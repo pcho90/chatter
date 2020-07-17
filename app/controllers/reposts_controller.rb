@@ -46,6 +46,6 @@ class RepostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def repost_params
-      params.require(:repost).permit(:user_id, :post_id, :comment_id)
+      params.require(:repost).permit(:user_id, :post_id, :comment_id, :parent_id)
     end
 end

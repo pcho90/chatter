@@ -8,6 +8,7 @@ import { deleteComment } from '../../services/comments';
 import { deletePost } from '../../services/posts';
 import { UserContext } from '../../contexts/user.context';
 import { createPost, getPosts } from '../../services/posts';
+import { getReposts, deleteRepost } from '../../services/reposts';
 import PostList from '../../components/post-list/post-list.component';
 
 const Home = () => {
@@ -17,7 +18,21 @@ const Home = () => {
 
   const fetchPosts = async () => {
     const response = await getPosts();
-    setPosts(response);
+    const reposts = await getReposts();
+
+    const repostsData = reposts.map((each: any) => ({
+      ...each.post,
+      repost: true,
+      repost_by: each.user.username,
+      created_at: each.created_at,
+      id: each.id,
+      post_id: each.post_id,
+      comment_id: each.comment_id,
+      repost_id: each.user.id
+    }));
+    console.log([...response, ...repostsData]);
+
+    setPosts([...response, ...repostsData]);
   };
 
   const handleChange = (e: React.ChangeEvent) => {
@@ -43,9 +58,11 @@ const Home = () => {
     setInput('');
   };
 
-  const handleDelete = async (id: number, isComment: boolean) => {
-    if (isComment) {
+  const handleDelete = async (id: number, type: number) => {
+    if (type === 1) {
       await deleteComment(id);
+    } else if (type === 2) {
+      await deleteRepost(id);
     } else {
       await deletePost(id);
     }
@@ -73,7 +90,7 @@ const Home = () => {
           </div>
         </form>
       )}
-      <PostList {...{ posts, handleDelete }} />
+      <PostList {...{ posts, handleDelete, user }} />
     </div>
   );
 };

@@ -2,9 +2,7 @@
 
 .profile {
   .profile-nav {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
+    @include header;
 
     .header-title {
       @include flex-column;
@@ -14,19 +12,10 @@
         font-size: 20px;
       }
 
-      label {
-        font-size: 15px;
-        font-weight: 500;
-        color: $dark-gray;
-      }
+      @include header-label;
     }
 
-    .icon {
-      height: 18px;
-      width: 18px;
-      fill: $primary;
-      margin-right: 30px;
-    }
+    @include header-icon;
 
     .back-button {
       &:hover {
@@ -58,11 +47,18 @@
 
       .followers {
         font-weight: 700;
+        font-size: 15px;
 
         span {
           font-weight: 400;
           color: $dark-gray;
           margin-right: 20px;
+        }
+
+        a {
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
 

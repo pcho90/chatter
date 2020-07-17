@@ -6,7 +6,6 @@ import './post.styles.scss';
 import { UserContext } from '../../contexts/user.context';
 import { Post as PostType } from '../../types';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
-import { createLike } from '../../services/likes';
 import { getPost, deletePost } from '../../services/posts';
 import {
   createComment,
@@ -16,8 +15,7 @@ import {
 import convertDate from '../../services/convertDate';
 import ButtonBar from '../../components/button-bar/button-bar.component';
 import PostContainer from '../../components/post-container/post-container.component';
-import { isLiked } from '../../services/isLiked';
-import { getInitials } from '../../services/getInitials';
+import { getInitials } from '../../services/helpers';
 
 const Post = () => {
   const [post, setPost] = useState<PostType>({
@@ -34,9 +32,8 @@ const Post = () => {
   const { formattedTime, formattedDate } = convertDate(post.created_at);
   const { pathname } = useLocation();
   const { goBack } = useHistory();
-  const { user } = useContext(UserContext);
-  const { liked } = isLiked(user, post.id);
-  const initials = getInitials(post.name);
+  const { user, setUser } = useContext(UserContext);
+  const initials = getInitials(post, '');
   const [commenting, setCommenting] = useState(false);
   const [input, setInput] = useState('');
 
@@ -64,24 +61,6 @@ const Post = () => {
     }
 
     fetchPost();
-  };
-
-  const handleLike = async () => {
-    let postId, commentId;
-
-    if (post.comments) {
-      postId = id;
-    } else {
-      commentId = id;
-    }
-
-    const response = await createLike({
-      user_id: user.id,
-      post_id: postId,
-      comment_id: commentId
-    });
-
-    console.log(response);
   };
 
   const handleBack = () => {
@@ -151,9 +130,7 @@ const Post = () => {
         </span>
         <ButtonBar
           toggleCommenting={toggleCommenting}
-          handleLike={handleLike}
-          heartFilled={liked}
-          {...{ post, user }}
+          {...{ post, user, setUser }}
         />
       </div>
       {commenting && (

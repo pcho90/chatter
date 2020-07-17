@@ -12,16 +12,11 @@ const FollowButton: React.FC<FollowButtonType> = ({ user, currentUser }) => {
   const [hover, setHover] = useState(false);
   const [following, setFollowing] = useState(false);
 
-  const handleHover = () => {
-    setHover(!hover);
-  };
-
   const handleFollow = async () => {
-    const response = await createFollow({
+    await createFollow({
       follower_id: currentUser.id,
       following_id: user!.id
     });
-    console.log(response);
     setFollowing(true);
   };
 
@@ -41,7 +36,6 @@ const FollowButton: React.FC<FollowButtonType> = ({ user, currentUser }) => {
       currentUser.following.find((follow: any) => follow.id === user!.id)
     ) {
       setFollowing(true);
-      console.log('following');
     }
   }, []);
 
@@ -50,8 +44,8 @@ const FollowButton: React.FC<FollowButtonType> = ({ user, currentUser }) => {
       {following ? (
         <button
           className='custom-button'
-          onMouseEnter={handleHover}
-          onMouseLeave={handleHover}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
           onClick={handleUnfollow}
         >
           {hover ? 'Unfollow' : 'Following'}

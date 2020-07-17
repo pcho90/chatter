@@ -23,6 +23,9 @@ export interface Post {
   post_id?: number | null;
   handleDelete?: any;
   reply_to?: string;
+  repost?: boolean;
+  post?: any;
+  repost_by?: any;
 }
 
 export interface Comment {
@@ -43,6 +46,7 @@ export interface FollowsType {
 export interface PostListProps {
   posts: any[];
   handleDelete: Function;
+  user: any;
 }
 
 export interface Likes {
@@ -75,10 +79,9 @@ export interface Context {
 
 export interface ButtonBarProps {
   toggleCommenting: React.Dispatch<any>;
-  handleLike: any;
   comments?: number | null | undefined;
-  heartFilled?: boolean;
   user: any;
+  setUser: any;
   post: any;
 }
 

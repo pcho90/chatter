@@ -11,9 +11,7 @@
     font-size: 13px;
 
     .button-icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include center;
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -23,10 +21,15 @@
     .icon-bar {
       width: 18px;
       height: 18px;
-      fill: #657786;
+      fill: $dark-gray;
+    }
+
+    .repost {
+      fill: $green;
     }
 
     .comment-button {
+      @include button-transition;
       &:hover {
         background: #e5eff9;
         .icon-bar {
@@ -36,41 +39,46 @@
     }
 
     .share-button {
+      @include button-transition;
       &:hover {
         background: #e6f2ec;
         .icon-bar {
-          fill: #5bbc6f;
+          fill: $green;
         }
       }
     }
 
     .heart-button {
+      @include button-transition;
       &:hover {
         background: #f2e5eb;
         .icon-bar {
-          fill: #d45778;
+          fill: $heart;
         }
       }
     }
   }
 
   .comment-container {
+    transition: color 0.2s;
     &:hover {
       color: $primary;
     }
   }
   .share-container {
+    transition: color 0.2s;
     &:hover {
-      color: #5bbc6f;
+      color: $green;
     }
   }
   .heart-container {
+    transition: color 0.2s;
     &:hover {
-      color: #d45778;
+      color: $heart;
     }
   }
 }
 
 .heart-filled {
-  fill: #d45778 !important;
+  fill: $heart !important;
 }

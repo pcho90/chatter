@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, ChangeEvent } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 import './profile.styles.scss';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
@@ -10,10 +10,10 @@ import { deleteComment } from '../../services/comments';
 import { deletePost } from '../../services/posts';
 import PostList from '../../components/post-list/post-list.component';
 import FollowButton from '../../components/follow-button/follow-button.component';
-import { isLiked } from '../../services/isLiked';
 
 const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [posts, setPosts] = useState<any>([]);
   const [editing, setEditing] = useState(false);
   const { user: currentUser } = useContext(UserContext);
   const [subtitle, setSubtitle] = useState('');
@@ -23,7 +23,18 @@ const Profile = () => {
   const fetchUser = async () => {
     const response = await getUser(username);
     setUser(response);
-    console.log(response);
+
+    const repostsData = response.reposts.map((each: any) => ({
+      ...each.post,
+      repost: true,
+      repost_by: each.user.username,
+      created_at: each.created_at,
+      id: each.id,
+      post_id: each.post_id,
+      comment_id: each.comment_id
+    }));
+
+    setPosts([...response.posts, ...repostsData]);
   };
 
   const handleBack = () => {
@@ -92,8 +103,12 @@ const Profile = () => {
               </div>
               <span className='subtitle'>{user.subtitle}</span>
               <div className='followers'>
-                {user.following.length} <span>Following</span>
-                {user.followers.length} <span>Followers</span>
+                <Link to={`/users/${user.username}/following`}>
+                  {user.following.length} <span>Following</span>
+                </Link>
+                <Link to={`/users/${user.username}/followers`}>
+                  {user.followers.length} <span>Followers</span>
+                </Link>
               </div>
             </div>
             {editing && (
@@ -104,7 +119,7 @@ const Profile = () => {
                 </form>
               </div>
             )}
-            <PostList {...{ posts: user.posts, handleDelete }} />
+            <PostList {...{ posts, handleDelete, user: null }} />
           </div>
         </div>
       )}

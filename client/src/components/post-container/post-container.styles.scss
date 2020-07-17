@@ -51,6 +51,7 @@
     @include flex-column;
     @include border-bottom;
     padding: 10px 15px 5px 15px;
+    transition: background 0.2s;
 
     &:hover {
       @include post-hover;
@@ -58,6 +59,26 @@
       .edit-button {
         fill: $dark-gray;
       }
+    }
+
+    .repost-info {
+      padding-left: 30px;
+      font-size: 13px;
+      color: $dark-gray;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+
+      .repost-icon {
+        height: 15px;
+        width: 15px;
+        fill: $dark-gray;
+        margin-right: 15px;
+      }
+    }
+
+    .repost-hide {
+      display: none;
     }
 
     .main-body {

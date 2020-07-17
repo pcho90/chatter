@@ -5,6 +5,8 @@ $border-color: #e6ecf0;
 $dark-gray: #657786;
 $unfollow: #ba3356;
 $light-gray: #f6f8fa;
+$green: #5bbc6f;
+$heart: #d45778;
 
 @mixin border-bottom {
   border-bottom: 1px solid $border-color;
@@ -52,4 +54,37 @@ $light-gray: #f6f8fa;
 @mixin post-hover {
   background: $light-gray;
   cursor: pointer;
+}
+
+@mixin header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+@mixin header-label {
+  label {
+    font-size: 13px;
+    font-weight: 500;
+    color: $dark-gray;
+  }
+}
+
+@mixin header-icon {
+  .icon {
+    height: 18px;
+    width: 18px;
+    fill: $primary;
+    margin-right: 30px;
+  }
+}
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button-transition {
+  transition: background 0.2s, fill 0.2s;
 }

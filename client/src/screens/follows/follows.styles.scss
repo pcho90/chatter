@@ -1,0 +1,59 @@
+@import '../../variables';
+
+.follows {
+  @include flex-column;
+
+  .follows-header {
+    @include header;
+    border-bottom: none;
+
+    .header-title {
+      @include flex-column;
+      flex: auto;
+
+      span {
+        font-size: 20px;
+      }
+
+      @include header-label;
+    }
+
+    @include header-icon;
+
+    .back-button {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .follows-tabs {
+    @include center;
+    border-bottom: 2px solid $border-color;
+    height: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    color: $dark-gray;
+
+    .active {
+      color: $primary;
+      border-bottom: 2px solid $primary;
+    }
+
+    span {
+      @include center;
+      flex: auto;
+      padding: auto;
+      height: 50px;
+      border-bottom: 2px solid #fff;
+      transition: background 0.2s;
+
+      &:hover {
+        background: $light-blue;
+        color: $primary;
+        border-bottom: 2px solid $light-blue;
+        cursor: pointer;
+      }
+    }
+  }
+}

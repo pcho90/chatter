@@ -3,16 +3,15 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { Link, useHistory } from 'react-router-dom';
 
 import './post-container.styles.scss';
+import { ReactComponent as ShareIcon } from '../../assets/share.svg';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
 import { UserContext } from '../../contexts/user.context';
 import { createComment, editComment } from '../../services/comments';
 import { editPost } from '../../services/posts';
-import { createLike, deleteLike } from '../../services/likes';
-import { isLiked } from '../../services/isLiked';
-import { getInitials } from '../../services/getInitials';
+import { getInitials } from '../../services/helpers';
 import convertDate from '../../services/convertDate';
-import { Post, Likes } from '../../types';
+import { Post } from '../../types';
 import ButtonBar from '../button-bar/button-bar.component';
 
 const PostContainer: React.FC<Post> = props => {
@@ -22,7 +21,7 @@ const PostContainer: React.FC<Post> = props => {
   const [editing, setEditing] = useState(false);
   const [edit, setEdit] = useState(props.content);
   const [input, setInput] = useState('');
-  const initials = getInitials(post.name);
+  const initials = getInitials(post, '');
   const { push } = useHistory();
 
   const {
@@ -35,44 +34,14 @@ const PostContainer: React.FC<Post> = props => {
     subcomments,
     user_id,
     handleDelete,
-    reply_to
+    reply_to,
+    repost,
+    repost_by
   } = post;
-
-  const { liked, like } = isLiked(user, id);
 
   const handleEditChange = (e: React.ChangeEvent) => {
     const { value } = e.target as HTMLTextAreaElement;
     setEdit(value);
-  };
-
-  const handleLike = async () => {
-    let postId = null;
-    let commentId = null;
-
-    if (comments) {
-      postId = id;
-    } else {
-      commentId = id;
-    }
-
-    if (liked) {
-      await deleteLike(like.id);
-      setUser({
-        ...user,
-        likes: user.likes.filter((item: any) => item.id !== like.id)
-      });
-    } else {
-      const likeData: Likes = {
-        user_id: user.id,
-        post_id: postId,
-        comment_id: commentId
-      };
-      await createLike(likeData);
-      setUser({
-        ...user,
-        likes: [...user.likes, likeData]
-      });
-    }
   };
 
   const toggleCommenting = () => {
@@ -88,6 +57,8 @@ const PostContainer: React.FC<Post> = props => {
     if (e.target instanceof HTMLDivElement) {
       if (comments) {
         push(`/posts/${id}`);
+      } else if (repost) {
+        push(`/posts/${post.post_id}`);
       } else {
         push(`/comments/${id}`);
       }
@@ -122,9 +93,11 @@ const PostContainer: React.FC<Post> = props => {
 
   const handleClick = () => {
     if (comments) {
-      handleDelete(id, false);
+      handleDelete(id, 1);
+    } else if (post.repost) {
+      handleDelete(post.id, 2);
     } else {
-      handleDelete(id, true);
+      handleDelete(id, 3);
     }
   };
 
@@ -147,6 +120,14 @@ const PostContainer: React.FC<Post> = props => {
   return (
     <div className='post'>
       <div className='main' onClick={e => viewPost(e)}>
+        <div className={repost ? `repost-info` : `repost-hide`}>
+          {repost && (
+            <>
+              <ShareIcon className='repost-icon' />
+              {repost_by} reposted
+            </>
+          )}
+        </div>
         <div className='main-body'>
           <div className='avatar'>{initials}</div>
           <div className='container-body'>
@@ -176,9 +157,7 @@ const PostContainer: React.FC<Post> = props => {
           comments={
             (comments && comments.length) || (subcomments && subcomments.length)
           }
-          handleLike={handleLike}
-          heartFilled={liked}
-          {...{ user, post }}
+          {...{ user, post, setUser }}
         />
       </div>
       {editing && (
