@@ -1,6 +1,7 @@
 @import '../../variables';
 
 .register {
+  @include layout;
   form {
     @include flex-column;
     align-items: center;

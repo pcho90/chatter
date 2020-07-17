@@ -3,7 +3,7 @@ import axios from 'axios';
 let apiUrl;
 
 const apiUrls = {
-  production: 'https://frozen-tor-57426.herokuapp.com/api',
+  production: 'https://chatter-pc.herokuapp.com/',
   development: 'http://localhost:3000'
 };
 
