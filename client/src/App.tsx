@@ -18,6 +18,7 @@ const App = () => {
       <Nav />
       <div className='body'>
         <Route exact path='/' component={Home} />
+        <Route exact path='/posts' component={Home} />
         <Route exact path='/users' component={Users} />
         <Route path='/messages' component={Messages} />
         <Route path='/register' component={Register} />

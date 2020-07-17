@@ -33,6 +33,7 @@ const FollowButton: React.FC<FollowButtonType> = ({ user, currentUser }) => {
   useEffect(() => {
     if (
       currentUser &&
+      currentUser.following &&
       currentUser.following.find((follow: any) => follow.id === user!.id)
     ) {
       setFollowing(true);

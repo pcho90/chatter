@@ -24,6 +24,12 @@ $heart: #d45778;
   border-right: 1px solid $border-color;
 }
 
+@mixin layout {
+  border-right: 1px solid $border-color;
+  border-left: 1px solid $border-color;
+  min-height: 100vh;
+}
+
 @mixin flex-column {
   display: flex;
   flex-direction: column;

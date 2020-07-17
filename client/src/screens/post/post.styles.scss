@@ -1,6 +1,7 @@
 @import '../../variables';
 
 .comments {
+  @include layout;
   @include flex-column;
   font-size: 15px;
 
@@ -62,7 +63,7 @@
       color: $dark-gray;
     }
 
-    .comments {
+    .comments-body {
       padding: 10px 0;
       font-size: 24px;
     }

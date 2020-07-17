@@ -124,7 +124,7 @@ const Post = () => {
         <div className='reply-to'>
           {post.subcomments && `Replying to @` + post.reply_to}
         </div>
-        <div className='comments'>{post.content}</div>
+        <div className='comments-body'>{post.content}</div>
         <span className='time'>
           {formattedTime} · {formattedDate}
         </span>

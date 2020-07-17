@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import './user-list.styles.scss';
 import { User } from '../../types';
@@ -9,12 +9,17 @@ import FollowButton from '../../components/follow-button/follow-button.component
 
 const UserList = ({ users }: any) => {
   const { user: currentUser } = useContext(UserContext);
+  const { push } = useHistory();
 
   return (
     <div className='users-body'>
       {users &&
         users.map((user: User) => (
-          <div key={user.id} className='user'>
+          <div
+            key={user.id}
+            className='user'
+            onClick={() => push(`/users/${user.username}`)}
+          >
             <div className='avatar'>{getInitials(null, user.name)}</div>
             <div className='user-info'>
               <div className='user-info-title'>
@@ -24,7 +29,9 @@ const UserList = ({ users }: any) => {
                   </Link>
                   <span className='title-username'>@{user.username}</span>
                 </div>
-                <FollowButton {...{ user, currentUser }} />
+                {user.username !== currentUser.username && (
+                  <FollowButton {...{ user, currentUser }} />
+                )}
               </div>
               <span className='title-subtitle'>{user.subtitle}</span>
             </div>

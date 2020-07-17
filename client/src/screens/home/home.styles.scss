@@ -1,6 +1,7 @@
 @import '../../variables';
 
 .home {
+  @include layout;
   form {
     @include flex-column;
     border-bottom: 10px solid #e6ecf0;

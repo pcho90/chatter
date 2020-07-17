@@ -7,7 +7,7 @@ import { ReactComponent as HomeIcon } from '../../assets/home.svg';
 import { ReactComponent as UserIcon } from '../../assets/user.svg';
 import { ReactComponent as UsersIcon } from '../../assets/users.svg';
 import { ReactComponent as MessageIcon } from '../../assets/message.svg';
-import { ReactComponent as SearchIcon } from '../../assets/search.svg';
+import { ReactComponent as ExploreIcon } from '../../assets/explore.svg';
 import { ReactComponent as ProfileIcon } from '../../assets/profile.svg';
 
 import { verifyUser, removeToken } from '../../services/auth';
@@ -44,6 +44,10 @@ const Nav = () => {
       <Link to='/users' className={pathname === '/users' ? 'active' : ''}>
         <UsersIcon className='icon' />
         <span>Users</span>
+      </Link>
+      <Link to='/posts' className={pathname === '/posts' ? 'active' : ''}>
+        <ExploreIcon className='icon' />
+        <span>Explore</span>
       </Link>
       <Link
         to='/messages'

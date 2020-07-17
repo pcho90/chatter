@@ -6,7 +6,6 @@ import { ReactComponent as BackIcon } from '../../assets/back.svg';
 import { User } from '../../types';
 import { getUser } from '../../services/users';
 import UserList from '../../components/user-list/user-list.component';
-import { isReposted } from '../../services/helpers';
 
 const Follows = () => {
   const [user, setUser] = useState<User | any>(null);

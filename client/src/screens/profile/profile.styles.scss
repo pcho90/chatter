@@ -1,6 +1,7 @@
 @import '../../variables';
 
 .profile {
+  @include layout;
   .profile-nav {
     @include header;
 

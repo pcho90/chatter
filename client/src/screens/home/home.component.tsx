@@ -30,7 +30,6 @@ const Home = () => {
       comment_id: each.comment_id,
       repost_id: each.user.id
     }));
-    console.log([...response, ...repostsData]);
 
     setPosts([...response, ...repostsData]);
   };
@@ -52,8 +51,6 @@ const Home = () => {
       content: input
     });
 
-    console.log(posts);
-
     setPosts([...posts, { ...post, comments: [] }]);
     setInput('');
   };
@@ -66,7 +63,6 @@ const Home = () => {
     } else {
       await deletePost(id);
     }
-    console.log(posts);
     fetchPosts();
   };
 
