@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 
 import './follows.styles.scss';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
@@ -12,8 +12,9 @@ const Follows = () => {
   const [user, setUser] = useState<User | any>(null);
   const [users, setUsers] = useState(null);
   const [active, setActive] = useState(false);
-  const { goBack } = useHistory();
+  const { goBack, push } = useHistory();
   const { username } = useParams();
+  const { pathname } = useLocation();
 
   const handleBack = () => {
     goBack();
@@ -22,22 +23,18 @@ const Follows = () => {
   const fetchUser = async () => {
     const response = await getUser(username);
     setUser(response);
-    setUsers(response.following);
+    if (pathname.includes('followers')) {
+      setUsers(response.followers);
+      setActive(true);
+    } else {
+      setUsers(response.following);
+      setActive(false);
+    }
   };
 
   useEffect(() => {
     fetchUser();
   }, []);
-
-  useEffect(() => {
-    if (user) {
-      if (active) {
-        setUsers(user.followers);
-      } else {
-        setUsers(user.following);
-      }
-    }
-  }, [active]);
 
   return (
     <div className='follows'>
@@ -52,13 +49,13 @@ const Follows = () => {
           </header>
           <div className='follows-tabs'>
             <span
-              onClick={() => setActive(false)}
+              onClick={() => push(`/users/${user.username}/following`)}
               className={!active ? `active` : ``}
             >
               Following
             </span>
             <span
-              onClick={() => setActive(true)}
+              onClick={() => push(`/users/${user.username}/followers`)}
               className={active ? `active` : ``}
             >
               Followers
