@@ -1,0 +1,29 @@
+@import '../../variables';
+
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 3rem;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  @include border-top;
+
+  .icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    fill: $dark-gray;
+  }
+
+  .active {
+    .icon {
+      fill: $primary;
+    }
+  }
+
+  @media (min-width: 600px) {
+    display: none;
+  }
+}

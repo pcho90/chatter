@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 
 import './App.scss';
 import Nav from './components/nav/nav.component';
+import MobileNav from './components/mobile-nav/mobile-nav.component';
 import Home from './screens/home/home.component';
 import Register from './screens/register/register.component';
 import Login from './screens/login/login.component';
@@ -16,6 +17,7 @@ const App = () => {
   return (
     <div className='App'>
       <Nav />
+      <MobileNav />
       <div className='body'>
         <Route exact path='/' component={Home} />
         <Route exact path='/posts' component={Home} />
