@@ -16,6 +16,7 @@ import convertDate from '../../services/convertDate';
 import ButtonBar from '../../components/button-bar/button-bar.component';
 import PostContainer from '../../components/post-container/post-container.component';
 import { getInitials } from '../../services/helpers';
+import { createNotification } from '../../services/notifications';
 
 const Post = () => {
   const [post, setPost] = useState<PostType>({
@@ -92,6 +93,22 @@ const Post = () => {
       parent_id,
       reply_to: post.username
     });
+
+    let category;
+    if (post.comments) {
+      category = 'comment';
+    } else {
+      category = 'subcomment';
+    }
+
+    const notification = await createNotification({
+      category,
+      refers: post_id,
+      sender_id: user.id,
+      receiver_id: post.user_id!
+    });
+
+    console.log(notification);
 
     if (post.comments) {
       setPost({ ...post, comments: [...post.comments, response] });

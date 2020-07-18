@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import './notification.styles.scss';
+import { UserContext } from '../../contexts/user.context';
 
 const Notifications = () => {
+  const { user } = useContext(UserContext);
   return (
     <div className='notifications'>
       <header>Notifications</header>
-      Notifications here.
+      {user && (
+        <div className='notifications-body'>
+          {user.notifications.map((notification: any) => (
+            <div>{notification.category}</div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

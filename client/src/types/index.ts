@@ -90,3 +90,10 @@ export interface RepostTypes {
   post_id?: number;
   comment_id?: number;
 }
+
+export interface NotificationTypes {
+  category: string;
+  sender_id: number;
+  receiver_id: number;
+  refers: number;
+}

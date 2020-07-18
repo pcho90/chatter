@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import './follow-button.styles.scss';
 import { getFollows, createFollow, deleteFollow } from '../../services/follows';
+import { createNotification } from '../../services/notifications';
 
 interface FollowButtonType {
   user: any;
@@ -13,11 +14,18 @@ const FollowButton: React.FC<FollowButtonType> = ({ user, currentUser }) => {
   const [following, setFollowing] = useState(false);
 
   const handleFollow = async () => {
-    await createFollow({
+    const response = await createFollow({
       follower_id: currentUser.id,
-      following_id: user!.id
+      following_id: user.id
     });
     setFollowing(true);
+    const notification = await createNotification({
+      category: 'follow',
+      refers: response.id,
+      sender_id: currentUser.id,
+      receiver_id: user.id
+    });
+    console.log(notification);
   };
 
   const handleUnfollow = async () => {

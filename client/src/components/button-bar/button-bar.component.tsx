@@ -10,6 +10,7 @@ import { createLike, deleteLike } from '../../services/likes';
 import { isLiked, isReposted } from '../../services/helpers';
 import { Likes } from '../../types';
 import { createRepost } from '../../services/reposts';
+import { createNotification } from '../../services/notifications';
 
 const ButtonBar: React.FC<ButtonBarProps> = ({
   toggleCommenting,
@@ -32,15 +33,15 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
   const handleLike = async () => {
     let postId = null;
     let commentId = null;
-    console.log(post);
+    let category;
 
     if (post.comments) {
       postId = post.id;
+      category = 'like post';
     } else {
       commentId = post.id;
+      category = 'like comment';
     }
-    console.log(postId);
-    console.log(commentId);
 
     if (post.repost) {
       postId = post.post_id;
@@ -60,6 +61,16 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
         comment_id: commentId
       };
       await createLike(likeData);
+
+      const notification = await createNotification({
+        category,
+        refers: postId,
+        sender_id: user.id,
+        receiver_id: post.user_id
+      });
+
+      console.log(notification);
+
       setUser({
         ...user,
         likes: [...user.likes, likeData]
@@ -69,6 +80,14 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
 
   const handleRepost = async () => {
     let data;
+    let postId;
+
+    if (post.repost) {
+      postId = post.post_id;
+    } else {
+      postId = post.id;
+    }
+
     if (!post.repost) {
       if (post.comments) {
         data = { user_id: user.id, post_id: post.id };
@@ -79,6 +98,22 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
       data = { user_id: user.id, post_id: post.post_id };
     }
     const response = await createRepost(data);
+
+    let category;
+    if (post.comments) {
+      category = 'repost post';
+    } else {
+      category = 'repost comment';
+    }
+
+    const notification = await createNotification({
+      category,
+      refers: postId,
+      sender_id: user.id,
+      receiver_id: post.user_id
+    });
+
+    console.log(notification);
     console.log(response);
   };
 

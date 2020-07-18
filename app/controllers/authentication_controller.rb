@@ -9,7 +9,7 @@ class AuthenticationController < ApplicationController
       render json: {
         user: @user,
         token: token
-        }, include: [:posts, :comments, :likes, :followers, :following, :reposts], status: :ok
+        }, include: [:posts, :comments, :likes, :followers, :following, :reposts, :notifications], status: :ok
     else
       render json: { errors: 'unauthorized' }, status: :unauthorized
     end
@@ -17,7 +17,7 @@ class AuthenticationController < ApplicationController
   
   # GET /auth/verify
   def verify
-    render json: @current_user, include: [:posts, :comments, :likes, :followers, :following, :reposts]
+    render json: @current_user, include: [:posts, :comments, :likes, :followers, :following, :reposts, :notifications]
   end
 
 

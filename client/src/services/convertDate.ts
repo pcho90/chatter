@@ -21,14 +21,14 @@ const convertDate = (date: string) => {
     minutesPassed += 60;
   }
 
-  if (daysPassed <= 1) {
+  if (daysPassed < 1) {
     if (hoursPassed === 0) {
       timePassed = `${minutesPassed}m`;
     } else {
       timePassed = `${hoursPassed}h`;
     }
   } else {
-    timePassed = `${daysPassed - 1}d`;
+    timePassed = `${daysPassed}d`;
   }
 
   let secondsPassed =

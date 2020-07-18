@@ -10,14 +10,14 @@
   form {
     @include flex-column;
     align-items: center;
-    padding-top: 30px;
+    padding-top: 3rem;
 
     input {
       width: 50%;
       font-size: 1rem;
-      padding: 1.25rem 0 1.25rem 1.5rem;
+      padding: 1rem 0 1rem 1.5rem;
       margin: 7px;
-      border-radius: 1.25rem;
+      border-radius: 3rem;
       border: 1px solid #eee;
 
       &:focus {
