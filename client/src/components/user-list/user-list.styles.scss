@@ -5,7 +5,7 @@
 
   .user {
     display: flex;
-    padding: 10px 15px 15px;
+    padding: 0.6rem 0.9rem 0.9rem;
     @include border-bottom;
 
     &:hover {
@@ -19,18 +19,18 @@
     .user-info {
       @include flex-column;
       flex: auto;
-      padding-left: 10px;
+      padding-left: 0.6rem;
 
       .user-info-title {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 5px;
+        margin-bottom: 0.3rem;
 
         .title-names {
           @include flex-column;
           justify-content: center;
-          font-size: 15px;
+          font-size: 0.9rem;
 
           a {
             &:hover {
@@ -49,8 +49,8 @@
 
         button {
           @include inverted-button;
-          font-size: 15px;
-          height: 30px;
+          font-size: 0.9rem;
+          height: 1.8rem;
           display: flex;
           align-items: center;
         }

@@ -3,7 +3,7 @@
 .comments {
   @include layout;
   @include flex-column;
-  font-size: 15px;
+  font-size: 0.9rem;
 
   .back-button {
     &:hover {
@@ -17,29 +17,29 @@
   }
 
   .icon {
-    height: 18px;
-    width: 18px;
+    height: 1.2rem;
+    width: 1.2rem;
     fill: $primary;
-    margin-right: 20px;
+    margin-right: 1.25rem;
   }
 
   .post-head {
     @include flex-column;
     @include border-bottom;
-    padding: 10px 15px 5px 15px;
+    padding: 0.6rem 0.9rem 0.3rem 0.9rem;
 
     .post-head-header {
       display: flex;
-      margin-bottom: 10px;
+      margin-bottom: 0.6rem;
 
       .avatar {
         @include center;
-        width: 50px;
-        height: 50px;
+        width: 3rem;
+        height: 3rem;
         background: $primary;
         color: #fff;
         border-radius: 50%;
-        font-size: 22px;
+        font-size: 1.4rem;
       }
 
       .titles {
@@ -64,21 +64,21 @@
     }
 
     .comments-body {
-      padding: 10px 0;
-      font-size: 24px;
+      padding: 0.6rem 0;
+      font-size: 1.5rem;
     }
 
     .time {
       color: $dark-gray;
-      padding-bottom: 15px;
-      margin-bottom: 5px;
+      padding-bottom: 0.9rem;
+      margin-bottom: 0.3rem;
       @include border-bottom;
     }
   }
   .commenting {
     @include flex-column;
     @include border-bottom;
-    padding: 10px 0;
+    padding: 0.6rem 0;
     align-items: center;
 
     .comment-text {
@@ -86,8 +86,8 @@
       width: 90%;
       font-family: system-ui;
       resize: none;
-      padding: 10px;
-      font-size: 14px;
+      padding: 0.6rem;
+      font-size: 0.9rem;
       border: none;
 
       &::placeholder {
@@ -101,8 +101,8 @@
     }
 
     button {
-      padding: 10px;
-      font-size: 14px;
+      padding: 0.6rem;
+      font-size: 0.9rem;
     }
   }
 }

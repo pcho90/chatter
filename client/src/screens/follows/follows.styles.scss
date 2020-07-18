@@ -13,7 +13,7 @@
       flex: auto;
 
       span {
-        font-size: 20px;
+        font-size: 1.25rem;
       }
 
       @include header-label;
@@ -31,8 +31,8 @@
   .follows-tabs {
     @include center;
     border-bottom: 2px solid $border-color;
-    height: 50px;
-    font-size: 15px;
+    height: 3rem;
+    font-size: 0.9rem;
     font-weight: 700;
     color: $dark-gray;
 
@@ -46,7 +46,7 @@
       @include center;
       flex: auto;
       padding: auto;
-      height: 50px;
+      height: 3rem;
       padding-bottom: 2px;
       transition: background 0.2s;
 

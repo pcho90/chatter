@@ -1,7 +1,7 @@
 @import '../../variables';
 
 .post {
-  font-size: 15px;
+  font-size: 1rem;
   @include flex-column;
 
   button {
@@ -27,7 +27,7 @@
     }
 
     span {
-      margin-right: 5px;
+      margin-right: 0.3rem;
     }
 
     .edit-buttons {
@@ -35,9 +35,9 @@
       display: flex;
 
       .edit-button {
-        height: 18px;
-        width: 18px;
-        margin-left: 10px;
+        height: 1.2rem;
+        width: 1.2rem;
+        margin-left: 0.6rem;
         fill: #fff;
 
         &:hover {
@@ -50,7 +50,7 @@
   .main {
     @include flex-column;
     @include border-bottom;
-    padding: 10px 15px 5px 15px;
+    padding: 0.6rem 0.9rem 0.9rem 0.9rem;
     transition: background 0.2s;
 
     &:hover {
@@ -62,18 +62,18 @@
     }
 
     .repost-info {
-      padding-left: 30px;
-      font-size: 13px;
+      padding-left: 2rem;
+      font-size: 0.8rem;
       color: $dark-gray;
-      margin-bottom: 5px;
+      margin-bottom: 0.3rem;
       display: flex;
       align-items: center;
 
       .repost-icon {
-        height: 15px;
-        width: 15px;
+        height: 0.9rem;
+        width: 0.9rem;
         fill: $dark-gray;
-        margin-right: 15px;
+        margin-right: 0.9rem;
       }
     }
 
@@ -90,15 +90,17 @@
 
       .container-body {
         flex: auto;
-        margin-left: 10px;
+        margin-left: 0.6rem;
 
         .content {
-          margin: 10px 0;
+          margin: 0.6rem 0;
+          max-width: 500px;
+          word-wrap: break-word;
         }
       }
 
       .reply-to {
-        margin-top: 5px;
+        margin-top: 0.3rem;
         color: #657786;
       }
     }
@@ -107,7 +109,7 @@
   .commenting {
     @include flex-column;
     @include border-bottom;
-    padding: 10px 0 15px 0;
+    padding: 0.6rem 0 0.9rem 0;
     align-items: center;
 
     .comment-text {
@@ -115,8 +117,8 @@
       width: 90%;
       font-family: system-ui;
       resize: none;
-      padding: 10px;
-      font-size: 14px;
+      padding: 0.6rem;
+      font-size: 0.9rem;
       border: none;
 
       &::placeholder {
@@ -130,12 +132,18 @@
     }
 
     button {
-      padding: 10px;
-      font-size: 14px;
+      padding: 0.6rem;
+      font-size: 0.9rem;
 
       &:disabled {
         background: $disabled;
       }
     }
+  }
+}
+
+@media (max-width: 600px) {
+  .content {
+    font-size: 2rem;
   }
 }

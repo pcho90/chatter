@@ -10,7 +10,7 @@
       flex: auto;
 
       span {
-        font-size: 20px;
+        font-size: 1.5rem;
       }
 
       @include header-label;
@@ -29,31 +29,31 @@
     .profile-header {
       @include flex-column;
       @include border-bottom;
-      padding: 10px 15px 20px;
+      padding: 0.6rem 0.9rem 1.2rem;
 
       .name {
-        font-size: 19px;
+        font-size: 1.2rem;
         font-weight: 800;
       }
 
       .username {
-        font-size: 15px;
+        font-size: 0.9rem;
         font-weight: 500;
         color: $dark-gray;
       }
 
       .subtitle {
-        margin: 10px 0;
+        margin: 0.6rem 0;
       }
 
       .followers {
         font-weight: 700;
-        font-size: 15px;
+        font-size: 0.9rem;
 
         span {
           font-weight: 400;
           color: $dark-gray;
-          margin-right: 20px;
+          margin-right: 1.25rem;
         }
 
         a {
@@ -74,8 +74,8 @@
         .header-buttons {
           button {
             @include inverted-button;
-            padding: 8px 12px;
-            font-size: 15px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.9rem;
           }
 
           .following {
@@ -88,14 +88,14 @@
 
     .editing {
       @include border-bottom;
-      padding: 15px;
+      padding: 0.9rem;
 
       form {
         @include flex-column;
 
         input {
           border: none;
-          padding: 5px;
+          padding: 0.3rem;
 
           &:focus {
             outline: none;
@@ -103,7 +103,7 @@
         }
 
         button {
-          width: 70px;
+          width: 4.5rem;
           margin: 0 auto;
         }
       }

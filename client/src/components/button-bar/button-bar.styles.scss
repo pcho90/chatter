@@ -8,19 +8,19 @@
     display: flex;
     align-items: center;
     color: $dark-gray;
-    font-size: 13px;
+    font-size: 0.8rem;
 
     .button-icon {
       @include center;
-      width: 40px;
-      height: 40px;
+      width: 2.5rem;
+      height: 2.5rem;
       border-radius: 50%;
-      margin-right: 5px;
+      margin-right: 0.3rem;
     }
 
     .icon-bar {
-      width: 18px;
-      height: 18px;
+      width: 1.1rem;
+      height: 1.1rem;
       fill: $dark-gray;
     }
 
