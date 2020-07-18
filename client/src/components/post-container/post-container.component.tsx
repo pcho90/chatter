@@ -13,6 +13,7 @@ import { getInitials } from '../../services/helpers';
 import convertDate from '../../services/convertDate';
 import { Post } from '../../types';
 import ButtonBar from '../button-bar/button-bar.component';
+import { createNotification } from '../../services/notifications';
 
 const PostContainer: React.FC<Post> = props => {
   const [post, setPost] = useState(props);
@@ -34,6 +35,7 @@ const PostContainer: React.FC<Post> = props => {
     subcomments,
     user_id,
     handleDelete,
+    post_id,
     reply_to,
     repost,
     repost_by
@@ -86,6 +88,22 @@ const PostContainer: React.FC<Post> = props => {
       parent_id,
       reply_to: post.username
     });
+
+    let category;
+    if (post.comments) {
+      category = 'comment';
+    } else {
+      category = 'subcomment';
+    }
+
+    const notification = await createNotification({
+      category,
+      refers: post_id,
+      sender_id: user.id,
+      receiver_id: user_id!
+    });
+
+    console.log(notification);
 
     setInput('');
     setCommenting(false);

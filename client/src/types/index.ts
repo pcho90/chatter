@@ -97,3 +97,10 @@ export interface NotificationTypes {
   receiver_id: number;
   refers: number;
 }
+
+export interface NotificationProps {
+  category: string;
+  refers: number;
+  sender: any;
+  receiver: any;
+}

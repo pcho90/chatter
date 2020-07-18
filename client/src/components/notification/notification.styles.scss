@@ -1,0 +1,46 @@
+@import '../../variables';
+
+.notification {
+  @include border-bottom;
+  display: flex;
+  padding: 0.75rem;
+  transition: background 0.2s;
+
+  &:hover {
+    @include post-hover;
+  }
+
+  .notification-icon {
+    padding-left: 1.5rem;
+
+    .icon {
+      fill: $primary;
+      height: 1.5rem;
+      width: 1.5rem;
+      margin-top: 0.2rem;
+    }
+  }
+
+  .notification-details {
+    @include flex-column;
+    flex: auto;
+    padding-left: 1rem;
+
+    .notification-avatar {
+      @include avatar;
+      width: 2rem;
+      height: 2rem;
+      font-size: 1rem;
+    }
+
+    .notification-content {
+      display: flex;
+      margin: 0.5rem 0 0 0;
+
+      span {
+        font-weight: 700;
+        margin-right: 0.3rem;
+      }
+    }
+  }
+}
