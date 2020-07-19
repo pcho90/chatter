@@ -65,6 +65,7 @@ const Register = () => {
         <label className={`${input.email.length ? 'shrink' : ''} email-label`}>
           Email
         </label>
+        <label className='email-label'>Email</label>
         <input
           className='email-input'
           type='text'

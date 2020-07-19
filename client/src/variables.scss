@@ -141,11 +141,12 @@ $heart: #d45778;
 
 @mixin form-label {
   label {
+    height: 0.75rem;
     align-self: flex-start;
     padding-left: 0.5rem;
     position: relative;
     font-size: 1rem;
-    top: 2.6rem;
+    top: 2.2rem;
     color: $dark-gray;
 
     transition: 300ms ease all;
