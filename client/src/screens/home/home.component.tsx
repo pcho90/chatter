@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import './home.styles.scss';
@@ -15,6 +16,7 @@ const Home = () => {
   const { user } = useContext(UserContext);
   const [input, setInput] = useState('');
   const [posts, setPosts] = useState<Post[]>([]);
+  const { pathname } = useLocation();
 
   const fetchPosts = async () => {
     const response = await getPosts();
@@ -72,7 +74,7 @@ const Home = () => {
 
   return (
     <div className='home'>
-      <header>Home</header>
+      <header>{pathname === '/' ? 'Home' : 'Explore'}</header>
       {user && (
         <form onSubmit={handleSubmit}>
           <TextareaAutosize
