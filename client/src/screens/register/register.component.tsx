@@ -1,9 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import './register.styles.scss';
 import { UserContext } from '../../contexts/user.context';
 import { registerUser } from '../../services/auth';
+
+interface Error {
+  name?: string;
+  username?: string;
+  email?: string;
+  password?: string;
+}
 
 const Register = () => {
   const { setUser } = useContext(UserContext);
@@ -14,10 +21,18 @@ const Register = () => {
     password: '',
     subtitle: ''
   });
+  const [error, setError] = useState<Error | null>(null);
+
   const { push } = useHistory();
 
   const handleChange = (e: React.ChangeEvent) => {
-    const { name, value } = e.target as HTMLInputElement;
+    let { name, value } = e.target as HTMLInputElement;
+
+    if (name === 'username' || name === 'name') {
+      value = value.replace(/[^A-Za-z]/gi, '');
+    } else if (name === 'email') {
+      value = value.replace(/[^A-Za-z@.]/gi, '');
+    }
 
     setInput({ ...input, [name]: value });
   };
@@ -25,18 +40,49 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const user = await registerUser(input);
-    setUser(user);
+    if (input.username.length < 4) {
+      setError(prev => ({
+        ...prev,
+        username: 'Username must be at least 4 characters.'
+      }));
+    }
+    if (input.password.length < 6) {
+      setError(prev => ({
+        ...prev,
+        password: 'Password must be at least 6 characters.'
+      }));
+    }
+    if (input.name.length < 1) {
+      setError(prev => ({
+        ...prev,
+        name: 'Name cannot be blank.'
+      }));
+    }
+    if (input.email.length < 1) {
+      setError(prev => ({
+        ...prev,
+        email: 'Email cannot be blank.'
+      }));
+    }
 
-    push('/');
-
-    console.log(user);
+    if (
+      input.username.length >= 4 &&
+      input.password.length >= 6 &&
+      input.name.length >= 1
+    ) {
+      const user = await registerUser(input);
+      setUser(user);
+      push('/');
+    }
   };
+
+  useEffect(() => {
+    setError(null);
+  }, [input]);
 
   return (
     <div className='register'>
       <header>Register</header>
-
       <form onSubmit={handleSubmit}>
         <label className={`${input.name.length ? 'shrink' : ''} name-label`}>
           Name
@@ -49,6 +95,9 @@ const Register = () => {
           value={input.name}
           autoComplete='off'
         />
+        {error && error.name && error.name.length > 0 && (
+          <span className='error'>{error.name}</span>
+        )}
         <label
           className={`${input.username.length ? 'shrink' : ''} username-label`}
         >
@@ -62,10 +111,12 @@ const Register = () => {
           value={input.username}
           autoComplete='off'
         />
+        {error && error.username && error.username.length > 0 && (
+          <span className='error'>{error.username}</span>
+        )}
         <label className={`${input.email.length ? 'shrink' : ''} email-label`}>
           Email
         </label>
-        <label className='email-label'>Email</label>
         <input
           className='email-input'
           type='text'
@@ -74,6 +125,9 @@ const Register = () => {
           value={input.email}
           autoComplete='off'
         />
+        {error && error.email && error.email.length > 0 && (
+          <span className='error'>{error.email}</span>
+        )}
         <label
           className={`${input.password.length ? 'shrink' : ''} password-label`}
         >
@@ -87,6 +141,9 @@ const Register = () => {
           value={input.password}
           autoComplete='off'
         />
+        {error && error.password && error.password.length > 0 && (
+          <span className='error'>{error.password}</span>
+        )}
         <button>Register</button>
       </form>
     </div>
