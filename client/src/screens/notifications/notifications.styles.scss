@@ -2,4 +2,11 @@
 
 .notifications {
   @include layout;
+
+  .notifications-notice {
+    @include center;
+    padding-top: 3rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
 }

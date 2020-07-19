@@ -112,6 +112,10 @@
           &:focus {
             outline: none;
           }
+
+          &::placeholder {
+            color: $dark-gray;
+          }
         }
 
         button {

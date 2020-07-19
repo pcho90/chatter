@@ -9,12 +9,14 @@ const Notifications = () => {
   return (
     <div className='notifications'>
       <header>Notifications</header>
-      {user && (
+      {user && user.notifications.length > 0 ? (
         <div className='notifications-body'>
           {[...user.notifications].reverse().map((item: any) => (
             <Notification key={item.created_at} {...item} />
           ))}
         </div>
+      ) : (
+        <span className='notifications-notice'>Nothing to see here - yet.</span>
       )}
     </div>
   );

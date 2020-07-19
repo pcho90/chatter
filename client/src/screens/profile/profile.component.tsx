@@ -114,7 +114,11 @@ const Profile = () => {
             {editing && (
               <div className='editing'>
                 <form onSubmit={handleEdit}>
-                  <input onChange={handleSubtitleChange} value={subtitle} />
+                  <input
+                    onChange={handleSubtitleChange}
+                    value={subtitle}
+                    placeholder='Tell us about yourself.'
+                  />
                   <button>Edit</button>
                 </form>
               </div>
