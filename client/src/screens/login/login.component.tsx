@@ -33,20 +33,30 @@ const Login = () => {
       <header>Login</header>
 
       <form onSubmit={handleSubmit}>
+        <label
+          className={`${input.username.length ? 'shrink' : ''} username-label`}
+        >
+          Username
+        </label>
         <input
+          className='username'
           type='text'
           name='username'
           onChange={handleChange}
           value={input.username}
-          placeholder='username'
           autoComplete='off'
         />
+        <label
+          className={`${input.password.length ? 'shrink' : ''} password-label`}
+        >
+          Password
+        </label>
         <input
+          className='password'
           type='password'
           name='password'
           onChange={handleChange}
           value={input.password}
-          placeholder='password'
           autoComplete='off'
         />
         <button>Login</button>

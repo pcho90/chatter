@@ -35,6 +35,13 @@ $heart: #d45778;
   flex-direction: column;
 }
 
+@mixin form {
+  width: 50%;
+  margin: 0 auto;
+  align-items: center;
+  padding-top: 3rem;
+}
+
 @mixin avatar {
   display: flex;
   justify-content: center;
@@ -91,6 +98,56 @@ $heart: #d45778;
   align-items: center;
 }
 
+@mixin form-input {
+  width: 100%;
+  font-size: 1rem;
+  padding: 1rem 0 1rem 1rem;
+  margin: 0.5rem;
+  border: none;
+  @include border-bottom;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@mixin form-button {
+  font-size: 1rem;
+  background: $primary;
+  color: #fff;
+  border-radius: 1.25rem;
+  padding: 0.6rem;
+  border: none;
+  width: 6rem;
+  margin-top: 0.9rem;
+  margin-bottom: 3rem;
+}
+
 @mixin button-transition {
   transition: background 0.2s, fill 0.2s;
+}
+
+@mixin shrinkLabel {
+  top: 0;
+  font-size: 0.75rem;
+  color: $dark-gray;
+}
+
+@mixin shrink {
+  &.shrink {
+    @include shrinkLabel();
+  }
+}
+
+@mixin form-label {
+  label {
+    align-self: flex-start;
+    padding-left: 0.5rem;
+    position: relative;
+    font-size: 1rem;
+    top: 2.6rem;
+    color: $dark-gray;
+
+    transition: 300ms ease all;
+  }
 }

@@ -20,19 +20,21 @@ const MobileNav = () => {
       <Link to='/posts' className={pathname === '/posts' ? 'active' : ''}>
         <ExploreIcon className='icon' />
       </Link>
-      <Link
-        to='/notifications'
-        className={pathname === '/notifications' ? 'active' : ''}
-      >
-        <BellIcon className='icon' />
-      </Link>
       {user ? (
-        <Link
-          to={`/users/${user.username}`}
-          className={pathname === `/users/${user.username}` ? 'active' : ''}
-        >
-          <ProfileIcon className='icon' />
-        </Link>
+        <>
+          <Link
+            to='/notifications'
+            className={pathname === '/notifications' ? 'active' : ''}
+          >
+            <BellIcon className='icon' />
+          </Link>
+          <Link
+            to={`/users/${user.username}`}
+            className={pathname === `/users/${user.username}` ? 'active' : ''}
+          >
+            <ProfileIcon className='icon' />
+          </Link>
+        </>
       ) : (
         <Link to='/login' className={pathname === '/login' ? 'active' : ''}>
           <UserIcon className='icon' />

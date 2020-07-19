@@ -1,7 +1,8 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Route, Redirect } from 'react-router-dom';
 
 import './App.scss';
+import { UserContext } from './contexts/user.context';
 import Nav from './components/nav/nav.component';
 import MobileNav from './components/mobile-nav/mobile-nav.component';
 import Home from './screens/home/home.component';
@@ -14,12 +15,16 @@ import Follows from './screens/follows/follows.component';
 import Notifications from './screens/notifications/notifications.component';
 
 const App = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <div className='App'>
       <Nav />
       <MobileNav />
       <div className='body'>
-        <Route exact path='/' component={Home} />
+        <Route exact path='/' component={Home}>
+          {!user && <Redirect to='/login' />}
+        </Route>
         <Route exact path='/posts' component={Home} />
         <Route exact path='/users' component={Users} />
         <Route path='/register' component={Register} />

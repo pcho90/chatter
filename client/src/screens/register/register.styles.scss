@@ -4,31 +4,47 @@
   @include layout;
   form {
     @include flex-column;
-    align-items: center;
-    padding-top: 2rem;
+    @include form;
 
     input {
-      width: 50%;
-      font-size: 1rem;
-      padding: 0.75rem 0 0.75rem 1.5rem;
-      margin: 0.5rem;
-      border-radius: 1.25rem;
-      border: 1px solid #eee;
-
-      &:focus {
-        outline: none;
-      }
+      @include form-input;
     }
 
     button {
-      font-size: 1rem;
-      background: $primary;
-      color: #fff;
-      border-radius: 1.25rem;
-      padding: 0.6rem;
-      border: none;
-      width: 12.5rem;
-      margin-top: 1.25rem;
+      @include form-button;
+    }
+
+    @include form-label;
+
+    .name-input {
+      &:focus ~ .name-label {
+        @include shrinkLabel();
+      }
+    }
+
+    .username-input {
+      &:focus ~ .username-label {
+        @include shrinkLabel();
+      }
+    }
+
+    .email-input {
+      &:focus ~ .email-label {
+        @include shrinkLabel();
+      }
+    }
+
+    .password-input {
+      &:focus ~ .password-label {
+        @include shrinkLabel();
+      }
+    }
+
+    .name-label,
+    .username-label,
+    .email-label,
+    .password-label {
+      @include shrink;
     }
   }
 }

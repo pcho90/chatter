@@ -38,36 +38,52 @@ const Register = () => {
       <header>Register</header>
 
       <form onSubmit={handleSubmit}>
+        <label className={`${input.name.length ? 'shrink' : ''} name-label`}>
+          Name
+        </label>
         <input
+          className='name-input'
           type='text'
           name='name'
           onChange={handleChange}
           value={input.name}
-          placeholder='name'
           autoComplete='off'
         />
+        <label
+          className={`${input.username.length ? 'shrink' : ''} username-label`}
+        >
+          Username
+        </label>
         <input
+          className='username-input'
           type='text'
           name='username'
           onChange={handleChange}
           value={input.username}
-          placeholder='username'
           autoComplete='off'
         />
+        <label className={`${input.email.length ? 'shrink' : ''} email-label`}>
+          Email
+        </label>
         <input
+          className='email-input'
           type='text'
           name='email'
           onChange={handleChange}
           value={input.email}
-          placeholder='email'
           autoComplete='off'
         />
+        <label
+          className={`${input.password.length ? 'shrink' : ''} password-label`}
+        >
+          Password
+        </label>
         <input
+          className='password-input'
           type='password'
           name='password'
           onChange={handleChange}
           value={input.password}
-          placeholder='password'
           autoComplete='off'
         />
         <button>Register</button>

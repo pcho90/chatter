@@ -3,38 +3,44 @@
 .login {
   @include layout;
   text-align: center;
+
+  header {
+    text-align: left;
+  }
+
   a {
     color: $dark-gray;
   }
 
   form {
     @include flex-column;
-    align-items: center;
-    padding-top: 3rem;
+    @include form;
 
     input {
-      width: 50%;
-      font-size: 1rem;
-      padding: 1rem 0 1rem 1.5rem;
-      margin: 7px;
-      border-radius: 3rem;
-      border: 1px solid #eee;
+      @include form-input;
+    }
 
-      &:focus {
-        outline: none;
+    @include form-label;
+
+    .username {
+      &:focus ~ .username-label {
+        @include shrinkLabel();
       }
     }
 
+    .password {
+      &:focus ~ .password-label {
+        @include shrinkLabel();
+      }
+    }
+
+    .username-label,
+    .password-label {
+      @include shrink;
+    }
+
     button {
-      font-size: 1.2rem;
-      background: $primary;
-      color: #fff;
-      border-radius: 1.25rem;
-      padding: 0.6rem;
-      border: none;
-      width: 9rem;
-      margin-top: 0.9rem;
-      margin-bottom: 3rem;
+      @include form-button;
     }
   }
 }
