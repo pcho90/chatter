@@ -28,6 +28,12 @@
       }
     }
 
+    .profile-logout {
+      @media (min-width: 600px) {
+        display: none;
+      }
+    }
+
     @include header-icon;
 
     .back-button {

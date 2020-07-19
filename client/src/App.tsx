@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import './App.scss';
 import { UserContext } from './contexts/user.context';
@@ -22,9 +22,7 @@ const App = () => {
       <Nav />
       <MobileNav />
       <div className='body'>
-        <Route exact path='/' component={Home}>
-          {!user && <Redirect to='/login' />}
-        </Route>
+        <Route exact path='/' component={user ? Home : Login} />
         <Route exact path='/posts' component={Home} />
         <Route exact path='/users' component={Users} />
         <Route path='/register' component={Register} />

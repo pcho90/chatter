@@ -5,6 +5,7 @@ import './profile.styles.scss';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
 import { User } from '../../types';
 import { UserContext } from '../../contexts/user.context';
+import { removeToken } from '../../services/auth';
 import { getUser, editUser } from '../../services/users';
 import { deleteComment } from '../../services/comments';
 import { deletePost } from '../../services/posts';
@@ -15,9 +16,11 @@ const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
   const [posts, setPosts] = useState<any>([]);
   const [editing, setEditing] = useState(false);
-  const { user: currentUser } = useContext(UserContext);
+  const { user: currentUser, setUser: setCurrentUser } = useContext(
+    UserContext
+  );
   const [subtitle, setSubtitle] = useState('');
-  const { goBack } = useHistory();
+  const { goBack, push } = useHistory();
   const { username } = useParams();
 
   const fetchUser = async () => {
@@ -75,6 +78,12 @@ const Profile = () => {
     setEditing(!editing);
   };
 
+  const handleLogout = () => {
+    setCurrentUser(null);
+    removeToken();
+    push('/');
+  };
+
   return (
     <>
       {user && (
@@ -84,6 +93,9 @@ const Profile = () => {
             <div className='header-title'>
               <span>{user.name}</span>
               <label>{user.posts.length} tweets</label>
+            </div>
+            <div className='profile-logout'>
+              <button onClick={handleLogout}>Logout</button>
             </div>
           </header>
           <div className='profile-body'>
