@@ -17,7 +17,7 @@ const MobileNav = () => {
       <Link to='/' className={pathname === '/' ? 'active' : ''}>
         <HomeIcon className='icon' />
       </Link>
-      <Link to='/posts' className={pathname === '/posts' ? 'active' : ''}>
+      <Link to='/users' className={pathname === '/users' ? 'active' : ''}>
         <ExploreIcon className='icon' />
       </Link>
       {user ? (
