@@ -11,10 +11,10 @@ import { ReactComponent as HeartIcon } from '../../assets/heart-filled.svg';
 const Notification: React.FC<NotificationProps> = props => {
   const { category, refers, sender } = props;
   const { push } = useHistory();
-  const initials = getInitials(null, sender.name);
+  let initials;
 
   let icon, message, link: any;
-
+  initials = getInitials(null, sender.name);
   if (category === 'follow') {
     icon = <UserIcon className='icon' />;
     message = ' followed you.';
