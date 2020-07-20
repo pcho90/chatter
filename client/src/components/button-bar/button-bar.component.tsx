@@ -69,8 +69,6 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
         receiver_id: post.user_id
       });
 
-      console.log(notification);
-
       setUser({
         ...user,
         likes: [...user.likes, likeData]
@@ -97,7 +95,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
     } else {
       data = { user_id: user.id, post_id: post.post_id };
     }
-    const response = await createRepost(data);
+    await createRepost(data);
 
     let category;
     if (post.comments) {
@@ -114,7 +112,6 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
     });
 
     console.log(notification);
-    console.log(response);
   };
 
   return (

@@ -67,7 +67,6 @@ const Home = () => {
 
   const fetchUsers = async () => {
     const response = await getUsers();
-    console.log(response);
     setUsers(response);
   };
 
@@ -112,11 +111,11 @@ const Home = () => {
 
   const handleDelete = async (id: number, type: number) => {
     if (type === 1) {
-      await deleteComment(id);
+      await deletePost(id);
     } else if (type === 2) {
       await deleteRepost(id);
     } else {
-      await deletePost(id);
+      await deleteComment(id);
     }
     fetchPosts();
   };

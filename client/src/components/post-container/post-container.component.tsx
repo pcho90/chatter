@@ -103,19 +103,17 @@ const PostContainer: React.FC<Post> = props => {
       receiver_id: user_id!
     });
 
-    console.log(notification);
-
     setInput('');
     setCommenting(false);
   };
 
   const handleClick = () => {
-    if (comments) {
-      handleDelete(id, 1);
-    } else if (post.repost) {
+    if (post.repost) {
       handleDelete(post.id, 2);
-    } else {
+    } else if (post.parent_id || post_id) {
       handleDelete(id, 3);
+    } else {
+      handleDelete(id, 1);
     }
   };
 
@@ -157,7 +155,7 @@ const PostContainer: React.FC<Post> = props => {
               <span className='time'>
                 · {convertDate(created_at).timePassed}
               </span>
-              {user && user.id === user_id && (
+              {user && (user.id === user_id || repost_by === user.username) && (
                 <span className='edit-buttons'>
                   <EditIcon className='edit-button' onClick={toggleEdit} />
                   <DeleteIcon className='edit-button' onClick={handleClick} />
