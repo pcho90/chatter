@@ -26,6 +26,7 @@ export interface Post {
   repost?: boolean;
   post?: any;
   repost_by?: any;
+  users?: any;
 }
 
 export interface Comment {

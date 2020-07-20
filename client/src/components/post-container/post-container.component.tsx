@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import './post-container.styles.scss';
@@ -82,7 +81,7 @@ const PostContainer: React.FC<Post> = props => {
       parent_id = id;
     }
 
-    await createComment({
+    const response = await createComment({
       post_id,
       user_id: user.id,
       username: user.username,
@@ -91,6 +90,23 @@ const PostContainer: React.FC<Post> = props => {
       parent_id,
       reply_to: post.username
     });
+
+    const splitInput = input.split(' ');
+    const mention = splitInput.find((one: string) => one.startsWith('@'));
+    const mentioned: any = props.users.find((one: any) =>
+      mention?.includes(one.username)
+    );
+
+    let notice;
+    if (mentioned) {
+      notice = await createNotification({
+        category: 'mention comment',
+        refers: response.id,
+        sender_id: user.id,
+        receiver_id: mentioned.id
+      });
+    }
+    console.log(notice);
 
     let category;
     if (post.comments) {
@@ -126,6 +142,8 @@ const PostContainer: React.FC<Post> = props => {
   };
 
   const handleEditSubmit = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
     if (comments) {
       const response = await editPost(id, edit);
       setEditing(false);
@@ -186,7 +204,12 @@ const PostContainer: React.FC<Post> = props => {
       </div>
       {editing && (
         <div className='commenting'>
-          <CustomInput {...{ handleSubmit, input, setInput, handleChange }} />
+          <CustomInput
+            handleSubmit={handleEditSubmit}
+            handleChange={handleEditChange}
+            input={edit}
+            setInput={setEdit}
+          />
         </div>
       )}
       {commenting && (

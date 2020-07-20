@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
-import TextareaAutosize from 'react-textarea-autosize';
 
 import './post.styles.scss';
-import { UserContext } from '../../contexts/user.context';
 import { Post as PostType } from '../../types';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
+import { UserContext } from '../../contexts/user.context';
+import { getUsers } from '../../services/users';
 import { getPost, deletePost } from '../../services/posts';
 import { deleteRepost } from '../../services/reposts';
 import {
@@ -39,6 +39,7 @@ const Post = () => {
   const initials = getInitials(post, '');
   const [commenting, setCommenting] = useState(false);
   const [input, setInput] = useState('');
+  const [users, setUsers] = useState([]);
 
   const fetchPost = async () => {
     let response;
@@ -50,6 +51,11 @@ const Post = () => {
     }
 
     setPost(response);
+  };
+
+  const fetchUsers = async () => {
+    const response = await getUsers();
+    setUsers(response);
   };
 
   const toggleCommenting = () => {
@@ -106,6 +112,23 @@ const Post = () => {
       category = 'subcomment';
     }
 
+    const splitInput = input.split(' ');
+    const mention = splitInput.find((one: string) => one.startsWith('@'));
+    const mentioned: any = users.find((one: any) =>
+      mention?.includes(one.username)
+    );
+
+    let notice;
+    if (mentioned) {
+      notice = await createNotification({
+        category: 'mention comment',
+        refers: response.id,
+        sender_id: user.id,
+        receiver_id: mentioned.id
+      });
+    }
+    console.log(notice);
+
     const notification = await createNotification({
       category,
       refers: post_id,
@@ -127,6 +150,7 @@ const Post = () => {
 
   useEffect(() => {
     fetchPost();
+    fetchUsers();
   }, [pathname]);
 
   return (
@@ -171,6 +195,7 @@ const Post = () => {
                   <PostContainer
                     key={comment.id}
                     handleDelete={handleDelete}
+                    users={users}
                     {...comment}
                   />
                 )
@@ -182,6 +207,7 @@ const Post = () => {
               <PostContainer
                 key={comment.id}
                 handleDelete={handleDelete}
+                users={users}
                 {...comment}
               />
             ))}

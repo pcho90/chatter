@@ -4,17 +4,20 @@ import { useLocation } from 'react-router-dom';
 import './home.styles.scss';
 
 import { Post } from '../../types';
+import { UserContext } from '../../contexts/user.context';
 import { fetchPosts } from '../../services/helpers';
+import { getUsers } from '../../services/users';
 import { deleteComment } from '../../services/comments';
 import { deletePost } from '../../services/posts';
-import { UserContext } from '../../contexts/user.context';
 import { createPost } from '../../services/posts';
 import { deleteRepost } from '../../services/reposts';
+import { createNotification } from '../../services/notifications';
 import PostList from '../../components/post-list/post-list.component';
 import CustomInput from '../../components/custom-input/custom-input.component';
 
 const Home = () => {
   const { user } = useContext(UserContext);
+  const [users, setUsers] = useState([]);
   const [input, setInput] = useState('');
   const [posts, setPosts] = useState<Post[]>([]);
   const { pathname } = useLocation();
@@ -22,6 +25,11 @@ const Home = () => {
   const loadPosts = async () => {
     const response = await fetchPosts();
     setPosts(response);
+  };
+
+  const fetchUsers = async () => {
+    const response = await getUsers();
+    setUsers(response);
   };
 
   const handleChange = (e: React.ChangeEvent) => {
@@ -34,14 +42,29 @@ const Home = () => {
     e.preventDefault();
     const { id, name, username } = user;
 
-    const post = await createPost({
+    const response = await createPost({
       user_id: id,
       name,
       username,
       content: input
     });
 
-    setPosts([...posts, { ...post, comments: [] }]);
+    const splitInput = input.split(' ');
+    const mention = splitInput.find((one: string) => one.startsWith('@'));
+    const mentioned: any = users.find((one: any) =>
+      mention?.includes(one.username)
+    );
+
+    if (mentioned) {
+      await createNotification({
+        category: 'mention',
+        refers: response.id,
+        sender_id: id,
+        receiver_id: mentioned.id
+      });
+    }
+
+    await loadPosts();
     setInput('');
   };
 
@@ -58,6 +81,7 @@ const Home = () => {
 
   useEffect(() => {
     loadPosts();
+    fetchUsers();
   }, []);
 
   return (

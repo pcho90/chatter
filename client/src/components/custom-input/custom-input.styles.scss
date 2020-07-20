@@ -12,6 +12,7 @@ form {
 
   .mention-popover {
     @include flex-column;
+    z-index: 100;
     position: absolute;
     width: 20rem;
     height: 30rem;

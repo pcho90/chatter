@@ -7,6 +7,7 @@ import { getInitials } from '../../services/helpers';
 import { ReactComponent as UserIcon } from '../../assets/user.svg';
 import { ReactComponent as ReplyIcon } from '../../assets/reply.svg';
 import { ReactComponent as HeartIcon } from '../../assets/heart-filled.svg';
+import { ReactComponent as AtIcon } from '../../assets/at.svg';
 
 const Notification: React.FC<NotificationProps> = props => {
   const { category, refers, sender } = props;
@@ -39,6 +40,14 @@ const Notification: React.FC<NotificationProps> = props => {
     icon = <ReplyIcon className='icon' />;
     message = ' reposted your post.';
     link = `/posts/${refers}`;
+  } else if (category === 'mention') {
+    icon = <AtIcon className='icon' />;
+    message = ' mentioned you in a post.';
+    link = `/posts/${refers}`;
+  } else if (category === 'mention comment') {
+    icon = <AtIcon className='icon' />;
+    message = ' mentioned you in a comment.';
+    link = `/comments/${refers}`;
   } else {
     icon = <ReplyIcon className='icon' />;
     message = ' reposted your comment.';
