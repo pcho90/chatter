@@ -50,7 +50,10 @@ const Nav = () => {
         <ExploreIcon className='icon' />
         <span>Explore</span>
       </Link>
-      <Link to='/trending' className={pathname === '/trending' ? 'active' : ''}>
+      <Link
+        to='/trending'
+        className={pathname === '/trending' ? 'active trending' : 'trending'}
+      >
         <HashtagIcon className='icon' />
         <span>Trending</span>
       </Link>
