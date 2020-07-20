@@ -46,6 +46,6 @@ class PostHashtagsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def post_hashtag_params
-      params.require(:post_hashtag).permit(:post_id_id, :hashtag_id_id)
+      params.require(:post_hashtag).permit(:post_id, :hashtag_id)
     end
 end
