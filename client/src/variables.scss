@@ -159,3 +159,11 @@ $heart: #d45778;
     font-size: 1rem;
   }
 }
+
+@mixin loader {
+  .loader {
+    @include center;
+    padding-top: 10rem;
+    width: 100%;
+  }
+}

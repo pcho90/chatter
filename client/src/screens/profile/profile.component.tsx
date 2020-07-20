@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, ChangeEvent } from 'react';
 import { Link, useHistory, useParams, useLocation } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 
 import './profile.styles.scss';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
@@ -98,6 +99,17 @@ const Profile = () => {
 
   return (
     <>
+      {!user && (
+        <div className='loader'>
+          <Loader
+            type='TailSpin'
+            color='#1da1f2'
+            height={50}
+            width={50}
+            timeout={10000}
+          />
+        </div>
+      )}
       {user && (
         <div className='profile'>
           <header className='profile-nav'>

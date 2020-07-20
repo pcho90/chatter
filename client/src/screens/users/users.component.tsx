@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import Loader from 'react-loader-spinner';
 
 import './users.styles.scss';
 import { getUsers } from '../../services/users';
@@ -20,6 +21,17 @@ const Users = () => {
   return (
     <div className='users'>
       <header>Users</header>
+      {users.length < 1 && (
+        <div className='loader'>
+          <Loader
+            type='TailSpin'
+            color='#1da1f2'
+            height={50}
+            width={50}
+            timeout={10000}
+          />
+        </div>
+      )}
       <UserList {...{ users }} />
     </div>
   );
