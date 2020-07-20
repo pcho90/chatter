@@ -33,8 +33,10 @@
     transition: background 0.2s, color 0.2s;
 
     span {
+      display: flex;
+      align-items: center;
       margin-left: 1.25rem;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 800;
     }
 
@@ -49,17 +51,17 @@
   }
 
   .icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
   }
 
   .logo {
     margin-top: 0.3rem;
     padding: 1.2rem 0;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
     fill: $primary;
-    padding-left: 1.5rem;
+    padding-left: 1.3rem;
   }
 
   div {

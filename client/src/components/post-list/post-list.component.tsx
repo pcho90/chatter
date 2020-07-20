@@ -6,7 +6,12 @@ import convertDate from '../../services/convertDate';
 import { PostListProps } from '../../types';
 import PostContainer from '../../components/post-container/post-container.component';
 
-const PostList: React.FC<PostListProps> = ({ posts, handleDelete, user }) => {
+const PostList: React.FC<PostListProps> = ({
+  posts,
+  handleDelete,
+  user,
+  users
+}) => {
   const { pathname } = useLocation();
 
   return (
@@ -30,6 +35,7 @@ const PostList: React.FC<PostListProps> = ({ posts, handleDelete, user }) => {
               <PostContainer
                 key={post.created_at}
                 handleDelete={handleDelete}
+                users={users}
                 {...post}
               />
             ))
@@ -43,6 +49,7 @@ const PostList: React.FC<PostListProps> = ({ posts, handleDelete, user }) => {
               <PostContainer
                 key={post.created_at}
                 handleDelete={handleDelete}
+                users={users}
                 {...post}
               />
             ))}

@@ -66,6 +66,11 @@ const CustomInput: React.FC<any> = ({
         ...prev,
         currentSelection: (prev.currentSelection - 1) % users.length
       }));
+    } else if (which === 32) {
+      setInputMention((prev: any) => ({
+        ...prev,
+        showSuggestor: false
+      }));
     } else if (which === 13) {
       event.preventDefault();
       const selectedUser: any = users.filter((user: any) =>
@@ -101,6 +106,14 @@ const CustomInput: React.FC<any> = ({
   };
 
   const handleMentionChange = (metaData: any) => {
+    if (
+      users.filter((user: any) => user.username.includes(inputMention.text))
+        .length < 1
+    ) {
+      setInputMention((prev: any) => ({
+        showSuggestor: false
+      }));
+    }
     setInputMention((prev: any) => ({
       ...prev,
       text: metaData.text

@@ -53,8 +53,8 @@ const Home = () => {
 
     const splitInput = input.split(' ');
     const mention = splitInput.find((one: string) => one.startsWith('@'));
-    const mentioned: any = users.find((one: any) =>
-      mention?.includes(one.username)
+    const mentioned: any = users.find(
+      (one: any) => mention === `@${one.username}`
     );
 
     if (mentioned) {
@@ -101,11 +101,11 @@ const Home = () => {
             color='#1da1f2'
             height={50}
             width={50}
-            timeout={3000}
+            timeout={10000}
           />
         </div>
       )}
-      <PostList {...{ posts, handleDelete, user }} />
+      <PostList {...{ posts, handleDelete, user, users }} />
     </div>
   );
 };

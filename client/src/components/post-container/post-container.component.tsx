@@ -14,6 +14,7 @@ import { Post } from '../../types';
 import ButtonBar from '../button-bar/button-bar.component';
 import { createNotification } from '../../services/notifications';
 import CustomInput from '../../components/custom-input/custom-input.component';
+import Users from '../../screens/users/users.component';
 
 const PostContainer: React.FC<Post> = props => {
   const [post, setPost] = useState(props);
@@ -57,6 +58,7 @@ const PostContainer: React.FC<Post> = props => {
 
   const viewPost = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLDivElement) {
+      console.log(post);
       if (comments) {
         push(`/posts/${id}`);
       } else if (repost) {
@@ -159,6 +161,29 @@ const PostContainer: React.FC<Post> = props => {
     setEditing(!editing);
   };
 
+  const taggedContent = (content: string) => {
+    const splitContent: any = content.split(' ');
+    const tagged = splitContent.find((tag: any) => tag.startsWith('@'));
+    const index = splitContent.indexOf(tagged);
+    if (tagged) {
+      const taggedUser = props.users.find(
+        (user: any) => `@${user.username}` === tagged
+      );
+
+      if (taggedUser) {
+        return (
+          <>
+            {splitContent.slice(0, index).join(' ')}
+            <Link to={`/users/${taggedUser.username}`}> {tagged} </Link>
+            {splitContent.slice(index + 1).join(' ')}
+          </>
+        );
+      }
+    }
+
+    return content;
+  };
+
   return (
     <div className='post'>
       <div className='main' onClick={e => viewPost(e)}>
@@ -191,7 +216,7 @@ const PostContainer: React.FC<Post> = props => {
             <div className='reply-to'>
               {subcomments && `Replying to @` + reply_to}
             </div>
-            <div className='content'>{content}</div>
+            <div className='content'>{taggedContent(content)}</div>
           </div>
         </div>
         <ButtonBar

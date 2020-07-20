@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext, ChangeEvent } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams, useLocation } from 'react-router-dom';
 
 import './profile.styles.scss';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
 import { User } from '../../types';
 import { UserContext } from '../../contexts/user.context';
 import { removeToken } from '../../services/auth';
-import { fetchPosts } from '../../services/helpers';
-import { getUser, editUser } from '../../services/users';
+import { getUser, editUser, getUsers } from '../../services/users';
 import { deleteComment } from '../../services/comments';
 import { deleteRepost } from '../../services/reposts';
 import { deletePost } from '../../services/posts';
@@ -16,6 +15,7 @@ import FollowButton from '../../components/follow-button/follow-button.component
 
 const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState<any>([]);
   const [editing, setEditing] = useState(false);
   const { user: currentUser, setUser: setCurrentUser } = useContext(
@@ -24,10 +24,13 @@ const Profile = () => {
   const [subtitle, setSubtitle] = useState('');
   const { goBack, push } = useHistory();
   const { username } = useParams();
+  const { pathname } = useLocation();
 
   const fetchUser = async () => {
     const response = await getUser(username);
     setUser(response);
+    const fetchedUsers = await getUsers();
+    setUsers(fetchedUsers);
 
     const repostsData = response.reposts.map((each: any) => ({
       ...each.post,
@@ -55,6 +58,10 @@ const Profile = () => {
       setSubtitle(user!.subtitle);
     }
   }, [user]);
+
+  useEffect(() => {
+    fetchUser();
+  }, [pathname]);
 
   const handleDelete = async (id: number, type: number) => {
     if (type === 1) {
@@ -142,7 +149,7 @@ const Profile = () => {
                 </form>
               </div>
             )}
-            <PostList {...{ posts, handleDelete, user: null }} />
+            <PostList {...{ posts, handleDelete, user: null, users }} />
           </div>
         </div>
       )}

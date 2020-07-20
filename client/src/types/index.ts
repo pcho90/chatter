@@ -48,6 +48,7 @@ export interface PostListProps {
   posts: any[];
   handleDelete: Function;
   user: any;
+  users?: any;
 }
 
 export interface Likes {

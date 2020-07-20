@@ -98,6 +98,14 @@
           max-width: 500px;
           word-wrap: break-word;
 
+          a {
+            color: $primary;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+
           @media (max-width: 600px) {
             max-width: 80vw;
           }
