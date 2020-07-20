@@ -6,12 +6,13 @@ import InputTrigger from 'react-input-trigger';
 import './home.styles.scss';
 
 import { Post } from '../../types';
+import { fetchPosts, getInitials } from '../../services/helpers';
 import { deleteComment } from '../../services/comments';
 import { deletePost } from '../../services/posts';
 import { UserContext } from '../../contexts/user.context';
 import { getUsers } from '../../services/users';
-import { createPost, getPosts } from '../../services/posts';
-import { getReposts, deleteRepost } from '../../services/reposts';
+import { createPost } from '../../services/posts';
+import { deleteRepost } from '../../services/reposts';
 import PostList from '../../components/post-list/post-list.component';
 
 const Home = () => {
@@ -46,7 +47,9 @@ const Home = () => {
       }));
     } else if (which === 13) {
       event.preventDefault();
-      const selectedUser: any = users[inputMention.currentSelection];
+      const selectedUser: any = users.filter((user: any) =>
+        user.username.includes(inputMention.text)
+      )[inputMention.currentSelection];
       const newText = `${input.slice(0, inputMention.startPosition - 1)} @${
         selectedUser.username
       }${input.slice(
@@ -70,22 +73,9 @@ const Home = () => {
     setUsers(response);
   };
 
-  const fetchPosts = async () => {
-    const response = await getPosts();
-    const reposts = await getReposts();
-
-    const repostsData = reposts.map((each: any) => ({
-      ...each.post,
-      repost: true,
-      repost_by: each.user.username,
-      created_at: each.created_at,
-      id: each.id,
-      post_id: each.post_id,
-      comment_id: each.comment_id,
-      repost_id: each.user.id
-    }));
-
-    setPosts([...response, ...repostsData]);
+  const loadPosts = async () => {
+    const response = await fetchPosts();
+    setPosts(response);
   };
 
   const handleChange = (e: React.ChangeEvent) => {
@@ -117,7 +107,7 @@ const Home = () => {
     } else {
       await deleteComment(id);
     }
-    fetchPosts();
+    loadPosts();
   };
 
   const inputSuggestor = (metaData: any) => {
@@ -153,11 +143,9 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchPosts();
+    loadPosts();
     fetchUsers();
   }, []);
-
-  let endHandlerTrigger: any;
 
   return (
     <div className='home'>
@@ -176,9 +164,6 @@ const Home = () => {
               inputSuggestor(metaData);
             }}
             onType={(metaData: any) => handleMentionChange(metaData)}
-            // endTrigger={(endHandler: any) => {
-            //   endHandlerTrigger = endHandler;
-            // }}
           >
             <TextareaAutosize
               className='textarea'
@@ -188,14 +173,8 @@ const Home = () => {
             />
           </InputTrigger>
           <div
-            id='dropdown'
+            className='mention-popover'
             style={{
-              position: 'absolute',
-              width: '200px',
-              height: 'auto',
-              borderRadius: '6px',
-              background: 'white',
-              boxShadow: 'rgba(0, 0, 0, 0.4) 0px 1px 4px',
               display: inputMention.showSuggestor ? 'block' : 'none',
               top: inputMention.top!,
               left: inputMention.left!
@@ -205,13 +184,19 @@ const Home = () => {
               .filter((user: any) => user.username.includes(inputMention.text))
               .map((user: any, index) => (
                 <div
+                  className='mention-user'
                   style={{
-                    padding: '10px 20px',
                     background:
-                      index === inputMention.currentSelection ? '#eee' : ''
+                      index === inputMention.currentSelection ? '#f6f8fa' : ''
                   }}
                 >
-                  {user.username}
+                  <span className='mention-avatar'>
+                    {getInitials(null, user.name)}
+                  </span>
+                  <div className='mention-details'>
+                    <span className='mention-name'>{user.name}</span>
+                    <span className='mention-username'>{user.username}</span>
+                  </div>
                 </div>
               ))}
           </div>

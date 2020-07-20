@@ -6,8 +6,10 @@ import { ReactComponent as BackIcon } from '../../assets/back.svg';
 import { User } from '../../types';
 import { UserContext } from '../../contexts/user.context';
 import { removeToken } from '../../services/auth';
+import { fetchPosts } from '../../services/helpers';
 import { getUser, editUser } from '../../services/users';
 import { deleteComment } from '../../services/comments';
+import { deleteRepost } from '../../services/reposts';
 import { deletePost } from '../../services/posts';
 import PostList from '../../components/post-list/post-list.component';
 import FollowButton from '../../components/follow-button/follow-button.component';
@@ -54,12 +56,15 @@ const Profile = () => {
     }
   }, [user]);
 
-  const handleDelete = async (id: number, isComment: boolean) => {
-    if (isComment) {
-      await deleteComment(id);
-    } else {
+  const handleDelete = async (id: number, type: number) => {
+    if (type === 1) {
       await deletePost(id);
+    } else if (type === 2) {
+      await deleteRepost(id);
+    } else {
+      await deleteComment(id);
     }
+    fetchUser();
   };
 
   const handleEdit = async (e: React.FormEvent) => {
@@ -92,7 +97,7 @@ const Profile = () => {
             <BackIcon className='icon back-button' onClick={handleBack} />
             <div className='header-title'>
               <span>{user.name}</span>
-              <label>{user.posts.length} tweets</label>
+              <label>{user.posts.length} chirps</label>
             </div>
             <div className='profile-logout'>
               <button onClick={handleLogout}>Logout</button>

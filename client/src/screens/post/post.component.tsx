@@ -7,6 +7,7 @@ import { UserContext } from '../../contexts/user.context';
 import { Post as PostType } from '../../types';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
 import { getPost, deletePost } from '../../services/posts';
+import { deleteRepost } from '../../services/reposts';
 import {
   createComment,
   getComment,
@@ -54,13 +55,14 @@ const Post = () => {
     setCommenting(!commenting);
   };
 
-  const handleDelete = async (id: number, isComment: boolean) => {
-    if (isComment) {
-      await deleteComment(id);
-    } else {
+  const handleDelete = async (id: number, type: number) => {
+    if (type === 1) {
       await deletePost(id);
+    } else if (type === 2) {
+      await deleteRepost(id);
+    } else {
+      await deleteComment(id);
     }
-
     fetchPost();
   };
 

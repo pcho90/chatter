@@ -108,12 +108,15 @@ const PostContainer: React.FC<Post> = props => {
   };
 
   const handleClick = () => {
+    console.log(post);
+    console.log(post.repost);
     if (post.repost) {
+      console.log('repost');
       handleDelete(post.id, 2);
-    } else if (post.parent_id || post_id) {
-      handleDelete(id, 3);
-    } else {
+    } else if (post.comments) {
       handleDelete(id, 1);
+    } else {
+      handleDelete(id, 3);
     }
   };
 

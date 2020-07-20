@@ -1,3 +1,24 @@
+import { getPosts } from '../services/posts';
+import { getReposts } from '../services/reposts';
+
+export const fetchPosts = async () => {
+  const response = await getPosts();
+  const reposts = await getReposts();
+
+  const repostsData = reposts.map((each: any) => ({
+    ...each.post,
+    repost: true,
+    repost_by: each.user.username,
+    created_at: each.created_at,
+    id: each.id,
+    post_id: each.post_id,
+    comment_id: each.comment_id,
+    repost_id: each.user.id
+  }));
+
+  return [...response, ...repostsData];
+};
+
 export const isLiked = (user: any, id: number) => {
   let liked = false;
   let like: any;
