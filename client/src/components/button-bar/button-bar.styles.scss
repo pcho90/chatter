@@ -5,10 +5,10 @@
   justify-content: space-around;
 
   .button-container {
-    display: flex;
-    align-items: center;
+    @include center;
     color: $dark-gray;
     font-size: 0.9rem;
+    width: 30%;
 
     .button-icon {
       @include center;
