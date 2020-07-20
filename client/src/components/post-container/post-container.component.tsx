@@ -193,7 +193,9 @@ const PostContainer: React.FC<Post> = props => {
             <div className='reply-to'>
               {subcomments && `Replying to @` + reply_to}
             </div>
-            <div className='content'>{taggedContent(content, props.users)}</div>
+            <div className='content'>
+              {taggedContent(content, props.users, props.hashtags)}
+            </div>
           </div>
         </div>
         <ButtonBar

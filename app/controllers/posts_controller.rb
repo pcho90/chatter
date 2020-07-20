@@ -6,12 +6,12 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
 
-    render json: @posts, :include => [:likes, { :comments  => {:include => :subcomments}}], status: :ok
+    render json: @posts, :include => [:hashtags, :likes, { :comments  => {:include => :subcomments}}], status: :ok
   end
 
   # GET /posts/1
   def show
-    render json: @post, :include => [:likes, { :comments  => {:include => :subcomments}}]
+    render json: @post, :include => [:hashtags, :likes, { :comments  => {:include => :subcomments}}]
   end
 
   # POST /posts

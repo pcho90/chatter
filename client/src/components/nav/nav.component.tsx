@@ -9,6 +9,7 @@ import { ReactComponent as UsersIcon } from '../../assets/users.svg';
 import { ReactComponent as BellIcon } from '../../assets/bell.svg';
 import { ReactComponent as ExploreIcon } from '../../assets/explore.svg';
 import { ReactComponent as ProfileIcon } from '../../assets/profile.svg';
+import { ReactComponent as HashtagIcon } from '../../assets/hashtag.svg';
 
 import { verifyUser, removeToken } from '../../services/auth';
 import { UserContext } from '../../contexts/user.context';
@@ -48,6 +49,10 @@ const Nav = () => {
       <Link to='/posts' className={pathname === '/posts' ? 'active' : ''}>
         <ExploreIcon className='icon' />
         <span>Explore</span>
+      </Link>
+      <Link to='/trending' className={pathname === '/trending' ? 'active' : ''}>
+        <HashtagIcon className='icon' />
+        <span>Trending</span>
       </Link>
       {user ? (
         <>

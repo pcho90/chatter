@@ -28,6 +28,7 @@ export interface Post {
   repost_by?: any;
   users?: any;
   loadPosts?: any;
+  hashtags?: any;
 }
 
 export interface Comment {
@@ -51,6 +52,7 @@ export interface PostListProps {
   user: any;
   users?: any;
   loadPosts?: any;
+  hashtags?: any;
 }
 
 export interface Likes {

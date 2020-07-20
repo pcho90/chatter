@@ -10,6 +10,8 @@ import { UserContext } from '../../contexts/user.context';
 import { fetchPosts, getInitials } from '../../services/helpers';
 import { getUsers } from '../../services/users';
 import { deleteComment } from '../../services/comments';
+import { createHashtag, getHashtags } from '../../services/hashtags';
+import { createPostHashtag } from '../../services/post-hashtags';
 import { deletePost } from '../../services/posts';
 import { createPost } from '../../services/posts';
 import { deleteRepost } from '../../services/reposts';
@@ -21,6 +23,7 @@ const Home = () => {
   const { user } = useContext(UserContext);
   const [users, setUsers] = useState([]);
   const [input, setInput] = useState('');
+  const [hashtags, setHashtags] = useState([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const { pathname } = useLocation();
 
@@ -32,6 +35,12 @@ const Home = () => {
   const fetchUsers = async () => {
     const response = await getUsers();
     setUsers(response);
+  };
+
+  const fetchHashtags = async () => {
+    const response = await getHashtags();
+    setHashtags(response);
+    console.log(response);
   };
 
   const handleChange = (e: React.ChangeEvent) => {
@@ -53,6 +62,8 @@ const Home = () => {
 
     const splitInput = input.split(' ');
     const mention = splitInput.find((one: string) => one.startsWith('@'));
+    let postTags = splitInput.filter((each: string) => each.startsWith('#'));
+
     const mentioned: any = users.find(
       (one: any) => mention === `@${one.username}`
     );
@@ -63,6 +74,28 @@ const Home = () => {
         refers: response.id,
         sender_id: id,
         receiver_id: mentioned.id
+      });
+    }
+
+    if (postTags.length > 0) {
+      postTags.forEach(async (tag: string) => {
+        const existingHashtag: any = hashtags.find(
+          (hashtag: any) => hashtag.name === tag.slice(1)
+        );
+        if (existingHashtag) {
+          await createPostHashtag({
+            post_id: response.id,
+            hashtag_id: existingHashtag.id
+          });
+          console.log('existing hashtag');
+        } else {
+          const created = await createHashtag(tag.slice(1));
+          await createPostHashtag({
+            post_id: response.id,
+            hashtag_id: created.id
+          });
+          console.log('created hashtag');
+        }
       });
     }
 
@@ -84,6 +117,7 @@ const Home = () => {
   useEffect(() => {
     loadPosts();
     fetchUsers();
+    fetchHashtags();
   }, []);
 
   return (
@@ -108,7 +142,9 @@ const Home = () => {
           />
         </div>
       )}
-      <PostList {...{ posts, handleDelete, user, users, loadPosts }} />
+      <PostList
+        {...{ posts, handleDelete, user, users, loadPosts, hashtags }}
+      />
     </div>
   );
 };

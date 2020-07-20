@@ -8,6 +8,7 @@ import { UserContext } from '../../contexts/user.context';
 import { getUsers } from '../../services/users';
 import { getPost, deletePost } from '../../services/posts';
 import { deleteRepost } from '../../services/reposts';
+import { getHashtags } from '../../services/hashtags';
 import {
   createComment,
   getComment,
@@ -39,6 +40,7 @@ const Post = () => {
   const initials = getInitials(post, '');
   const [commenting, setCommenting] = useState(false);
   const [input, setInput] = useState('');
+  const [hashtags, setHashtags] = useState([]);
   const [users, setUsers] = useState([]);
 
   const fetchPost = async () => {
@@ -56,6 +58,12 @@ const Post = () => {
   const fetchUsers = async () => {
     const response = await getUsers();
     setUsers(response);
+  };
+
+  const fetchHashtags = async () => {
+    const response = await getHashtags();
+    setHashtags(response);
+    console.log(response);
   };
 
   const toggleCommenting = () => {
@@ -171,7 +179,7 @@ const Post = () => {
           {post.subcomments && `Replying to @` + post.reply_to}
         </div>
         <div className='comments-body'>
-          {taggedContent(post.content, users)}
+          {taggedContent(post.content, users, hashtags)}
         </div>
         <span className='time'>
           {formattedTime} · {formattedDate}

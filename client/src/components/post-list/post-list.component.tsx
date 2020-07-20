@@ -11,7 +11,8 @@ const PostList: React.FC<PostListProps> = ({
   handleDelete,
   user,
   users,
-  loadPosts
+  loadPosts,
+  hashtags
 }) => {
   const { pathname } = useLocation();
 
@@ -38,6 +39,7 @@ const PostList: React.FC<PostListProps> = ({
                 handleDelete={handleDelete}
                 users={users}
                 loadPosts={loadPosts}
+                hashtags={hashtags}
                 {...post}
               />
             ))
@@ -53,6 +55,7 @@ const PostList: React.FC<PostListProps> = ({
                 handleDelete={handleDelete}
                 users={users}
                 loadPosts={loadPosts}
+                hashtags={hashtags}
                 {...post}
               />
             ))}

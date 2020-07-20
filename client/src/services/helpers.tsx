@@ -72,24 +72,47 @@ export const getInitials = (post: any, name: string) => {
   return initials;
 };
 
-export const taggedContent = (content: string, users: any) => {
+export const taggedContent = (content: string, users: any, hashtags: any) => {
   const splitContent: any = content.split(' ');
-  const tagged = splitContent.find((tag: any) => tag.startsWith('@'));
-  const index = splitContent.indexOf(tagged);
-  if (tagged) {
-    const taggedUser: any = users.find(
-      (user: any) => `@${user.username}` === tagged
+  const tagged = splitContent.filter(
+    (tag: any) => tag.startsWith('@') || tag.startsWith('#')
+  );
+  if (tagged.length > 0) {
+    return (
+      <>
+        {splitContent.map((each: any, index: number) => {
+          if (each.startsWith('@')) {
+            const taggedUser: any = users.find(
+              (user: any) => `@${user.username}` === each
+            );
+            if (taggedUser) {
+              return (
+                <Link to={`/users/${taggedUser.username}`}>
+                  {index > 0 ? ' ' + each : each}
+                </Link>
+              );
+            } else {
+              return index > 0 ? ' ' + each : each;
+            }
+          } else if (each.startsWith('#')) {
+            const hashtag: any = hashtags.find(
+              (one: any) => `#${one.name}` === each
+            );
+            if (hashtag) {
+              return (
+                <Link to={`/trending/${hashtag.name}`}>
+                  {index > 0 ? ' ' + each : each}
+                </Link>
+              );
+            } else {
+              return index > 0 ? ' ' + each : each;
+            }
+          } else {
+            return index > 0 ? ' ' + each : each;
+          }
+        })}
+      </>
     );
-
-    if (taggedUser) {
-      return (
-        <>
-          {splitContent.slice(0, index).join(' ')}
-          <Link to={`/users/${taggedUser.username}`}> {tagged} </Link>
-          {splitContent.slice(index + 1).join(' ')}
-        </>
-      );
-    }
   }
 
   return content;
