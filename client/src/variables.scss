@@ -152,3 +152,10 @@ $heart: #d45778;
     transition: 300ms ease all;
   }
 }
+
+@mixin custom-input {
+  @include border-bottom;
+  textarea {
+    font-size: 1rem;
+  }
+}

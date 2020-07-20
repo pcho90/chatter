@@ -18,6 +18,7 @@ import ButtonBar from '../../components/button-bar/button-bar.component';
 import PostContainer from '../../components/post-container/post-container.component';
 import { getInitials } from '../../services/helpers';
 import { createNotification } from '../../services/notifications';
+import CustomInput from '../../components/custom-input/custom-input.component';
 
 const Post = () => {
   const [post, setPost] = useState<PostType>({
@@ -76,6 +77,8 @@ const Post = () => {
   };
 
   const handleSubmit = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
     let parent_id, post_id;
 
     if (post.comments) {
@@ -154,12 +157,7 @@ const Post = () => {
       </div>
       {commenting && (
         <div className='commenting'>
-          <TextareaAutosize
-            className='comment-text'
-            value={input}
-            onChange={handleChange}
-          />
-          <button onClick={handleSubmit}>Reply</button>
+          <CustomInput {...{ handleSubmit, input, setInput, handleChange }} />
         </div>
       )}
       <div className='comments-body'>

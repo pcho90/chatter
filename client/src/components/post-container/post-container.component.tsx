@@ -14,6 +14,7 @@ import convertDate from '../../services/convertDate';
 import { Post } from '../../types';
 import ButtonBar from '../button-bar/button-bar.component';
 import { createNotification } from '../../services/notifications';
+import CustomInput from '../../components/custom-input/custom-input.component';
 
 const PostContainer: React.FC<Post> = props => {
   const [post, setPost] = useState(props);
@@ -68,6 +69,8 @@ const PostContainer: React.FC<Post> = props => {
   };
 
   const handleSubmit = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
     let parent_id = 0;
     let post_id = props.id;
 
@@ -102,6 +105,8 @@ const PostContainer: React.FC<Post> = props => {
       sender_id: user.id,
       receiver_id: user_id!
     });
+
+    console.log(notification);
 
     setInput('');
     setCommenting(false);
@@ -181,25 +186,12 @@ const PostContainer: React.FC<Post> = props => {
       </div>
       {editing && (
         <div className='commenting'>
-          <TextareaAutosize
-            className='comment-text'
-            value={edit}
-            onChange={handleEditChange}
-          />
-          <button onClick={handleEditSubmit}>Edit</button>
+          <CustomInput {...{ handleSubmit, input, setInput, handleChange }} />
         </div>
       )}
       {commenting && (
         <div className='commenting'>
-          <TextareaAutosize
-            className='comment-text'
-            value={input}
-            onChange={handleChange}
-            placeholder='Your turn'
-          />
-          <button onClick={handleSubmit} disabled={input.length === 0}>
-            Reply
-          </button>
+          <CustomInput {...{ handleSubmit, input, setInput, handleChange }} />
         </div>
       )}
     </div>

@@ -1,0 +1,74 @@
+@import '../../variables';
+
+form {
+  @include flex-column;
+  position: relative;
+  padding: 0.75rem 1rem;
+
+  div {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mention-popover {
+    @include flex-column;
+    position: absolute;
+    width: 20rem;
+    height: 30rem;
+    overflow: scroll;
+    border-radius: 6px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 4px;
+
+    .mention-user {
+      @include border-bottom;
+      display: flex;
+      padding: 0.75rem 1rem;
+
+      &:hover {
+        @include post-hover;
+      }
+
+      .mention-avatar {
+        @include avatar;
+        font-size: 1.25rem;
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+
+      .mention-details {
+        @include flex-column;
+        justify-content: center;
+        flex: auto;
+        font-size: 1rem;
+        padding-left: 1rem;
+
+        .mention-name {
+          font-weight: 700;
+        }
+
+        .mention-username {
+          color: $dark-gray;
+        }
+      }
+    }
+  }
+
+  .textarea {
+    width: 100%;
+    font-family: system-ui;
+    resize: none;
+    padding: 0.9rem;
+    font-size: 1.2rem;
+    border: none;
+
+    &::placeholder {
+      color: #ddd;
+      font-weight: 500;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

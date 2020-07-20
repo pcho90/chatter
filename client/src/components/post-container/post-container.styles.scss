@@ -112,37 +112,6 @@
   }
 
   .commenting {
-    @include flex-column;
-    @include border-bottom;
-    padding: 0.6rem 0 0.9rem 0;
-    align-items: center;
-
-    .comment-text {
-      margin: 0 auto;
-      width: 90%;
-      font-family: system-ui;
-      resize: none;
-      padding: 0.6rem;
-      font-size: 0.9rem;
-      border: none;
-
-      &::placeholder {
-        color: #ddd;
-        font-weight: 500;
-      }
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    button {
-      padding: 0.6rem;
-      font-size: 0.9rem;
-
-      &:disabled {
-        background: $disabled;
-      }
-    }
+    @include custom-input;
   }
 }
