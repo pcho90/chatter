@@ -129,6 +129,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
         <span className='button-icon share-button' onClick={handleRepost}>
           <ShareIcon className={`icon-bar ${reposted && 'repost'}`} />
         </span>
+        {post.reposts && post.reposts.length > 0 && post.reposts.length}
       </div>
       <div className='button-container heart-container'>
         <span className='button-icon heart-button' onClick={handleLike}>
@@ -138,6 +139,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
             <HeartIcon className='icon-bar' />
           )}
         </span>
+        {post.likes && post.likes.length > 0 && post.likes.length}
       </div>
     </div>
   );
