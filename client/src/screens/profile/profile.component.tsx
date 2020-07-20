@@ -99,9 +99,11 @@ const Profile = () => {
               <span>{user.name}</span>
               <label>{user.posts.length} chirps</label>
             </div>
-            <div className='profile-logout'>
-              <button onClick={handleLogout}>Logout</button>
-            </div>
+            {user.username === currentUser.username && (
+              <div className='profile-logout'>
+                <button onClick={handleLogout}>Logout</button>
+              </div>
+            )}
           </header>
           <div className='profile-body'>
             <div className='profile-header'>
