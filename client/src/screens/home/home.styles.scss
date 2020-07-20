@@ -5,4 +5,10 @@
   .custom-input {
     border-bottom: 0.6rem solid $border-color;
   }
+
+  .loader {
+    @include center;
+    padding-top: 10rem;
+    width: 100%;
+  }
 }

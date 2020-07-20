@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 
 import './home.styles.scss';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 import { Post } from '../../types';
 import { UserContext } from '../../contexts/user.context';
@@ -90,6 +92,17 @@ const Home = () => {
       {user && (
         <div className='custom-input'>
           <CustomInput {...{ handleSubmit, input, setInput, handleChange }} />
+        </div>
+      )}
+      {posts.length < 1 && (
+        <div className='loader'>
+          <Loader
+            type='TailSpin'
+            color='#1da1f2'
+            height={50}
+            width={50}
+            timeout={3000}
+          />
         </div>
       )}
       <PostList {...{ posts, handleDelete, user }} />
