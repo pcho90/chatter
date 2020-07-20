@@ -118,7 +118,7 @@ const Profile = () => {
               <span>{user.name}</span>
               <label>{user.posts.length} chirps</label>
             </div>
-            {user.username === currentUser.username && (
+            {currentUser && user.username === currentUser.username && (
               <div className='profile-logout'>
                 <button onClick={handleLogout}>Logout</button>
               </div>

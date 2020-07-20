@@ -30,11 +30,7 @@ const App = () => {
         <Route path='/register' component={Register} />
         <Route path='/login' component={Login} />
         <Route path='/notifications' component={user ? Notifications : Login} />
-        <Route
-          exact
-          path='/users/:username'
-          component={user ? Profile : Login}
-        />
+        <Route exact path='/users/:username' component={Profile} />
         <Route path='/users/:username/followers' component={Follows} />
         <Route path='/users/:username/following' component={Follows} />
         <Route path='/posts/:id' component={Post} />
