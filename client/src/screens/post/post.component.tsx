@@ -16,7 +16,7 @@ import {
 import convertDate from '../../services/convertDate';
 import ButtonBar from '../../components/button-bar/button-bar.component';
 import PostContainer from '../../components/post-container/post-container.component';
-import { getInitials } from '../../services/helpers';
+import { getInitials, taggedContent } from '../../services/helpers';
 import { createNotification } from '../../services/notifications';
 import CustomInput from '../../components/custom-input/custom-input.component';
 
@@ -170,7 +170,9 @@ const Post = () => {
         <div className='reply-to'>
           {post.subcomments && `Replying to @` + post.reply_to}
         </div>
-        <div className='comments-body'>{post.content}</div>
+        <div className='comments-body'>
+          {taggedContent(post.content, users)}
+        </div>
         <span className='time'>
           {formattedTime} · {formattedDate}
         </span>

@@ -7,7 +7,7 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 import { Post } from '../../types';
 import { UserContext } from '../../contexts/user.context';
-import { fetchPosts } from '../../services/helpers';
+import { fetchPosts, getInitials } from '../../services/helpers';
 import { getUsers } from '../../services/users';
 import { deleteComment } from '../../services/comments';
 import { deletePost } from '../../services/posts';
@@ -91,7 +91,10 @@ const Home = () => {
       <header>{pathname === '/' ? 'Home' : 'Explore'}</header>
       {user && (
         <div className='custom-input'>
-          <CustomInput {...{ handleSubmit, input, setInput, handleChange }} />
+          <div className='avatar'>{getInitials(null, user.name)}</div>
+          <div className='custom-input-body'>
+            <CustomInput {...{ handleSubmit, input, setInput, handleChange }} />
+          </div>
         </div>
       )}
       {posts.length < 1 && (
@@ -105,7 +108,7 @@ const Home = () => {
           />
         </div>
       )}
-      <PostList {...{ posts, handleDelete, user, users }} />
+      <PostList {...{ posts, handleDelete, user, users, loadPosts }} />
     </div>
   );
 };

@@ -70,6 +70,13 @@
       font-size: 1.5rem;
       max-width: 100%;
       word-wrap: break-word;
+
+      a {
+        color: $primary;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
 
     .time {

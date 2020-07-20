@@ -3,6 +3,20 @@
 .home {
   @include layout;
   .custom-input {
+    padding-left: 1rem;
+    display: flex;
+    .avatar {
+      margin-top: 0.75rem;
+      @include avatar;
+    }
+
+    .custom-input-body {
+      flex: auto;
+      form {
+        padding-left: 0;
+      }
+    }
+
     border-bottom: 0.6rem solid $border-color;
   }
 

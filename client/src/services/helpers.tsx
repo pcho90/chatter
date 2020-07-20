@@ -1,5 +1,7 @@
-import { getPosts } from '../services/posts';
-import { getReposts } from '../services/reposts';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { getPosts } from './posts';
+import { getReposts } from './reposts';
 
 export const fetchPosts = async () => {
   const response = await getPosts();
@@ -68,4 +70,27 @@ export const getInitials = (post: any, name: string) => {
   }
 
   return initials;
+};
+
+export const taggedContent = (content: string, users: any) => {
+  const splitContent: any = content.split(' ');
+  const tagged = splitContent.find((tag: any) => tag.startsWith('@'));
+  const index = splitContent.indexOf(tagged);
+  if (tagged) {
+    const taggedUser: any = users.find(
+      (user: any) => `@${user.username}` === tagged
+    );
+
+    if (taggedUser) {
+      return (
+        <>
+          {splitContent.slice(0, index).join(' ')}
+          <Link to={`/users/${taggedUser.username}`}> {tagged} </Link>
+          {splitContent.slice(index + 1).join(' ')}
+        </>
+      );
+    }
+  }
+
+  return content;
 };

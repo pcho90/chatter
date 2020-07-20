@@ -27,6 +27,7 @@ export interface Post {
   post?: any;
   repost_by?: any;
   users?: any;
+  loadPosts?: any;
 }
 
 export interface Comment {
@@ -49,6 +50,7 @@ export interface PostListProps {
   handleDelete: Function;
   user: any;
   users?: any;
+  loadPosts?: any;
 }
 
 export interface Likes {
@@ -85,6 +87,7 @@ export interface ButtonBarProps {
   user: any;
   setUser: any;
   post: any;
+  loadPosts?: any;
 }
 
 export interface RepostTypes {

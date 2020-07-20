@@ -8,13 +8,12 @@ import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
 import { UserContext } from '../../contexts/user.context';
 import { createComment, editComment } from '../../services/comments';
 import { editPost } from '../../services/posts';
-import { getInitials } from '../../services/helpers';
+import { getInitials, taggedContent } from '../../services/helpers';
 import convertDate from '../../services/convertDate';
 import { Post } from '../../types';
 import ButtonBar from '../button-bar/button-bar.component';
 import { createNotification } from '../../services/notifications';
 import CustomInput from '../../components/custom-input/custom-input.component';
-import Users from '../../screens/users/users.component';
 
 const PostContainer: React.FC<Post> = props => {
   const [post, setPost] = useState(props);
@@ -127,6 +126,7 @@ const PostContainer: React.FC<Post> = props => {
     console.log(notification);
 
     setInput('');
+    await props.loadPosts();
     setCommenting(false);
   };
 
@@ -161,29 +161,6 @@ const PostContainer: React.FC<Post> = props => {
     setEditing(!editing);
   };
 
-  const taggedContent = (content: string) => {
-    const splitContent: any = content.split(' ');
-    const tagged = splitContent.find((tag: any) => tag.startsWith('@'));
-    const index = splitContent.indexOf(tagged);
-    if (tagged) {
-      const taggedUser = props.users.find(
-        (user: any) => `@${user.username}` === tagged
-      );
-
-      if (taggedUser) {
-        return (
-          <>
-            {splitContent.slice(0, index).join(' ')}
-            <Link to={`/users/${taggedUser.username}`}> {tagged} </Link>
-            {splitContent.slice(index + 1).join(' ')}
-          </>
-        );
-      }
-    }
-
-    return content;
-  };
-
   return (
     <div className='post'>
       <div className='main' onClick={e => viewPost(e)}>
@@ -216,7 +193,7 @@ const PostContainer: React.FC<Post> = props => {
             <div className='reply-to'>
               {subcomments && `Replying to @` + reply_to}
             </div>
-            <div className='content'>{taggedContent(content)}</div>
+            <div className='content'>{taggedContent(content, props.users)}</div>
           </div>
         </div>
         <ButtonBar
@@ -225,6 +202,7 @@ const PostContainer: React.FC<Post> = props => {
             (comments && comments.length) || (subcomments && subcomments.length)
           }
           {...{ user, post, setUser }}
+          loadPosts={props.loadPosts}
         />
       </div>
       {editing && (

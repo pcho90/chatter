@@ -17,7 +17,8 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
   comments,
   post,
   user,
-  setUser
+  setUser,
+  loadPosts
 }) => {
   let liked: any, like: any, obj;
   if (post.repost) {
@@ -110,6 +111,8 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
       sender_id: user.id,
       receiver_id: post.user_id
     });
+
+    await loadPosts();
 
     console.log(notification);
   };
