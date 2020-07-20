@@ -52,7 +52,9 @@ const Nav = () => {
       </Link>
       <Link
         to='/trending'
-        className={pathname === '/trending' ? 'active trending' : 'trending'}
+        className={
+          pathname === '/trending' ? 'active trending-link' : 'trending-link'
+        }
       >
         <HashtagIcon className='icon' />
         <span>Trending</span>

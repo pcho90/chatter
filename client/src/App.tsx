@@ -13,6 +13,7 @@ import Users from './screens/users/users.component';
 import Profile from './screens/profile/profile.component';
 import Follows from './screens/follows/follows.component';
 import Notifications from './screens/notifications/notifications.component';
+import Trending from './screens/trending/trending.component';
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -28,6 +29,7 @@ const App = () => {
         <Route exact path='/posts' component={Home} />
         <Route exact path='/users' component={Users} />
         <Route path='/register' component={Register} />
+        <Route path='/trending' component={Trending} />
         <Route path='/login' component={Login} />
         <Route path='/notifications' component={user ? Notifications : Login} />
         <Route exact path='/users/:username' component={Profile} />
@@ -35,6 +37,7 @@ const App = () => {
         <Route path='/users/:username/following' component={Follows} />
         <Route path='/posts/:id' component={Post} />
         <Route path='/comments/:subcomment_id' component={Post} />
+        {/* <Redirect to='/' /> */}
       </div>
     </div>
   );

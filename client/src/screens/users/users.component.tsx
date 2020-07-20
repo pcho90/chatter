@@ -1,22 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import Loader from 'react-loader-spinner';
 
 import './users.styles.scss';
-import { getUsers } from '../../services/users';
+import { UsersContext } from '../../contexts/users.context';
 import UserList from '../../components/user-list/user-list.component';
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
-
-  const fetchUsers = async () => {
-    const response = await getUsers();
-    setUsers(response);
-    console.log(response);
-  };
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  const { users } = useContext(UsersContext);
 
   return (
     <div className='users'>

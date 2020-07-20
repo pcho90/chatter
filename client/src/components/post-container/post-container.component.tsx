@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import './post-container.styles.scss';
@@ -6,6 +6,8 @@ import { ReactComponent as ShareIcon } from '../../assets/share.svg';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
 import { UserContext } from '../../contexts/user.context';
+import { UsersContext } from '../../contexts/users.context';
+import { HashtagsContext } from '../../contexts/hashtags.context';
 import { createComment, editComment } from '../../services/comments';
 import { editPost } from '../../services/posts';
 import { getInitials, taggedContent } from '../../services/helpers';
@@ -16,11 +18,13 @@ import { createNotification } from '../../services/notifications';
 import CustomInput from '../../components/custom-input/custom-input.component';
 
 const PostContainer: React.FC<Post> = props => {
-  const [post, setPost] = useState(props);
   const { user, setUser } = useContext(UserContext);
+  const { hashtags } = useContext(HashtagsContext);
+  const { users } = useContext(UsersContext);
+  const [edit, setEdit] = useState(props.content);
+  const [post, setPost] = useState(props);
   const [commenting, setCommenting] = useState(false);
   const [editing, setEditing] = useState(false);
-  const [edit, setEdit] = useState(props.content);
   const [input, setInput] = useState('');
   const initials = getInitials(post, '');
   const { push } = useHistory();
@@ -35,7 +39,6 @@ const PostContainer: React.FC<Post> = props => {
     subcomments,
     user_id,
     handleDelete,
-    post_id,
     reply_to,
     repost,
     repost_by
@@ -194,7 +197,7 @@ const PostContainer: React.FC<Post> = props => {
               {subcomments && `Replying to @` + reply_to}
             </div>
             <div className='content'>
-              {taggedContent(content, props.users, props.hashtags)}
+              {taggedContent(content, users, hashtags)}
             </div>
           </div>
         </div>

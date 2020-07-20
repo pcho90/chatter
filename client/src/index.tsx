@@ -4,12 +4,18 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.scss';
 import UserContextProvider from './contexts/user.context';
+import UsersContextProvider from './contexts/users.context';
+import HashtagsContextProvider from './contexts/hashtags.context';
 import App from './App';
 
 ReactDOM.render(
   <BrowserRouter>
     <UserContextProvider>
-      <App />
+      <UsersContextProvider>
+        <HashtagsContextProvider>
+          <App />
+        </HashtagsContextProvider>
+      </UsersContextProvider>
     </UserContextProvider>
   </BrowserRouter>,
   document.getElementById('root')

@@ -6,6 +6,7 @@ import './profile.styles.scss';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
 import { User } from '../../types';
 import { UserContext } from '../../contexts/user.context';
+import { UsersContext } from '../../contexts/users.context';
 import { removeToken } from '../../services/auth';
 import { getUser, editUser, getUsers } from '../../services/users';
 import { deleteComment } from '../../services/comments';
@@ -15,13 +16,13 @@ import PostList from '../../components/post-list/post-list.component';
 import FollowButton from '../../components/follow-button/follow-button.component';
 
 const Profile = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [users, setUsers] = useState([]);
-  const [posts, setPosts] = useState<any>([]);
-  const [editing, setEditing] = useState(false);
   const { user: currentUser, setUser: setCurrentUser } = useContext(
     UserContext
   );
+  const { users } = useContext(UsersContext);
+  const [user, setUser] = useState<User | null>(null);
+  const [posts, setPosts] = useState<any>([]);
+  const [editing, setEditing] = useState(false);
   const [subtitle, setSubtitle] = useState('');
   const { goBack, push } = useHistory();
   const { username } = useParams();
@@ -30,8 +31,6 @@ const Profile = () => {
   const fetchUser = async () => {
     const response = await getUser(username);
     setUser(response);
-    const fetchedUsers = await getUsers();
-    setUsers(fetchedUsers);
 
     const repostsData = response.reposts.map((each: any) => ({
       ...each.post,
@@ -161,7 +160,7 @@ const Profile = () => {
                 </form>
               </div>
             )}
-            <PostList {...{ posts, handleDelete, user: null, users }} />
+            <PostList {...{ posts, handleDelete, user: null }} />
           </div>
         </div>
       )}

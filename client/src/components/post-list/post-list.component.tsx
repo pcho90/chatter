@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import './post-list.styles.scss';
@@ -10,9 +10,7 @@ const PostList: React.FC<PostListProps> = ({
   posts,
   handleDelete,
   user,
-  users,
-  loadPosts,
-  hashtags
+  loadPosts
 }) => {
   const { pathname } = useLocation();
 
@@ -37,9 +35,7 @@ const PostList: React.FC<PostListProps> = ({
               <PostContainer
                 key={post.created_at}
                 handleDelete={handleDelete}
-                users={users}
                 loadPosts={loadPosts}
-                hashtags={hashtags}
                 {...post}
               />
             ))
@@ -53,9 +49,7 @@ const PostList: React.FC<PostListProps> = ({
               <PostContainer
                 key={post.created_at}
                 handleDelete={handleDelete}
-                users={users}
                 loadPosts={loadPosts}
-                hashtags={hashtags}
                 {...post}
               />
             ))}

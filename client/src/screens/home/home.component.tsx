@@ -7,8 +7,9 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 import { Post } from '../../types';
 import { UserContext } from '../../contexts/user.context';
+import { UsersContext } from '../../contexts/users.context';
+import { HashtagsContext } from '../../contexts/hashtags.context';
 import { fetchPosts, getInitials } from '../../services/helpers';
-import { getUsers } from '../../services/users';
 import { deleteComment } from '../../services/comments';
 import { createHashtag, getHashtags } from '../../services/hashtags';
 import { createPostHashtag } from '../../services/post-hashtags';
@@ -21,26 +22,15 @@ import CustomInput from '../../components/custom-input/custom-input.component';
 
 const Home = () => {
   const { user } = useContext(UserContext);
-  const [users, setUsers] = useState([]);
+  const { users } = useContext(UsersContext);
+  const { hashtags } = useContext(HashtagsContext);
   const [input, setInput] = useState('');
-  const [hashtags, setHashtags] = useState([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const { pathname } = useLocation();
 
   const loadPosts = async () => {
     const response = await fetchPosts();
     setPosts(response);
-  };
-
-  const fetchUsers = async () => {
-    const response = await getUsers();
-    setUsers(response);
-  };
-
-  const fetchHashtags = async () => {
-    const response = await getHashtags();
-    setHashtags(response);
-    console.log(response);
   };
 
   const handleChange = (e: React.ChangeEvent) => {
@@ -116,8 +106,6 @@ const Home = () => {
 
   useEffect(() => {
     loadPosts();
-    fetchUsers();
-    fetchHashtags();
   }, []);
 
   return (
@@ -142,9 +130,7 @@ const Home = () => {
           />
         </div>
       )}
-      <PostList
-        {...{ posts, handleDelete, user, users, loadPosts, hashtags }}
-      />
+      <PostList {...{ posts, handleDelete, user, loadPosts }} />
     </div>
   );
 };
