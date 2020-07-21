@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 
 import './hashtag-posts.styles.scss';
 import { UserContext } from '../../contexts/user.context';
@@ -15,6 +15,7 @@ const HashtagPosts = () => {
   const [hashtag, setHashtag] = useState([]);
   const { goBack } = useHistory();
   const { category } = useParams();
+  const { pathname } = useLocation();
 
   const fetchHashtag = async () => {
     const response = await getHashtag(category);
@@ -38,7 +39,7 @@ const HashtagPosts = () => {
 
   useEffect(() => {
     fetchHashtag();
-  }, []);
+  }, [pathname]);
 
   return (
     <div className='hashtag-posts'>
