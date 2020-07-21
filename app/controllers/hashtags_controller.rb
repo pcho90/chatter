@@ -5,12 +5,12 @@ class HashtagsController < ApplicationController
   def index
     @hashtags = Hashtag.all
 
-    render json: @hashtags, include: :posts
+    render json: @hashtags, :include => [{ :posts => { :include => :comments }}]
   end
 
   # GET /hashtags/1
   def show
-    render json: @hashtag, include: :posts
+    render json: @hashtag, :include => [{ :posts => { :include => :comments }}]
   end
 
   # POST /hashtags

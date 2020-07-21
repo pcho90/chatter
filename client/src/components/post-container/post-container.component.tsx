@@ -5,16 +5,16 @@ import './post-container.styles.scss';
 import { ReactComponent as ShareIcon } from '../../assets/share.svg';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
+import { Post } from '../../types';
 import { UserContext } from '../../contexts/user.context';
 import { UsersContext } from '../../contexts/users.context';
 import { HashtagsContext } from '../../contexts/hashtags.context';
 import { createComment, editComment } from '../../services/comments';
 import { editPost } from '../../services/posts';
 import { getInitials, taggedContent } from '../../services/helpers';
-import convertDate from '../../services/convertDate';
-import { Post } from '../../types';
-import ButtonBar from '../button-bar/button-bar.component';
 import { createNotification } from '../../services/notifications';
+import convertDate from '../../services/convertDate';
+import ButtonBar from '../button-bar/button-bar.component';
 import CustomInput from '../../components/custom-input/custom-input.component';
 
 const PostContainer: React.FC<Post> = props => {
@@ -97,7 +97,7 @@ const PostContainer: React.FC<Post> = props => {
 
     const splitInput = input.split(' ');
     const mention = splitInput.find((one: string) => one.startsWith('@'));
-    const mentioned: any = props.users.find((one: any) =>
+    const mentioned: any = users.find((one: any) =>
       mention?.includes(one.username)
     );
 
