@@ -28,10 +28,12 @@ const Register = () => {
   const handleChange = (e: React.ChangeEvent) => {
     let { name, value } = e.target as HTMLInputElement;
 
-    if (name === 'username' || name === 'name') {
-      value = value.replace(/[^A-Za-z]/gi, '');
+    if (name === 'username') {
+      value = value.replace(/[^A-Za-z0-9]/gi, '');
     } else if (name === 'email') {
       value = value.replace(/[^A-Za-z@.]/gi, '');
+    } else if (name === 'name') {
+      value = value.replace(/[^A-Za-z\s]/gi, '');
     }
 
     setInput({ ...input, [name]: value });
