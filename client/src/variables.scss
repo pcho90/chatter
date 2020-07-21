@@ -167,3 +167,36 @@ $heart: #d45778;
     width: 100%;
   }
 }
+
+@mixin back-button {
+  .back-button {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+@mixin header-title {
+  .header-title {
+    @include flex-column;
+    @include header-label;
+    flex: auto;
+
+    span {
+      font-size: 1.3rem;
+    }
+
+    label {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      span {
+        font-size: 1.2rem;
+      }
+      label {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

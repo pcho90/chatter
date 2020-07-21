@@ -1,0 +1,12 @@
+@import '../../variables';
+
+.hashtag-posts {
+  @include layout;
+
+  .hashtag-header {
+    @include header;
+    @include header-title;
+    @include header-icon;
+    @include back-button;
+  }
+}

@@ -8,7 +8,7 @@ import { User } from '../../types';
 import { UserContext } from '../../contexts/user.context';
 import { UsersContext } from '../../contexts/users.context';
 import { removeToken } from '../../services/auth';
-import { getUser, editUser, getUsers } from '../../services/users';
+import { getUser, editUser } from '../../services/users';
 import { deleteComment } from '../../services/comments';
 import { deleteRepost } from '../../services/reposts';
 import { deletePost } from '../../services/posts';

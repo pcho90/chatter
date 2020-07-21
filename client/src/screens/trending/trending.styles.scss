@@ -2,4 +2,28 @@
 
 .trending {
   @include layout;
+
+  .trending-body {
+    @include flex-column;
+
+    .hashtag {
+      @include flex-column;
+      @include border-bottom;
+      padding: 1rem;
+
+      &:hover {
+        @include post-hover;
+      }
+
+      .hashtag-name {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .hashtag-count {
+        font-size: 0.9rem;
+        color: $dark-gray;
+      }
+    }
+  }
 }

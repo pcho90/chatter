@@ -11,29 +11,17 @@ import { ReactComponent as ExploreIcon } from '../../assets/explore.svg';
 import { ReactComponent as ProfileIcon } from '../../assets/profile.svg';
 import { ReactComponent as HashtagIcon } from '../../assets/hashtag.svg';
 
-import { verifyUser, removeToken } from '../../services/auth';
+import { removeToken } from '../../services/auth';
 import { UserContext } from '../../contexts/user.context';
 
 const Nav = () => {
   const { user, setUser } = useContext(UserContext);
   const { pathname } = useLocation();
 
-  const checkLoggedIn = async () => {
-    const user = await verifyUser();
-    if (user) {
-      setUser(user);
-      console.log(user);
-    }
-  };
-
   const handleLogout = () => {
     setUser(null);
     removeToken();
   };
-
-  useEffect(() => {
-    checkLoggedIn();
-  }, []);
 
   return (
     <div className='nav'>

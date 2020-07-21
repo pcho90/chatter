@@ -7,29 +7,7 @@
 
   .profile-nav {
     @include header;
-
-    .header-title {
-      @include flex-column;
-      @include header-label;
-      flex: auto;
-
-      span {
-        font-size: 1.3rem;
-      }
-
-      label {
-        font-size: 0.9rem;
-      }
-
-      @media (max-width: 600px) {
-        span {
-          font-size: 1.2rem;
-        }
-        label {
-          font-size: 0.9rem;
-        }
-      }
-    }
+    @include header-title;
 
     .profile-logout {
       @media (min-width: 600px) {
@@ -38,12 +16,7 @@
     }
 
     @include header-icon;
-
-    .back-button {
-      &:hover {
-        cursor: pointer;
-      }
-    }
+    @include back-button;
   }
 
   .profile-body {
