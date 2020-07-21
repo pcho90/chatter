@@ -124,7 +124,7 @@ const Home = () => {
             color='#1da1f2'
             height={50}
             width={50}
-            timeout={10000}
+            timeout={60000}
           />
         </div>
       )}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams, useLocation } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 
 import './follows.styles.scss';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
@@ -33,10 +34,21 @@ const Follows = () => {
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [pathname]);
 
   return (
     <div className='follows'>
+      {!users && (
+        <div className='loader'>
+          <Loader
+            type='TailSpin'
+            color='#1da1f2'
+            height={50}
+            width={50}
+            timeout={60000}
+          />
+        </div>
+      )}
       {user && (
         <>
           <header className='follows-header'>
