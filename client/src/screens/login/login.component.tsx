@@ -25,7 +25,6 @@ const Login = () => {
     const user = await loginUser(input);
     setUser(user);
     push('/');
-    console.log(user);
   };
 
   return (

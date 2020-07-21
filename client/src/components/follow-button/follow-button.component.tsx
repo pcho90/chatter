@@ -25,7 +25,6 @@ const FollowButton: React.FC<FollowButtonType> = ({ user, currentUser }) => {
       sender_id: currentUser.id,
       receiver_id: user.id
     });
-    console.log(notification);
   };
 
   const handleUnfollow = async () => {

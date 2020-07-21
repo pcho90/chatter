@@ -19,7 +19,6 @@ const HashtagPosts = () => {
   const fetchHashtag = async () => {
     const response = await getHashtag(category);
     setHashtag(response.posts);
-    console.log(response);
   };
 
   const handleDelete = async (id: number, type: number) => {

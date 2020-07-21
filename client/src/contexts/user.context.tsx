@@ -15,7 +15,6 @@ const UserContextProvider: React.FC = ({ children }) => {
     const user = await verifyUser();
     if (user) {
       setUser(user);
-      console.log(user);
     }
   };
 

@@ -77,16 +77,12 @@ const Home = () => {
             post_id: response.id,
             hashtag_id: existingHashtag.id
           });
-          console.log('existing hashtag');
-          console.log(created);
         } else {
           const created = await createHashtag(tag.slice(1));
           await createPostHashtag({
             post_id: response.id,
             hashtag_id: created.id
           });
-          console.log('created hashtag');
-          console.log(created);
         }
       });
     }

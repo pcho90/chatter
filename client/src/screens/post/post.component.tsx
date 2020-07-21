@@ -129,7 +129,6 @@ const Post = () => {
         receiver_id: mentioned.id
       });
     }
-    console.log(notice);
 
     const notification = await createNotification({
       category,
@@ -137,8 +136,6 @@ const Post = () => {
       sender_id: user.id,
       receiver_id: post.user_id!
     });
-
-    console.log(notification);
 
     if (post.comments) {
       setPost({ ...post, comments: [...post.comments, response] });

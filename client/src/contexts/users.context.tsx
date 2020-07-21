@@ -12,7 +12,6 @@ const UsersContextProvider: React.FC = ({ children }) => {
   const fetchUsers = async () => {
     const response = await getUsers();
     setUsers(response);
-    console.log(response);
   };
 
   useEffect(() => {

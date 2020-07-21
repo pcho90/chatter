@@ -113,8 +113,6 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
     });
 
     await loadPosts();
-
-    console.log(notification);
   };
 
   return (

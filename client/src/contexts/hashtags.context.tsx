@@ -12,7 +12,6 @@ const HashtagsContextProvider: React.FC = ({ children }) => {
   const fetchHashtags = async () => {
     const response = await getHashtags();
     setHashtags(response);
-    console.log(response);
   };
 
   useEffect(() => {

@@ -13,11 +13,21 @@ const convertDate = (date: string) => {
 
   let timePassed: string;
 
-  if (daysPassed <= 1 && hoursPassed < 0) {
-    if (hoursPassed === 0) {
-      timePassed = `${minutesPassed + 60}m`;
-    } else {
+  if (daysPassed <= 1) {
+    if (hoursPassed < 0) {
       timePassed = `${hoursPassed + 24}h`;
+    } else if (hoursPassed === 0) {
+      if (minutesPassed < 0) {
+        timePassed = `${minutesPassed + 60}m`;
+      } else {
+        timePassed = `${minutesPassed}m`;
+      }
+    } else {
+      if (daysPassed === 1) {
+        timePassed = `${daysPassed}d`;
+      } else {
+        timePassed = `${hoursPassed}h`;
+      }
     }
   } else {
     timePassed = `${daysPassed}d`;

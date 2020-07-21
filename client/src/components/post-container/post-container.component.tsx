@@ -60,7 +60,6 @@ const PostContainer: React.FC<Post> = props => {
 
   const viewPost = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLDivElement) {
-      console.log(post);
       if (comments) {
         push(`/posts/${id}`);
       } else if (repost) {
@@ -110,7 +109,6 @@ const PostContainer: React.FC<Post> = props => {
         receiver_id: mentioned.id
       });
     }
-    console.log(notice);
 
     let category;
     if (post.comments) {
@@ -126,18 +124,13 @@ const PostContainer: React.FC<Post> = props => {
       receiver_id: user_id!
     });
 
-    console.log(notification);
-
     setInput('');
     await props.loadPosts();
     setCommenting(false);
   };
 
   const handleClick = () => {
-    console.log(post);
-    console.log(post.repost);
     if (post.repost) {
-      console.log('repost');
       handleDelete(post.id, 2);
     } else if (post.comments) {
       handleDelete(id, 1);
