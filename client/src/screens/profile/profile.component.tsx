@@ -131,11 +131,13 @@ const Profile = () => {
                   <span className='username'>@{user.username}</span>
                 </div>
                 <div className='header-buttons'>
-                  {user && currentUser && user.id !== currentUser.id ? (
-                    <FollowButton {...{ user, currentUser }} />
-                  ) : (
-                    <button onClick={toggleEdit}>Edit Profile</button>
-                  )}
+                  {user &&
+                    currentUser &&
+                    (user.id !== currentUser.id ? (
+                      <FollowButton {...{ user, currentUser }} />
+                    ) : (
+                      <button onClick={toggleEdit}>Edit Profile</button>
+                    ))}
                 </div>
               </div>
               <span className='subtitle'>{user.subtitle}</span>

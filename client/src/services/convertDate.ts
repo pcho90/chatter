@@ -10,10 +10,11 @@ const convertDate = (date: string) => {
   let daysPassed = currentDate.getDate() - +day;
   let hoursPassed = currentDate.getHours() - +hours;
   let minutesPassed = currentDate.getMinutes() - +minutes;
+  let monthsPassed = currentDate.getMonth() - +mo;
 
   let timePassed: string;
 
-  if (daysPassed <= 1) {
+  if (daysPassed <= 1 && monthsPassed <= 0) {
     if (hoursPassed < 0) {
       timePassed = `${hoursPassed + 24}h`;
     } else if (hoursPassed === 0) {
@@ -30,7 +31,7 @@ const convertDate = (date: string) => {
       }
     }
   } else {
-    timePassed = `${daysPassed}d`;
+    timePassed = `${daysPassed + monthsPassed * 30 + 30}d`;
   }
 
   let secondsPassed =
