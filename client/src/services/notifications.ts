@@ -1,6 +1,6 @@
 import api from './apiConfig';
 
-import { NotificationTypes } from '../types';
+import {Notification} from '../types';
 
 export const getNotifications = async () => {
   const response = await api.get('/notifications');
@@ -12,8 +12,8 @@ export const getNotification = async (id: number) => {
   return response.data;
 };
 
-export const createNotification = async (data: NotificationTypes) => {
-  const response = await api.post('/notifications', { notification: data });
+export const createNotification = async (data: Notification) => {
+  const response = await api.post('/notifications', {notification: data});
   return response.data;
 };
 

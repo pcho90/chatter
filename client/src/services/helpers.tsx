@@ -14,6 +14,10 @@ interface Repost {
   comment_id: number;
 }
 
+interface Hashtag {
+  name: string;
+}
+
 export const fetchPosts = async () => {
   const response = await getPosts();
   const reposts = await getReposts();
@@ -68,12 +72,12 @@ export const isReposted = (user: any, id: number) => {
   return { reposted, repost };
 };
 
-export const getInitials = (post: Post, name: string) => {
+export const getInitials = (post: Post | null, name: string) => {
   let initialSplit,
     initials = '?';
   if (name) {
     initialSplit = name.split(' ');
-  } else if (post.name) {
+  } else if (post?.name) {
     initialSplit = post.name.split(' ');
   }
   if (initialSplit) {
@@ -87,7 +91,7 @@ export const getInitials = (post: Post, name: string) => {
   return initials;
 };
 
-export const taggedContent = (content: string, users: User[], hashtags: any) => {
+export const taggedContent = (content: string, users: User[], hashtags: Hashtag[]) => {
   const splitContent: string[] = content.split(' ');
   const tagged = splitContent.filter((word: string) => word.startsWith('@') || word.startsWith('#'));
 
@@ -108,7 +112,7 @@ export const taggedContent = (content: string, users: User[], hashtags: any) => 
                 return index > 0 ? ' ' + word : word;
               }
             } else if (word.startsWith('#')) {
-              const hashtag: any = hashtags.find((one: any) => `#${one.name}` === word);
+              const hashtag = hashtags.find(hashtag => `#${hashtag.name}` === word);
               if (hashtag) {
                 return (
                   <Link to={`/trending/${hashtag.name}`}>

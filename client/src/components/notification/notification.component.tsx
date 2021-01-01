@@ -1,65 +1,86 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {useMemo} from 'react';
+import {useHistory} from 'react-router-dom';
 
 import './notification.styles.scss';
-import { NotificationProps } from '../../types';
-import { getInitials } from '../../services/helpers';
-import { ReactComponent as UserIcon } from '../../assets/user.svg';
-import { ReactComponent as ReplyIcon } from '../../assets/reply.svg';
-import { ReactComponent as HeartIcon } from '../../assets/heart-filled.svg';
-import { ReactComponent as AtIcon } from '../../assets/at.svg';
+import {NotificationProps} from '../../types';
+import {getInitials} from '../../services/helpers';
+import UserIcon from '../../assets/user.svg';
+import ReplyIcon from '../../assets/reply.svg';
+import HeartIcon from '../../assets/heart-filled.svg';
+import AtIcon from '../../assets/at.svg';
+
+interface Category {
+  icon: string;
+  message: string;
+  link: string;
+}
 
 const Notification: React.FC<NotificationProps> = props => {
-  const { category, refers, sender } = props;
-  const { push } = useHistory();
-  let initials;
+  const {category, refers, sender} = props;
+  const {push} = useHistory();
 
-  let icon, message, link: any;
-  initials = getInitials(null, sender.name);
-  if (category === 'follow') {
-    icon = <UserIcon className='icon' />;
-    message = ' followed you.';
-    link = `/users/${sender.username}`;
-  } else if (category === 'subcomment') {
-    icon = <ReplyIcon className='icon' />;
-    message = ' commented on your reply.';
-    link = `/comments/${refers}`;
-  } else if (category === 'comment') {
-    icon = <ReplyIcon className='icon' />;
-    message = ' commented on your post.';
-    link = `/posts/${refers}`;
-  } else if (category === 'like post') {
-    icon = <HeartIcon className='icon' />;
-    message = ' liked your post.';
-    link = `/posts/${refers}`;
-  } else if (category === 'like comment') {
-    icon = <HeartIcon className='icon' />;
-    message = ' liked your comment.';
-    link = `/comments/${refers}`;
-  } else if (category === 'repost post') {
-    icon = <ReplyIcon className='icon' />;
-    message = ' reposted your post.';
-    link = `/posts/${refers}`;
-  } else if (category === 'mention') {
-    icon = <AtIcon className='icon' />;
-    message = ' mentioned you in a post.';
-    link = `/posts/${refers}`;
-  } else if (category === 'mention comment') {
-    icon = <AtIcon className='icon' />;
-    message = ' mentioned you in a comment.';
-    link = `/comments/${refers}`;
-  } else {
-    icon = <ReplyIcon className='icon' />;
-    message = ' reposted your comment.';
-    link = `/comments/${refers}`;
-  }
+  const categories: {[key: string]: Category} = useMemo(
+    () => ({
+      follow: {
+        icon: UserIcon,
+        message: ' followed you.',
+        link: `/users/${sender.username}`
+      },
+      subcomment: {
+        icon: ReplyIcon,
+        message: ' commented on your reply.',
+        link: `/comments/${refers}`
+      },
+      comment: {
+        icon: ReplyIcon,
+        message: ' commented on your post.',
+        link: `/posts/${refers}`
+      },
+      'like post': {
+        icon: HeartIcon,
+        message: ' liked your post.',
+        link: `/posts/${refers}`
+      },
+      'like comment': {
+        icon: HeartIcon,
+        message: ' liked your comment.',
+        link: `/comments/${refers}`
+      },
+      'repost post': {
+        icon: ReplyIcon,
+        message: ' reposted your post.',
+        link: `/posts/${refers}`
+      },
+      mention: {
+        icon: AtIcon,
+        message: ' mentioned you in a post.',
+        link: `/posts/${refers}`
+      },
+      'mention comment': {
+        icon: AtIcon,
+        message: ' mentioned you in a comment.',
+        link: `/comments/${refers}`
+      },
+      'repost comment': {
+        icon: ReplyIcon,
+        message: ' reposted your comment.',
+        link: `/comments/${refers}`
+      }
+    }),
+    []
+  );
+
+  const {icon, message, link} = categories[category];
+  const initials = getInitials(null, sender.name);
 
   return (
-    <div className='notification' onClick={() => push(link)}>
-      <div className='notification-icon'>{icon}</div>
-      <div className='notification-details'>
-        <span className='notification-avatar'>{initials}</span>
-        <span className='notification-content'>
+    <div className="notification" onClick={() => push(link)}>
+      <div className="notification-icon">
+        <img src={icon} alt="icon" className="icon" />
+      </div>
+      <div className="notification-details">
+        <span className="notification-avatar">{initials}</span>
+        <span className="notification-content">
           <span>{sender.name}</span>
           {message}
         </span>

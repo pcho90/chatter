@@ -8,6 +8,7 @@ export interface User {
   followers: object[];
   following: object[];
   subtitle: string;
+  notifications: Notification[];
 }
 
 export interface Post {
@@ -98,11 +99,12 @@ export interface RepostTypes {
   comment_id?: number;
 }
 
-export interface NotificationTypes {
+export interface Notification {
   category: string;
   sender_id: number;
   receiver_id: number;
   refers: number;
+  created_at?: string;
 }
 
 export interface NotificationProps {
