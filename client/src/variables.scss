@@ -148,7 +148,7 @@ $heart: #d45778;
     font-size: 1rem;
     top: 2.2rem;
     color: $dark-gray;
-
+    pointer-events: none;
     transition: 300ms ease all;
   }
 }
